@@ -4,7 +4,7 @@
 /[oO]bj
 
 /.vc2015/
-vc2015/
+vc2015/*
 
 !*.sln
 !*.vcxproj
