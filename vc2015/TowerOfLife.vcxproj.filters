@@ -13,6 +13,12 @@
       <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
       <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav</Extensions>
     </Filter>
+    <Filter Include="Source Files\Utility">
+      <UniqueIdentifier>{5245431f-37fd-43ce-b22b-107645b9a48b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Utility\Easing">
+      <UniqueIdentifier>{d5c108ed-fdb7-4aef-be8a-4936b3a02064}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\src\TowerOfLife.cpp">
@@ -21,10 +27,19 @@
     <ClCompile Include="..\src\TowerOfLife.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="..\src\Utility\Easing\Ease.cpp">
+      <Filter>Source Files\Utility\Easing</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\Utility\Easing\EaseType.cpp">
+      <Filter>Source Files\Utility\Easing</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="..\include\Resources.h">
-      <Filter>Header Files</Filter>
+    <ClInclude Include="..\src\Utility\Easing\Ease.h">
+      <Filter>Source Files\Utility\Easing</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\Utility\Easing\EaseType.h">
+      <Filter>Source Files\Utility\Easing</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

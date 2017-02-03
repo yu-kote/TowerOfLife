@@ -1,4 +1,5 @@
 #pragma once
+#include <cinder/app/App.h>
 #include <boost/coroutine/all.hpp>
 #include <unordered_map>
 #include <deque>
@@ -146,10 +147,22 @@ public:
     {
         ease[&target].add(target, end, end_frame, ease_type);
     }
+    void add(ci::Vec3f & target, ci::Vec3f end, float end_frame, EaseType ease_type)
+    {
+        ease[&target.x].add(target.x, end.x, end_frame, ease_type);
+        ease[&target.y].add(target.y, end.y, end_frame, ease_type);
+        ease[&target.z].add(target.z, end.z, end_frame, ease_type);
+    }
 
     void wait(float& target, int wait_count)
     {
         ease[&target].add(target, wait_count);
+    }
+    void wait(ci::Vec3f & target, int wait_count)
+    {
+        ease[&target.x].add(target.x, wait_count);
+        ease[&target.y].add(target.y, wait_count);
+        ease[&target.z].add(target.z, wait_count);
     }
 
     bool isEaseEnd(float& target)
