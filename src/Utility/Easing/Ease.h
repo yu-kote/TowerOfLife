@@ -138,8 +138,8 @@ private:
 public:
     static Ease& instance()
     {
-        static Ease easeing;
-        return easeing;
+        static Ease easing;
+        return easing;
     }
 
 

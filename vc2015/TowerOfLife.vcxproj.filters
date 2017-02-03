@@ -14,10 +14,19 @@
       <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav</Extensions>
     </Filter>
     <Filter Include="Source Files\Utility">
-      <UniqueIdentifier>{5245431f-37fd-43ce-b22b-107645b9a48b}</UniqueIdentifier>
+      <UniqueIdentifier>{13eacefb-2eec-49bc-89ff-22d6002b7fb6}</UniqueIdentifier>
     </Filter>
     <Filter Include="Source Files\Utility\Easing">
-      <UniqueIdentifier>{d5c108ed-fdb7-4aef-be8a-4936b3a02064}</UniqueIdentifier>
+      <UniqueIdentifier>{188862f3-cf26-4995-8e99-1c3433e5cf07}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Utility\Input">
+      <UniqueIdentifier>{0274bf2e-a85d-4b54-9845-4ca259ce5f48}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Utility\Input\Gamepad">
+      <UniqueIdentifier>{4d56123b-d1d8-4732-9bd9-14dcb5a71ab5}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Utility\Time">
+      <UniqueIdentifier>{c3415810-585d-4a30-b563-14a2cf1e343f}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -33,6 +42,9 @@
     <ClCompile Include="..\src\Utility\Easing\EaseType.cpp">
       <Filter>Source Files\Utility\Easing</Filter>
     </ClCompile>
+    <ClCompile Include="..\src\Utility\Input\InputEvent.cpp">
+      <Filter>Source Files\Utility\Input</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\src\Utility\Easing\Ease.h">
@@ -40,6 +52,15 @@
     </ClInclude>
     <ClInclude Include="..\src\Utility\Easing\EaseType.h">
       <Filter>Source Files\Utility\Easing</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\Utility\Input\InputEvent.h">
+      <Filter>Source Files\Utility\Input</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\Utility\Input\Gamepad\Gamepad.h">
+      <Filter>Source Files\Utility\Input\Gamepad</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\Utility\Time\Time.h">
+      <Filter>Source Files\Utility\Time</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

@@ -107,10 +107,14 @@
     <ClCompile Include="..\src\TowerOfLife.cpp" />
     <ClCompile Include="..\src\Utility\Easing\Ease.cpp" />
     <ClCompile Include="..\src\Utility\Easing\EaseType.cpp" />
+    <ClCompile Include="..\src\Utility\Input\InputEvent.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\src\Utility\Easing\Ease.h" />
     <ClInclude Include="..\src\Utility\Easing\EaseType.h" />
+    <ClInclude Include="..\src\Utility\Input\Gamepad\Gamepad.h" />
+    <ClInclude Include="..\src\Utility\Input\InputEvent.h" />
+    <ClInclude Include="..\src\Utility\Time\Time.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets" />
