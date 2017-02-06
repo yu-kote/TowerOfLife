@@ -28,6 +28,42 @@
     <Filter Include="Source Files\Utility\Time">
       <UniqueIdentifier>{c3415810-585d-4a30-b563-14a2cf1e343f}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Source Files\Object">
+      <UniqueIdentifier>{e8397ebb-ba00-44d7-aa22-e20643773d93}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Utility\Interface">
+      <UniqueIdentifier>{ec462456-05d9-418b-8484-6bbdf50df2f5}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Utility\Resize">
+      <UniqueIdentifier>{2e2f437b-879e-4a73-89b1-9df039300737}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Scene">
+      <UniqueIdentifier>{29ef06f9-4bdf-4eb1-a28a-a2e19cbff261}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Scene\Category">
+      <UniqueIdentifier>{53ffe2a0-149a-42da-b98c-f2692e7c7722}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Scene\Manager">
+      <UniqueIdentifier>{c32e6379-4f65-4daa-a4c9-a39541d86c39}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Object\GameObject">
+      <UniqueIdentifier>{9e50515a-efd3-4a9a-88e5-9fbed9790c26}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Object\Component">
+      <UniqueIdentifier>{88272d80-d3f7-45eb-88d0-71c88f151582}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Object\Component\Components">
+      <UniqueIdentifier>{09ff274f-4609-494f-baba-28b65afab38c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Object\GameObject\Camera">
+      <UniqueIdentifier>{1a29b120-bac7-4da6-af1a-fe2d163158fe}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Object\GameObject\Player">
+      <UniqueIdentifier>{d5db054f-a5f6-44d1-aba5-829b57e937a8}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\TaskManager">
+      <UniqueIdentifier>{93a47132-399b-437e-ac52-b38fec74eae6}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\src\TowerOfLife.cpp">
@@ -45,6 +81,30 @@
     <ClCompile Include="..\src\Utility\Input\InputEvent.cpp">
       <Filter>Source Files\Utility\Input</Filter>
     </ClCompile>
+    <ClCompile Include="..\src\Utility\Time\Time.cpp">
+      <Filter>Source Files\Utility\Time</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\Object\Component\Component.cpp">
+      <Filter>Source Files\Object\Component</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\Object\Component\Components\Transform.cpp">
+      <Filter>Source Files\Object\Component\Components</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\Object\GameObject\GameObjectEntities.cpp">
+      <Filter>Source Files\Object\GameObject</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\Object\GameObject\GameObject.cpp">
+      <Filter>Source Files\Object\GameObject</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\Scene\Category\GameMain.cpp">
+      <Filter>Source Files\Scene\Category</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\Object\GameObject\Camera\Camera.cpp">
+      <Filter>Source Files\Object\GameObject\Camera</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\Object\GameObject\Player\Player.cpp">
+      <Filter>Source Files\Object\GameObject\Player</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\src\Utility\Easing\Ease.h">
@@ -61,6 +121,60 @@
     </ClInclude>
     <ClInclude Include="..\src\Utility\Time\Time.h">
       <Filter>Source Files\Utility\Time</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\Utility.h">
+      <Filter>Source Files\Utility</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\Utility\Interface\Interface.h">
+      <Filter>Source Files\Utility\Interface</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\Utility\Resize\Resize.h">
+      <Filter>Source Files\Utility\Resize</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\Scene\Category\GameMain.h">
+      <Filter>Source Files\Scene\Category</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\Scene\Manager\SceneBase.h">
+      <Filter>Source Files\Scene\Manager</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\Object\Object.h">
+      <Filter>Source Files\Object</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\Object\GameObject\GameObject.h">
+      <Filter>Source Files\Object\GameObject</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\Object\GameObject\GameObjectEntities.h">
+      <Filter>Source Files\Object\GameObject</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\Object\Component\Component.h">
+      <Filter>Source Files\Object\Component</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\Object\Component\Components\Material.h">
+      <Filter>Source Files\Object\Component\Components</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\Object\Component\Components\Texture.h">
+      <Filter>Source Files\Object\Component\Components</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\Object\Component\Components\Transform.h">
+      <Filter>Source Files\Object\Component\Components</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\Object\Component\Components\Color.h">
+      <Filter>Source Files\Object\Component\Components</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\Object\GameObject\Camera\Camera.h">
+      <Filter>Source Files\Object\GameObject\Camera</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\Object\GameObject\Player\Player.h">
+      <Filter>Source Files\Object\GameObject\Player</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\TaskManager\ObjDataManager.h">
+      <Filter>Source Files\TaskManager</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\TaskManager\SoundManager.h">
+      <Filter>Source Files\TaskManager</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\TaskManager\TextureManager.h">
+      <Filter>Source Files\TaskManager</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

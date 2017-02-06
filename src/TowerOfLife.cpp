@@ -1,8 +1,16 @@
 #include "cinder/app/AppNative.h"
 #include "cinder/gl/gl.h"
 #include "cinder/Camera.h"
-#include "Utility/Easing/Ease.h"
+
+#include "Scene/Category/GameMain.h"
+
 #include "Utility/Time/Time.h"
+#include "Utility/Easing/Ease.h"
+#include "Utility/Utility.h"
+#include "Utility/Interface/Interface.h"
+#include "Utility/Input/InputEvent.h"
+#include "Utility/Resize/Resize.h"
+
 
 using namespace ci;
 using namespace ci::app;
@@ -10,96 +18,137 @@ using namespace ci::app;
 class TowerOfLife : public AppNative
 {
 public:
-    void prepareSettings(Settings* settings)override;
-    void resize()override;
-    void shutdown()override;
+    void setup();
+    void update();
+    void draw();
 
     void keyDown(KeyEvent event) override;
     void keyUp(KeyEvent event) override;
     void mouseDown(MouseEvent event) override;
     void mouseUp(MouseEvent event) override;
 
-    void setup();
-    void update();
-    void draw();
+    void resize()override;
+    void prepareSettings(Settings *settings)override;
+    void shutdown()override;
 
-
-    Vec3f testpos = Vec3f(-100.0f, 0, 0);
     CameraOrtho camera_o;
+    Vec3f pos;
+
+    // deltatime
+    tol::Time time;
+
+    // frametimer
+    Font font;
+    Vec2f fpos;
+    int prev_frame;
+
+    GameMain gamemain;
+public:
+
 };
 
-
-void TowerOfLife::prepareSettings(Settings * settings)
+void TowerOfLife::setup()
 {
+    camera_o = CameraOrtho(0,
+                           getWindowSize().x,
+                           getWindowSize().y,
+                           0,
+                           0.0f,
+                           10.0f);
+    pos = Vec3f(getWindowSize().x - 10, getWindowSize().y - 10, 0);
+
+    font = Font("Hiragino Maru Gothic ProN W4", 60.0f);
+    fpos = Vec2f(1380, 820);
+    prev_frame = 0;
+
+    gamemain.setup();
 }
+
 
 void TowerOfLife::resize()
 {
+    WindowResize.resize();
+}
+
+void TowerOfLife::prepareSettings(Settings * settings)
+{
+    settings->setWindowSize(Vec2f(WindowSize::WIDTH, WindowSize::HEIGHT));
 }
 
 void TowerOfLife::shutdown()
 {
-}
-
-// マウス入力
-void TowerOfLife::mouseDown(MouseEvent event)
-{
-}
-
-void TowerOfLife::mouseUp(MouseEvent event)
-{
-}
-
-// キー入力
-void TowerOfLife::keyDown(KeyEvent event)
-{
-}
-
-void TowerOfLife::keyUp(KeyEvent event)
-{
-}
-
-
-void TowerOfLife::setup()
-{
-    camera_o = CameraOrtho(-getWindowSize().x / 2,
-                           getWindowSize().x / 2,
-                           -getWindowSize().y / 2,
-                           getWindowSize().y / 2,
-                           0, 1);
+    env.padShutDown();
+    gamemain.shutdown();
 }
 
 void TowerOfLife::update()
 {
+    gamemain.update();
+    gamemain.shift();
 }
 
 void TowerOfLife::draw()
 {
     gl::clear(Color(0, 0, 0));
 
-    //console() << "Seconds : " << getElapsedSeconds() << std::endl;
-   // console() << "Frames : " << getElapsedFrames() << std::endl;
+    gamemain.draw();
 
-    // イージングサンプル
+    // お試しイージング
+    gl::pushMatrices();
+    gl::setMatrices(camera_o);
+    gl::drawSolidCircle(Vec2f(pos.x, pos.y), 10);
+    if (Easing.isEaseEnd(pos.x))
     {
-        gl::pushMatrices();
-        gl::setMatrices(camera_o);
-
-        gl::drawSolidCircle(Vec2f(testpos.x, testpos.y), 10);
-        if (Easing.isEaseEnd(testpos.x))
-        {
-            Vec3f startpos = Vec3f(getWindowSize().x / 2 - 50, -getWindowSize().y / 2 + 10, 0);
-            Easing.add(testpos, startpos,
-                       60, EaseType::CircIn);
-            Easing.wait(testpos, 30);
-            Easing.add(testpos, Vec3f(startpos.x + 40, startpos.y, 0), 60, EaseType::BounceOut);
-            Easing.wait(testpos, 30);
-        }
-        gl::popMatrices();
+        Vec3f startpos = Vec3f(getWindowSize().x - 50, getWindowSize().y - 10, 0);
+        Easing.add(pos, startpos,
+                   60, EaseType::CircIn);
+        Easing.wait(pos, 30);
+        Easing.add(pos, Vec3f(startpos.x + 40, startpos.y, 0), 60, EaseType::BounceOut);
+        Easing.wait(pos, 30);
     }
 
+
+    {// 何フレームか見る
+        gl::translate(fpos);
+        int frame = static_cast<int>(60 * time.deltaTime() * 60);
+        if (prev_frame > frame + 3 || prev_frame < frame - 3)
+        {
+            prev_frame = frame;
+        }
+        gl::drawString(std::to_string(prev_frame),
+                       Vec2f::zero(),
+                       Color(1.0f, 1.0f, 1.0f),
+                       font);
+    }
+    gl::popMatrices();
+
+
+    time.update(getElapsedSeconds());
+
+    // イージングの更新
     Easing.update();
-    tol::Timer.update(getElapsedSeconds());
+    // Paramの更新
+    Params->draw();
+}
+
+void TowerOfLife::keyDown(KeyEvent event)
+{
+    env.keyDown(event);
+}
+
+void TowerOfLife::keyUp(KeyEvent event)
+{
+    env.keyUp(event);
+}
+
+void TowerOfLife::mouseDown(MouseEvent event)
+{
+    env.mouseDown(event);
+}
+
+void TowerOfLife::mouseUp(MouseEvent event)
+{
+    env.mouseUp(event);
 }
 
 CINDER_APP_NATIVE(TowerOfLife, RendererGl)

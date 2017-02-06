@@ -3,20 +3,11 @@
 
 namespace tol
 {
-#define Timer Time::instance()
-
-
     class Time
     {
     private:
-        Time() {}
     public:
-        static Time& instance()
-        {
-            static Time time;
-            return time;
-        }
-
+        Time() {}
 
         float deltaTime()
         {
@@ -26,12 +17,9 @@ namespace tol
         void update(const float& elapsed_seconds)
         {
             prev_time = current_time;
-
             current_time = elapsed_seconds;
-
             delta_time = current_time - prev_time;
         }
-
 
     private:
 
