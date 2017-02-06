@@ -122,6 +122,11 @@ public:
     {
         ease_accum.pop_front();
     }
+
+    void clear()
+    {
+        ease_accum.clear();
+    }
 private:
 
     std::deque<EaseOrigin> ease_accum;
@@ -184,6 +189,19 @@ public:
         }
     }
 
+    void kill(float& target)
+    {
+        ease[&target].clear();
+    }
+
+    void shutdown()
+    {
+        for (auto & it : ease)
+        {
+            it.second.clear();
+        }
+        ease.clear();
+    }
 
 private:
     std::unordered_map<float*, RunEase> ease;

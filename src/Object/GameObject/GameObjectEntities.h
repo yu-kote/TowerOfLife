@@ -18,7 +18,7 @@ namespace tol
         void laterDrawGameObject();
         void transLaterDrawGameObject();
 
-        void Alldestroy();
+        void allDestroy();
     private:
 
         void componentsUpdate();
@@ -48,7 +48,7 @@ namespace tol
 
         // GameObject‚ğŒp³‚µ‚½ƒNƒ‰ƒX‚Ìî•ñ‚ğ’m‚è‚½‚¢‚Æ‚«
         template<typename T>
-        std::shared_ptr<T> getObject()
+        std::shared_ptr<T> getInstance()
         {
             int script_size = sizeof(T);
             std::string classname = createClassName<T>();
@@ -61,8 +61,8 @@ namespace tol
             }
             else
             {
-                return std::static_pointer_cast<T>(gameobjects.find(classname)->second);
             }*/
+            return std::static_pointer_cast<T>(gameobjects.find(classname)->second);
         }
 
         template<typename T>

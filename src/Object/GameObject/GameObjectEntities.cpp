@@ -7,7 +7,7 @@ tol::GameObjectEntities::GameObjectEntities()
 
 tol::GameObjectEntities::~GameObjectEntities()
 {
-    Alldestroy();
+    allDestroy();
 }
 
 void tol::GameObjectEntities::componentsUpdate()
@@ -127,7 +127,7 @@ void tol::GameObjectEntities::transLaterDrawGameObject()
     ci::gl::popModelView();
 }
 
-void tol::GameObjectEntities::Alldestroy()
+void tol::GameObjectEntities::allDestroy()
 {
     for (auto it : gameobjects)
     {

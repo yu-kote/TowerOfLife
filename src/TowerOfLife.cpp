@@ -43,6 +43,8 @@ public:
     int prev_frame;
 
     GameMain gamemain;
+
+    CameraPersp camera;
 public:
 
 };
@@ -61,6 +63,12 @@ void TowerOfLife::setup()
     fpos = Vec2f(1380, 820);
     prev_frame = 0;
 
+
+    gl::enableDepthRead();
+    gl::enableDepthWrite();
+    gl::enable(GL_CULL_FACE);
+
+    env.padSetup();
     gamemain.setup();
 }
 
@@ -79,12 +87,20 @@ void TowerOfLife::shutdown()
 {
     env.padShutDown();
     gamemain.shutdown();
+    Easing.shutdown();
 }
 
 void TowerOfLife::update()
 {
+    env.padUpdate();
+    env.padProcessEvent();
     gamemain.update();
     gamemain.shift();
+
+    // タイマーの更新
+    time.update(getElapsedSeconds());
+    // イージングの更新
+    Easing.update();
 }
 
 void TowerOfLife::draw()
@@ -93,9 +109,11 @@ void TowerOfLife::draw()
 
     gamemain.draw();
 
+
     // お試しイージング
     gl::pushMatrices();
     gl::setMatrices(camera_o);
+    gl::color(1, 1, 1);
     gl::drawSolidCircle(Vec2f(pos.x, pos.y), 10);
     if (Easing.isEaseEnd(pos.x))
     {
@@ -123,10 +141,7 @@ void TowerOfLife::draw()
     gl::popMatrices();
 
 
-    time.update(getElapsedSeconds());
 
-    // イージングの更新
-    Easing.update();
     // Paramの更新
     Params->draw();
 }

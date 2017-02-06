@@ -3,26 +3,31 @@
 #include "cinder/gl/Material.h"
 
 
-namespace ar {
-	class Material : public Component {
-	public:
+namespace tol
+{
+    class Material : public Component
+    {
+    public:
 
-		Material(ci::gl::Material mt_) {
-			material = mt_;
-		}
+        Material(ci::gl::Material mt_)
+        {
+            material = mt_;
+        }
 
-		void drawBegin()override {
-			material.apply();
-		}
+        void drawBegin()override
+        {
+            material.apply();
+        }
 
-		void setMaterial(ci::gl::Material mt_) {
-			material = mt_;
-		}
+        void setMaterial(ci::gl::Material mt_)
+        {
+            material = mt_;
+        }
 
-	private:
+    private:
 
-		ci::gl::Material material;
+        ci::gl::Material material;
 
-	};
+    };
 
 }

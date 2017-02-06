@@ -109,6 +109,7 @@
     <ClCompile Include="..\src\Object\GameObject\Camera\Camera.cpp" />
     <ClCompile Include="..\src\Object\GameObject\GameObject.cpp" />
     <ClCompile Include="..\src\Object\GameObject\GameObjectEntities.cpp" />
+    <ClCompile Include="..\src\Object\GameObject\Light\Light.cpp" />
     <ClCompile Include="..\src\Object\GameObject\Player\Player.cpp" />
     <ClCompile Include="..\src\Scene\Category\GameMain.cpp" />
     <ClCompile Include="..\src\TowerOfLife.cpp" />
@@ -118,6 +119,7 @@
     <ClCompile Include="..\src\Utility\Time\Time.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="..\src\Coroutine.h" />
     <ClInclude Include="..\src\Object\Component\Component.h" />
     <ClInclude Include="..\src\Object\Component\Components\Color.h" />
     <ClInclude Include="..\src\Object\Component\Components\Material.h" />
@@ -126,6 +128,7 @@
     <ClInclude Include="..\src\Object\GameObject\Camera\Camera.h" />
     <ClInclude Include="..\src\Object\GameObject\GameObject.h" />
     <ClInclude Include="..\src\Object\GameObject\GameObjectEntities.h" />
+    <ClInclude Include="..\src\Object\GameObject\Light\Light.h" />
     <ClInclude Include="..\src\Object\GameObject\Player\Player.h" />
     <ClInclude Include="..\src\Object\Object.h" />
     <ClInclude Include="..\src\Scene\Category\GameMain.h" />
