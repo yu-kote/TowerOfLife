@@ -61,14 +61,20 @@
     <Filter Include="Source Files\Object\GameObject\Player">
       <UniqueIdentifier>{d5db054f-a5f6-44d1-aba5-829b57e937a8}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Source Files\TaskManager">
-      <UniqueIdentifier>{93a47132-399b-437e-ac52-b38fec74eae6}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Source Files\Object\GameObject\Field">
-      <UniqueIdentifier>{456ac5f0-6cb7-4196-a10a-0224ef158492}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Source Files\Object\GameObject\Light">
       <UniqueIdentifier>{b5225935-db52-4df1-891e-7ffda22725d8}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Object\GameObject\TolStage">
+      <UniqueIdentifier>{456ac5f0-6cb7-4196-a10a-0224ef158492}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Object\GameObject\TolStage\Blocks">
+      <UniqueIdentifier>{16ff6fb8-8789-4e10-ab51-8342972466dc}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Object\GameObject\TolStage\Blocks\BlockAction">
+      <UniqueIdentifier>{02320584-b032-4edb-a46c-0aca1498aee4}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Task">
+      <UniqueIdentifier>{93a47132-399b-437e-ac52-b38fec74eae6}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -113,6 +119,21 @@
     </ClCompile>
     <ClCompile Include="..\src\Object\GameObject\Light\Light.cpp">
       <Filter>Source Files\Object\GameObject\Light</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\Object\GameObject\TolStage\TolStage.cpp">
+      <Filter>Source Files\Object\GameObject\TolStage</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\Object\GameObject\TolStage\TolBlockActionBase.cpp">
+      <Filter>Source Files\Object\GameObject\TolStage\Blocks\BlockAction</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\Object\GameObject\TolStage\TolBlock.cpp">
+      <Filter>Source Files\Object\GameObject\TolStage\Blocks</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\Object\GameObject\TolStage\TolBlockHolder.cpp">
+      <Filter>Source Files\Object\GameObject\TolStage\Blocks</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\Object\GameObject\TolStage\TolBlockActions.cpp">
+      <Filter>Source Files\Object\GameObject\TolStage\Blocks\BlockAction</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -176,20 +197,35 @@
     <ClInclude Include="..\src\Object\GameObject\Player\Player.h">
       <Filter>Source Files\Object\GameObject\Player</Filter>
     </ClInclude>
-    <ClInclude Include="..\src\TaskManager\ObjDataManager.h">
-      <Filter>Source Files\TaskManager</Filter>
-    </ClInclude>
-    <ClInclude Include="..\src\TaskManager\SoundManager.h">
-      <Filter>Source Files\TaskManager</Filter>
-    </ClInclude>
-    <ClInclude Include="..\src\TaskManager\TextureManager.h">
-      <Filter>Source Files\TaskManager</Filter>
-    </ClInclude>
     <ClInclude Include="..\src\Object\GameObject\Light\Light.h">
       <Filter>Source Files\Object\GameObject\Light</Filter>
     </ClInclude>
     <ClInclude Include="..\src\Coroutine.h">
       <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\Object\GameObject\TolStage\TolStage.h">
+      <Filter>Source Files\Object\GameObject\TolStage</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\Object\GameObject\TolStage\TolBlockActionBase.h">
+      <Filter>Source Files\Object\GameObject\TolStage\Blocks\BlockAction</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\Object\GameObject\TolStage\TolBlockActions.h">
+      <Filter>Source Files\Object\GameObject\TolStage\Blocks\BlockAction</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\Object\GameObject\TolStage\TolBlock.h">
+      <Filter>Source Files\Object\GameObject\TolStage\Blocks</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\Task\ObjDataManager.h">
+      <Filter>Source Files\Task</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\Task\SoundManager.h">
+      <Filter>Source Files\Task</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\Task\TextureManager.h">
+      <Filter>Source Files\Task</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\Object\GameObject\TolStage\TolBlockHolder.h">
+      <Filter>Source Files\Object\GameObject\TolStage\Blocks</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

@@ -2,11 +2,15 @@
 
 tol::GameObject::GameObject()
 {
+    active_in_scene = true;
+    is_update_active = true;
 }
 
 tol::GameObject::GameObject(const std::string & name_) :
     Object(name_)
 {
+    active_in_scene = true;
+    is_update_active = true;
 }
 
 void tol::GameObject::pushModelView()

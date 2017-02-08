@@ -11,7 +11,6 @@ using namespace ci::app;
 void tol::Player::setup()
 {
     Params->addParam("player_pos", &transform.position);
-
     gl::Material m = gl::Material(ci::ColorA(1.0f, 1.0f, 1.0f, 1.0f),      // Ambient
                                   ci::ColorA(1.0f, 1.0f, 1.0f, 1.0f),      // Diffuse
                                   ci::ColorA(1.0f, 1.0f, 1.0f, 1.0f),      // Specular
@@ -51,12 +50,19 @@ void tol::Player::draw()
 
 void tol::Player::axisMove()
 {
-    velocity.z = move_speed  * env.getPadAxis("Vertical_Left");
     velocity.x = move_speed  * env.getPadAxis("Horizontal_Left") * -1;
+    velocity.z = move_speed  * env.getPadAxis("Vertical_Left");
 
-    if (velocity.x <= 0.2 && velocity.x >= -0.2)
+    Vec2f c = transform.skewCorrection(Vec2f(velocity.x, velocity.z));
+
+    velocity.x = c.x;
+    velocity.z = c.y;
+
+
+    float min_move = 0.1f;
+    if (velocity.x <= min_move && velocity.x >= -min_move)
         velocity.x = 0;
-    if (velocity.z <= 0.2 && velocity.z >= -0.2)
+    if (velocity.z <= min_move && velocity.z >= -min_move)
         velocity.z = 0;
 
     transform.translateXZ(velocity, transform.angle.y);
@@ -64,7 +70,7 @@ void tol::Player::axisMove()
 
 void tol::Player::vecRotate()
 {
-    Vec3f rotateaxis = Vec3f(0.0f, 0.0f, 1.0f);
+    Vec3f rotateaxis = Vec3f(1.0f, 0.0f, 1.0f);
     Vec3f targetvec = Vec3f(velocity.x, 0, velocity.z);
     rotateaxis.normalize();
     targetvec.normalize();
@@ -72,9 +78,11 @@ void tol::Player::vecRotate()
     Vec3f quataxis = rotateaxis.cross(targetvec);
     Quatf targetquat;
 
+    //console() << atan2f(velocity.x, velocity.z) << std::endl;
+
     if (atan2f(velocity.x, velocity.z) >= 0.0f)
-        targetquat = Quatf(quataxis,//Vec3f(0.0f, 1.0f, 0.0f),
-                           atan2f(velocity.x, velocity.z));//acos(targetvec.normalized().dot(myvec.normalized())));
+        targetquat = Quatf(quataxis,
+                           atan2f(velocity.x, velocity.z));
     else if (atan2f(velocity.x, velocity.z) < 0.0f)
         targetquat = Quatf(quataxis,
                            -atan2f(velocity.x, velocity.z));

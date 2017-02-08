@@ -11,6 +11,9 @@
 #include "Utility/Input/InputEvent.h"
 #include "Utility/Resize/Resize.h"
 
+#include "Task/ObjDataManager.h"
+#include "Task/SoundManager.h"
+#include "Task/TextureManager.h"
 
 using namespace ci;
 using namespace ci::app;
@@ -62,6 +65,10 @@ void TowerOfLife::setup()
     font = Font("Hiragino Maru Gothic ProN W4", 60.0f);
     fpos = Vec2f(1380, 820);
     prev_frame = 0;
+
+    TextureGet.setup();
+    SoundGet.setup();
+    ObjDataGet.setup();
 
 
     gl::enableDepthRead();

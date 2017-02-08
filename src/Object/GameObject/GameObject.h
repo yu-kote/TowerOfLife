@@ -27,19 +27,29 @@ namespace tol
 
         void componentsUpdate();
 
+        // コンポーネントの描画初めの処理
         void drawBegin();
+        // コンポーネントの描画終わりの処理
         void drawEnd();
         void componentsDraw();
-
         void componentsDestroy();
 
     public:
 
+        // 行列計算の始め
         void pushModelView();
+        // 行列計算終わり
         void popModelView();
 
     public:
+        /* 位置や回転などの情報や、
+           行列計算関数などがある*/
         Transform transform;
+
+        void setActive(const bool& value) { active_in_scene = value; }
+        bool getActive() { return active_in_scene; }
+        void setIsUpdateActive(const bool& value) { is_update_active = value; }
+        bool getIsUpdateActive() { return is_update_active; }
     private:
 
     public:
@@ -81,6 +91,7 @@ namespace tol
             {
                 return std::static_pointer_cast<T>(components.find(componentname)->second);
             }*/
+            return std::static_pointer_cast<T>(components.find(componentname)->second);
         }
 
     private:
@@ -96,8 +107,9 @@ namespace tol
         }
 
     private:
-
         std::unordered_map<std::string, std::shared_ptr<Component>> components;
+        bool active_in_scene;
+        bool is_update_active;
     };
 
 }

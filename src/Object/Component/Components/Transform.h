@@ -38,6 +38,10 @@ namespace tol
 
         ci::Vec3f rotateMatrix(const ci::Vec3f& angle_, float z_);
 
+
+        // Î‚ß‚Ì’l‚ğ‰~‚Ì’l‚É•â³‚·‚é
+        ci::Vec2f skewCorrection(const ci::Vec2f& vec_, const float& max_value_ = 1);
+
     public:
 
         void console()

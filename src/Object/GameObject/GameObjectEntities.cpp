@@ -7,13 +7,14 @@ tol::GameObjectEntities::GameObjectEntities()
 
 tol::GameObjectEntities::~GameObjectEntities()
 {
-    allDestroy();
+    //allDestroy();
 }
 
 void tol::GameObjectEntities::componentsUpdate()
 {
     for (const auto& it : gameobjects)
     {
+        if (!it.second->getActive())continue;
         it.second->componentsUpdate();
     }
 }
@@ -38,6 +39,7 @@ void tol::GameObjectEntities::componentsDraw()
 {
     for (const auto& it : gameobjects)
     {
+        if (!it.second->getActive())continue;
         it.second->componentsDraw();
     }
 }
@@ -55,16 +57,17 @@ void tol::GameObjectEntities::setupGameObject()
 {
     for (const auto& it : gameobjects)
     {
+        if (!it.second->getActive())continue;
         it.second->setup();
     }
 }
 
 void tol::GameObjectEntities::updateGameObject()
 {
-    //gameobjects.size();
-
     for (const auto& it : gameobjects)
     {
+        if (!it.second->getActive())continue;
+        if (!it.second->getIsUpdateActive())continue;
         it.second->componentsUpdate();
         it.second->update();
     }
@@ -74,6 +77,7 @@ void tol::GameObjectEntities::laterUpdateGameObject()
 {
     for (const auto& it : gameobjects)
     {
+        if (!it.second->getActive())continue;
         it.second->laterUpdate();
     }
 }
@@ -83,7 +87,7 @@ void tol::GameObjectEntities::drawGameObject()
     ci::gl::pushModelView();
     for (const auto& it : gameobjects)
     {
-
+        if (!it.second->getActive())continue;
         it.second->drawBegin();
         it.second->pushModelView();
 
@@ -102,6 +106,7 @@ void tol::GameObjectEntities::transDrawGameObject()
     ci::gl::pushModelView();
     for (const auto& it : gameobjects)
     {
+        if (!it.second->getActive())continue;
         it.second->transDraw();
     }
     ci::gl::popModelView();
@@ -112,6 +117,7 @@ void tol::GameObjectEntities::laterDrawGameObject()
     ci::gl::pushModelView();
     for (const auto& it : gameobjects)
     {
+        if (!it.second->getActive())continue;
         it.second->laterDraw();
     }
     ci::gl::popModelView();
@@ -122,6 +128,7 @@ void tol::GameObjectEntities::transLaterDrawGameObject()
     ci::gl::pushModelView();
     for (const auto& it : gameobjects)
     {
+        if (!it.second->getActive())continue;
         it.second->transLaterDraw();
     }
     ci::gl::popModelView();

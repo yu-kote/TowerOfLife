@@ -10,7 +10,7 @@ tol::Camera::Camera()
 
 void tol::Camera::setup()
 {
-    transform.position = Vec3f(0, 5, -10);
+    transform.position = Vec3f(0, 10, -20);
 
     camera.lookAt(transform.position, Vec3f::zero());
     camera.setPerspective(60.0f, getWindowAspectRatio(), 1.0f, 1000.0f);
