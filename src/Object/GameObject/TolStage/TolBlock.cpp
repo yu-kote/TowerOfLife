@@ -13,6 +13,8 @@ void tol::TolBlock::setup()
                                   80.0f,
                                   ci::ColorA(0.2f, 0.2f, 0.2f));
     addComponent<tol::Material>(tol::Material(m));
+
+    transform.scale = Vec3f(10, 0.5f, 10);
 }
 
 void tol::TolBlock::update()

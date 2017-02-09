@@ -8,22 +8,35 @@ void tol::TolBlockHolder::setup()
 {
     z_num = 3;
     x_num = 3;
-    block_interval = 10;
+    block_interval = 20;
     current_top_height = 0;
-    height_interval = 10;
+    height_interval = 12;
 
+
+    Vec2f center_num = twoDimensionalArrayCenterPoint(x_num, z_num);
+    Vec3f center = Vec3f(center_num.x * block_interval,
+                         0,
+                         center_num.y * block_interval);
+    camera->transform.position += center;
+    ease_eyepoint = Vec3f::zero();
+    ease_center = Vec3f::zero();
 
     std::vector<TolBlockActionType> addtypes;
     for (int i = 0; i < z_num * x_num; i++)
     {
-        addtypes.push_back(TolBlockActionType::ROUNDTRIP);
+        addtypes.push_back(TolBlockActionType::NORMAL);
     }
 
-    addOneStepBlocks(addtypes);
+
+    for (int i = 0; i < 10; i++)
+    {
+        addOneStepBlocks(addtypes);
+    }
 }
 
 void tol::TolBlockHolder::update()
 {
+    decideLookAtCamera();
     for (auto & it : blocks)
         (*it).update();
 }
@@ -38,13 +51,33 @@ void tol::TolBlockHolder::draw()
     popModelView();
 }
 
+void tol::TolBlockHolder::decideLookAtCamera()
+{
+    Vec2f center_num = twoDimensionalArrayCenterPoint(x_num, z_num);
+    float y = convertBlockHeight(player->transform.position.y);
+    Vec3f eyepoint = Vec3f(center_num.x * block_interval,
+                           y,
+                           center_num.y * block_interval);
+
+    y = centerBetweenBlockHeight(player->transform.position.y);
+    Vec3f center = Vec3f(center_num.x * block_interval,
+                         y,
+                         center_num.y * block_interval);
+
+    float ease_speed = 0.02f;
+    ease_eyepoint += (eyepoint - ease_eyepoint) * ease_speed;
+    ease_center += (center - ease_center) * ease_speed;
+
+
+    camera->lookAt(ease_eyepoint, ease_center);
+}
+
 void tol::TolBlockHolder::addOneStepBlocks(const std::vector<TolBlockActionType>& addblocktypes)
 {
     int x = 0;
     int z = 0;
     for (int i = 0; i < z_num * x_num; i++)
     {
-
         std::shared_ptr<TolBlock> block = std::make_shared<TolBlock>();
 
         block->transform.position.x = x * block_interval;
@@ -75,4 +108,54 @@ void tol::TolBlockHolder::addOneStepBlocks(const std::vector<TolBlockActionType>
         }
     }
     current_top_height += height_interval;
+}
+
+bool tol::TolBlockHolder::isBlockOutOfRange(const int & num)
+{
+    return (num > blocks.size() - 1) ? true : false;
+}
+
+int tol::TolBlockHolder::adjusMaxNum(const int& num, const int& max_value)
+{
+    return (num > max_value - 1) ? max_value - 1 : num;
+}
+
+ci::Vec2f tol::TolBlockHolder::twoDimensionalArrayCenterPoint(const int&  size_x, const int& size_y)
+{
+    float center_x, center_y;
+    if (size_x * size_y % 2 == 0)
+    {
+        if (size_x % 2 == 0)
+            center_x = size_x / 2 - 0.5f;
+        else
+            center_x = (size_x - 1) / 2;
+        if (size_y % 2 == 0)
+            center_y = size_y / 2 - 0.5f;
+        else
+            center_y = (size_y - 1) / 2;
+    }
+    else
+    {
+        center_x = (size_x - 1) / 2;
+        center_y = (size_y - 1) / 2;
+    }
+
+    return ci::Vec2f(center_x, center_y);
+}
+
+float tol::TolBlockHolder::convertBlockHeight(const float & height)
+{
+    float block_height = height / height_interval;
+    int skip_value = z_num * x_num;
+    int block_num = adjusMaxNum(int(block_height) * skip_value, blocks.size());
+
+    return blocks[block_num]->transform.position.y + height_interval;
+}
+
+float tol::TolBlockHolder::centerBetweenBlockHeight(const float & height)
+{
+    float block_height_convert = height / height_interval;
+    int block_num = (int)block_height_convert;
+    // ブロックの番号*ブロックの間隔 + ブロックの真ん中
+    return block_num * height_interval + (height_interval / 2);
 }

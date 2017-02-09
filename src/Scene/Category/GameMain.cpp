@@ -13,18 +13,27 @@ GameMain::GameMain()
 
 void GameMain::setup()
 {
+    // インスタンスを作るところ
     entities.instantiate<tol::Light>();
     entities.instantiate<tol::Camera>();
     entities.instantiate<tol::Player>();
     entities.instantiate<tol::TolStage>();
 
+
+
+
+    // インスタンスをもらってポインタを渡すところ
     entities.getInstance<tol::Player>()->camera = entities.getInstance<tol::Camera>();
+    entities.getInstance<tol::TolStage>()->setPlayer(entities.getInstance<tol::Player>());
+    entities.getInstance<tol::TolStage>()->setCamera(entities.getInstance<tol::Camera>());
+
     entities.setupGameObject();
 }
 
 void GameMain::update()
 {
     entities.updateGameObject();
+    entities.laterUpdateGameObject();
 }
 
 void GameMain::draw()

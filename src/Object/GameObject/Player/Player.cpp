@@ -70,7 +70,7 @@ void tol::Player::axisMove()
 
 void tol::Player::vecRotate()
 {
-    Vec3f rotateaxis = Vec3f(1.0f, 0.0f, 1.0f);
+    Vec3f rotateaxis = Vec3f(0.0f, 0.0f, 1.0f);
     Vec3f targetvec = Vec3f(velocity.x, 0, velocity.z);
     rotateaxis.normalize();
     targetvec.normalize();

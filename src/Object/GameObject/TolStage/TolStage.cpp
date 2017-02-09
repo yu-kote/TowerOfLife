@@ -2,6 +2,9 @@
 
 void tol::TolStage::setup()
 {
+    block_holder.setPlayer(player);
+    block_holder.setCamera(camera);
+
     block_holder.setup();
 }
 
