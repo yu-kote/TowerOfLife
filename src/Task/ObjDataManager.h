@@ -29,7 +29,7 @@ namespace tol
 
             // ‚±‚ñ‚ÈŠ´‚¶
 
-            //set("Player", "ObjData/player.obj");
+            set("Block", "Obj/Block/block.obj");
         }
 
         ci::TriMesh& find(std::string key_)

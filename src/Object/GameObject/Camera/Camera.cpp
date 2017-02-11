@@ -11,7 +11,7 @@ tol::Camera::Camera()
 
 void tol::Camera::setup()
 {
-    objective_distance_init_value = Vec3f(0, 15, -40);
+    objective_distance_init_value = Vec3f(0, 15, -50);
     objective_distance = objective_distance_init_value;
     transform.position = objective_distance;
     center_of_interest_point = Vec3d::zero();

@@ -27,6 +27,7 @@ void tol::TolBlockHolder::setup()
         addtypes.push_back(TolBlockActionType::NORMAL);
     }
 
+    addOneStepBlocks(addtypes);
 
     for (int i = 0; i < 10; i++)
     {
@@ -37,6 +38,7 @@ void tol::TolBlockHolder::setup()
 void tol::TolBlockHolder::update()
 {
     decideLookAtCamera();
+    playerSetStandRay();
     for (auto & it : blocks)
         (*it).update();
 }
@@ -49,6 +51,37 @@ void tol::TolBlockHolder::draw()
         (*it).draw();
 
     popModelView();
+}
+
+void tol::TolBlockHolder::playerSetStandRay()
+{
+    player->setStandRayIntersection(hitValueNearInZero(player->getStandRay()));
+    player->setRizeRayIntersecion(hitValueNearInZero(player->getRizeRay()));
+}
+
+float tol::TolBlockHolder::hitValueNearInZero(const ci::Ray & ray)
+{
+    float high_near_intersection = std::numeric_limits<float>().min();
+    float low_near_intersection = std::numeric_limits<float>().max();
+    float near_intersection = 0.0f;
+    for (int i = 0; i < blocks.size(); i++)
+    {
+        float intersection = blocks[i]->calcMeshIntersection(ray);
+        if (intersection != std::numeric_limits<float>().max())
+        {
+            if (intersection < 0.0f)
+                if (intersection > high_near_intersection)
+                    high_near_intersection = intersection;
+            if (intersection > 0.0f)
+                if (intersection < low_near_intersection)
+                    low_near_intersection = intersection;
+        }
+    }
+    if (abs(high_near_intersection) > abs(low_near_intersection))
+        near_intersection = high_near_intersection;
+    else
+        near_intersection = low_near_intersection;
+    return near_intersection;
 }
 
 void tol::TolBlockHolder::decideLookAtCamera()
@@ -64,7 +97,7 @@ void tol::TolBlockHolder::decideLookAtCamera()
                          y,
                          center_num.y * block_interval);
 
-    float ease_speed = 0.02f;
+    float ease_speed = 0.05f;
     ease_eyepoint += (eyepoint - ease_eyepoint) * ease_speed;
     ease_center += (center - ease_center) * ease_speed;
 
@@ -84,7 +117,8 @@ void tol::TolBlockHolder::addOneStepBlocks(const std::vector<TolBlockActionType>
         block->transform.position.z = z * block_interval;
         block->transform.position.y = current_top_height;
 
-        block->setup();
+        block->setPlayer(player);
+
 
         switch (addblocktypes[i])
         {
@@ -95,8 +129,9 @@ void tol::TolBlockHolder::addOneStepBlocks(const std::vector<TolBlockActionType>
             block->setBlockAction<RoundTripBlock>();
             break;
         }
-        blocks.push_back(std::move(block));
 
+        block->setup();
+        blocks.push_back(std::move(block));
         {// “ñŽŸ”z—ñ‚ÌŒvŽZ
             if (x == x_num - 1)
             {
@@ -115,9 +150,9 @@ bool tol::TolBlockHolder::isBlockOutOfRange(const int & num)
     return (num > blocks.size() - 1) ? true : false;
 }
 
-int tol::TolBlockHolder::adjusMaxNum(const int& num, const int& max_value)
+int tol::TolBlockHolder::adjusMinMaxNum(const int& num, const int& max_value)
 {
-    return (num > max_value - 1) ? max_value - 1 : num;
+    return (num > max_value - 1) ? max_value - 1 : (num < 0) ? 0 : num;
 }
 
 ci::Vec2f tol::TolBlockHolder::twoDimensionalArrayCenterPoint(const int&  size_x, const int& size_y)
@@ -147,7 +182,7 @@ float tol::TolBlockHolder::convertBlockHeight(const float & height)
 {
     float block_height = height / height_interval;
     int skip_value = z_num * x_num;
-    int block_num = adjusMaxNum(int(block_height) * skip_value, blocks.size());
+    int block_num = adjusMinMaxNum(int(block_height) * skip_value, blocks.size());
 
     return blocks[block_num]->transform.position.y + height_interval;
 }

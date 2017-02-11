@@ -1,8 +1,10 @@
 #pragma once
 #include "cinder/app/App.h"
+#include "cinder/TriMesh.h"
+
 #include "../GameObject.h"
 #include "TolBlockActionBase.h"
-
+#include "../Player/Player.h"
 
 namespace tol
 {
@@ -23,8 +25,18 @@ namespace tol
             action = std::make_shared<T>(T(static_cast<TolBlock*>(this)));
             action->setup();
         }
+
+        void setPlayer(std::shared_ptr<tol::Player> player_) { player = player_; }
+        float calcMeshIntersection(ci::Ray ray);
+        //float playerRayIntersection();
+
     private:
         std::shared_ptr<TolBlockActionBase> action;
+
+
+        std::shared_ptr<tol::Player> player;
+
+        ci::TriMesh* mesh;
 
     };
 }

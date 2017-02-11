@@ -23,7 +23,7 @@ void GameMain::setup()
 
 
     // インスタンスをもらってポインタを渡すところ
-    entities.getInstance<tol::Player>()->camera = entities.getInstance<tol::Camera>();
+    entities.getInstance<tol::Player>()->setCamera(entities.getInstance<tol::Camera>());
     entities.getInstance<tol::TolStage>()->setPlayer(entities.getInstance<tol::Player>());
     entities.getInstance<tol::TolStage>()->setCamera(entities.getInstance<tol::Camera>());
 

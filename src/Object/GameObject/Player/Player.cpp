@@ -10,6 +10,10 @@ using namespace ci::app;
 
 void tol::Player::setup()
 {
+
+    transform.position.y = 5;
+    transform.scale = Vec3f(2, 2, 2);
+
     Params->addParam("player_pos", &transform.position);
     gl::Material m = gl::Material(ci::ColorA(1.0f, 1.0f, 1.0f, 1.0f),      // Ambient
                                   ci::ColorA(1.0f, 1.0f, 1.0f, 1.0f),      // Diffuse
@@ -19,9 +23,25 @@ void tol::Player::setup()
 
     addComponent<tol::Material>(tol::Material(m));
 
-    move_speed = 0.5f;
-    gravity = 0.1f;
-    jump_power = 1.0f;
+    ground_move_speed = 0.4f;
+    ground_move_speed_max = 0.4f;
+
+    air_move_speed = 0.2f;
+
+    gravity = 0.07f;
+    fall_speed_max = 0.6f;
+    jump_power = 0.9f;
+    jump_duration = 10;
+    jump_time = 0;
+
+
+    stand_ray.setOrigin(transform.position);
+    stand_ray.setDirection(Vec3f(0, -transform.scale.y / 2, 0));
+    stand_ray_intersection = 0.0f;
+
+    rize_ray.setOrigin(transform.position);
+    rize_ray.setDirection(Vec3f(0, transform.scale.y / 2, 0));
+    rize_ray_intersection = 0.0f;
 }
 
 void tol::Player::update()
@@ -30,10 +50,14 @@ void tol::Player::update()
     axisMove();
 
     // ベクトルから向きを求める
-    vecRotate();
+    //vecRotate();
 
-    jump();
+    // 処理順注意(vecを足してから消す)
     useGravity();
+    stand();
+    // 処理順注意
+    jump();
+    hitTheHead();
 
     // カメラとの角度差を埋める
     {
@@ -41,17 +65,53 @@ void tol::Player::update()
         angle_difference *= env.getPadAxis("Vertical_Left");
         transform.angle.y = angle_difference;
     }
+
+    // レイの更新
+    {
+        stand_ray.setOrigin(transform.position);
+        stand_ray.setDirection(Vec3f(0, -transform.scale.y / 2, 0));
+
+        rize_ray.setOrigin(transform.position);
+        rize_ray.setDirection(Vec3f(0, transform.scale.y / 2, 0));
+    }
+
+    stateUpdate();
+    reset();
 }
 
 void tol::Player::draw()
 {
-    gl::drawCube(Vec3f::zero(), Vec3f(2, 2, 2));
+    gl::drawStrokedCube(Vec3f::zero(), Vec3f(1, 1, 1));
+
+
+    gl::drawVector(stand_ray.getOrigin() - stand_ray.getOrigin(),
+                   stand_ray.getOrigin() + stand_ray.getDirection() - stand_ray.getOrigin());
+
+    gl::drawSphere(stand_ray.calcPosition(stand_ray_intersection) - stand_ray.getOrigin(), 0.2f);
+}
+
+
+void tol::Player::laterDraw()
+{
+
+
 }
 
 void tol::Player::axisMove()
 {
-    velocity.x = move_speed  * env.getPadAxis("Horizontal_Left") * -1;
-    velocity.z = move_speed  * env.getPadAxis("Vertical_Left");
+    if (state == State::STAND)
+    {
+        velocity.x = (ground_move_speed  * env.getPadAxis("Horizontal_Left") * -1);
+        velocity.z = ground_move_speed  * env.getPadAxis("Vertical_Left");
+    }
+    if (state == State::FALL || state == State::RIZING)
+    {
+        velocity.x = jump_vec.x;
+        velocity.z = jump_vec.z;
+        //velocity.x += air_move_speed * env.getPadAxis("Horizontal_Left") * -1;
+        //velocity.z += air_move_speed * env.getPadAxis("Vertical_Left");
+    }
+
 
     Vec2f c = transform.skewCorrection(Vec2f(velocity.x, velocity.z));
 
@@ -118,16 +178,80 @@ float tol::Player::angleDifference(const float & angle1, const float & angle2)
 
 void tol::Player::jump()
 {
-    if (env.isPadPush(env.BUTTON_2))
+    if (env.isPadPress(env.BUTTON_2))
     {
-        velocity.y = jump_power;
+        if (jump_time < jump_duration)
+        {
+            velocity.y = jump_power;
+        }
+        jump_time++;
     }
 }
 
 void tol::Player::useGravity()
 {
     velocity.y -= gravity;
+    if (velocity.y < -fall_speed_max)
+        velocity.y = -fall_speed_max;
 
     if (transform.position.y < 0)
         transform.position.y = 0;
 }
+
+void tol::Player::stand()
+{
+    if (velocity.y < 0)
+        if (stand_ray_intersection < transform.scale.y && stand_ray_intersection > 0.0f)
+        {
+            velocity.y = 0;
+            state = State::STAND;
+        }
+}
+
+void tol::Player::hitTheHead()
+{
+    if (velocity.y > 0)
+        if (rize_ray_intersection < transform.scale.y && rize_ray_intersection  > 0.0f)
+        {
+            state = State::FALL;
+            velocity.y = 0;
+        }
+}
+
+void tol::Player::stateUpdate()
+{
+    if (velocity.y < 0.0f)
+        state = State::FALL;
+    if (velocity.y > 0.0f)
+        state = State::RIZING;
+
+
+
+    switch (state)
+    {
+    case State::STAND:
+        jump_time = 0;
+        break;
+    case State::RIZING:
+        break;
+    case State::FALL:
+        break;
+    }
+
+    if (current_state != state)
+    {
+        if (current_state == State::STAND)
+            jump_vec = velocity;
+
+
+        current_state = state;
+    }
+}
+
+void tol::Player::reset()
+{
+    if (!env.isPush(KeyEvent::KEY_RETURN))return;
+    transform.position = Vec3f(0, 5, 0);
+}
+
+

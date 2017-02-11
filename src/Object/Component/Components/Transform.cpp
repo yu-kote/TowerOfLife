@@ -3,6 +3,14 @@ using namespace ci;
 using namespace ci::app;
 
 
+ci::Vec3f tol::Transform::getWorldPosition()
+{
+    Vec3f pos = Vec3f(world_matrix.getTranslate().x,
+                      world_matrix.getTranslate().y,
+                      world_matrix.getTranslate().z);
+    return pos;
+}
+
 void tol::Transform::lookAt(const Transform & target_)
 {
     Vec3f target_vec = target_.position - position;
@@ -58,7 +66,7 @@ Vec3f tol::Transform::translationXZ(const ci::Vec3f & vector_, const float & ang
                              0, 1, 0, 0,
                              -sin(angle_y_), 0, cos(angle_y_), 0,
                              0, 0, 0, 1);
- 
+
     return my * vector_;
 }
 

@@ -16,6 +16,8 @@ namespace tol
 
     public:
 
+        ci::Vec3f getWorldPosition();
+
         // Œü‚­
         void lookAt(const Transform& target_);
         void lookAt(const ci::Vec2f& position_);
@@ -54,7 +56,7 @@ namespace tol
         ci::Vec3f position;
         ci::Vec3f angle;
         ci::Quatf rotation;
-        ci::Matrix44f local_matrix;
+        ci::Matrix44f world_matrix;
         ci::Vec3f scale;
 
         ci::Vec3f direction;

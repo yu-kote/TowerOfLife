@@ -24,6 +24,9 @@ namespace tol
 
 
         std::shared_ptr<tol::Player> player;
+        void playerSetStandRay();
+        // レイをもらって一番近いところに当たっている交差点を返す
+        float hitValueNearInZero(const ci::Ray& ray);
 
     private:
 
@@ -43,7 +46,7 @@ namespace tol
         // 配列番号をもらって範囲外かどうかを返す
         bool isBlockOutOfRange(const int& num);
         // 配列番号が超えたら一番大きい値を返す
-        int adjusMaxNum(const int& num, const int& max_value);
+        int adjusMinMaxNum(const int& num, const int& max_value);
 
         ci::Vec2f twoDimensionalArrayCenterPoint(const int&  size_x, const int& size_y);
         // 高さをもらって、その高さの一段上のブロックの位置を返す
