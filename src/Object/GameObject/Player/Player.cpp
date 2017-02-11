@@ -104,6 +104,26 @@ void tol::Player::axisMove()
         velocity.x = (ground_move_speed  * env.getPadAxis("Horizontal_Left") * -1);
         velocity.z = ground_move_speed  * env.getPadAxis("Vertical_Left");
     }
+
+    if (env.isPress(KeyEvent::KEY_a))
+    {
+        velocity.x = (ground_move_speed * 1);
+    }
+    if (env.isPress(KeyEvent::KEY_d))
+    {
+        velocity.x = -(ground_move_speed * 1);
+
+    }
+    if (env.isPress(KeyEvent::KEY_w))
+    {
+        velocity.z = (ground_move_speed * 1);
+    }
+    if (env.isPress(KeyEvent::KEY_s))
+    {
+        velocity.z = -(ground_move_speed * 1);
+
+    }
+
     if (state == State::FALL || state == State::RIZING)
     {
         velocity.x = jump_vec.x;
@@ -179,6 +199,14 @@ float tol::Player::angleDifference(const float & angle1, const float & angle2)
 void tol::Player::jump()
 {
     if (env.isPadPress(env.BUTTON_2))
+    {
+        if (jump_time < jump_duration)
+        {
+            velocity.y = jump_power;
+        }
+        jump_time++;
+    }
+    if (env.isPress(KeyEvent::KEY_SPACE))
     {
         if (jump_time < jump_duration)
         {
