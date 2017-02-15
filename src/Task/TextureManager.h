@@ -23,6 +23,7 @@ namespace tol
         void setup()
         {
             //loadTextTexture(ci::app::getAssetPath("TextureData/TextureData.txt").string());
+            registerTexture("Player", "Obj/Character/chr_sword.png");
         }
 
         ci::gl::TextureRef find(const std::string& findname_)

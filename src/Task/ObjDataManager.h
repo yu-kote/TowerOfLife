@@ -27,9 +27,9 @@ namespace tol
             using namespace ci;
             using namespace ci::app;
 
-            // ‚±‚ñ‚ÈŠ´‚¶
-
             set("Block", "Obj/Block/block.obj");
+            set("Player", "Obj/Character/chr_sword.obj");
+
         }
 
         ci::TriMesh& find(std::string key_)

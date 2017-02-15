@@ -135,7 +135,8 @@ void TowerOfLife::draw()
 
     {// ‰½ƒtƒŒ[ƒ€‚©Œ©‚é
         gl::translate(fpos);
-        int frame = static_cast<int>(60 * time.deltaTime() * 60);
+
+        int frame = static_cast<int>((1000.0f / time.deltaTime()) * 0.001f);
         if (prev_frame > frame + 3 || prev_frame < frame - 3)
         {
             prev_frame = frame;

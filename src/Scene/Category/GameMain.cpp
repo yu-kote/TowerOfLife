@@ -18,6 +18,7 @@ void GameMain::setup()
     entities.instantiate<tol::Camera>();
     entities.instantiate<tol::Player>();
     entities.instantiate<tol::TolStage>();
+    entities.instantiate<tol::TestDraw>();
 
 
 
@@ -26,6 +27,7 @@ void GameMain::setup()
     entities.getInstance<tol::Player>()->setCamera(entities.getInstance<tol::Camera>());
     entities.getInstance<tol::TolStage>()->setPlayer(entities.getInstance<tol::Player>());
     entities.getInstance<tol::TolStage>()->setCamera(entities.getInstance<tol::Camera>());
+    entities.getInstance<tol::TestDraw>()->setPlayer(entities.getInstance<tol::Player>());
 
     entities.setupGameObject();
 }

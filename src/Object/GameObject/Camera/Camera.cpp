@@ -35,12 +35,12 @@ void tol::Camera::laterUpdate()
 
     Vec3f init_value_normalize = objective_distance_init_value.normalized();
 
-    if (env.isPress(KeyEvent::KEY_w))
+    if (env.isPress(KeyEvent::KEY_i))
     {
         Vec3f approach_value = init_value_normalize.inverse();
         vec += approach_value;
     }
-    if (env.isPress(KeyEvent::KEY_s))
+    if (env.isPress(KeyEvent::KEY_k))
     {
         Vec3f leave_value = init_value_normalize;
         vec += leave_value;
