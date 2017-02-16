@@ -324,7 +324,7 @@ void tol::Player::useGravity()
     if (transform.position.y < 0)
     {
         reset();
-        is_fall_dead = true;
+        
     }
     else
     {
@@ -402,7 +402,7 @@ void tol::Player::reset()
     velocity = Vec3f::zero();
     moving_distance = Vec3f::zero();
     jump_moment_vec = Vec3f::zero();
-
+    is_fall_dead = true;
 }
 
 
