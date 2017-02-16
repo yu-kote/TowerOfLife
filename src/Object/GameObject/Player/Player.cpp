@@ -32,7 +32,7 @@ void tol::Player::setup()
     ground_move_speed_max = 0.4f;
     moving_distance = Vec3f::zero();
     is_max_speed = false;
-    air_move_speed = 0.2f;
+    air_move_speed = 0.06f;
 
     gravity = 0.07f;
     fall_speed_max = 0.6f;
@@ -165,8 +165,8 @@ void tol::Player::axisMove()
         // 左スティックのベクトルをもらう
         auto v = getLeftAxisVec();
 
-        velocity.x = jump_moment_vec.x;
-        velocity.z = jump_moment_vec.z;
+        //velocity.x = jump_moment_vec.x;
+        //velocity.z = jump_moment_vec.z;
 
         velocity.x += air_move_speed  * v.x;
         velocity.z += air_move_speed  * v.y;
@@ -182,8 +182,10 @@ void tol::Player::axisMove()
             velocity.z = max_vec_z;
         if (velocity.z < -max_vec_z)
             velocity.z = -max_vec_z;
+        velocity.x *= 0.95f;
+        velocity.z *= 0.95f;
     }
-
+    
     if (state == State::STAND)
     {
         valueSlowlyToZero(velocity.x, ground_move_speed);
