@@ -85,6 +85,15 @@
     <Filter Include="Source Files\Tol">
       <UniqueIdentifier>{ab95a829-00bc-4b91-a07c-5043af2ddae7}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Source Files\Utility\Json">
+      <UniqueIdentifier>{112dd0ad-d1a2-4bf3-9cc4-aa2749aa625c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Utility\Json\jsoncpp">
+      <UniqueIdentifier>{5beea520-c48e-4894-9701-7c39ebcab93f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Object\GameObject\SkyDome">
+      <UniqueIdentifier>{27730386-243f-4a61-a521-7f3e0f52a523}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\src\TowerOfLife.cpp">
@@ -152,6 +161,12 @@
     </ClCompile>
     <ClCompile Include="..\src\Utility\Utility.cpp">
       <Filter>Source Files\Utility</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\Utility\Json\jsoncpp.cpp">
+      <Filter>Source Files\Utility\Json</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\Object\GameObject\Skydome\Skydome.cpp">
+      <Filter>Source Files\Object\GameObject\SkyDome</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -256,6 +271,15 @@
     </ClInclude>
     <ClInclude Include="..\src\Tol\TolGameDataManager.h">
       <Filter>Source Files\Tol</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\Utility\Json\jsoncpp\json.h">
+      <Filter>Source Files\Utility\Json\jsoncpp</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\Utility\Json\jsoncpp\json-forwards.h">
+      <Filter>Source Files\Utility\Json\jsoncpp</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\Object\GameObject\Skydome\Skydome.h">
+      <Filter>Source Files\Object\GameObject\SkyDome</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

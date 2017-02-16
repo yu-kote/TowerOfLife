@@ -4,6 +4,7 @@
 #include "../../Component/Components/Texture.h"
 
 #include "../../../Task/ObjDataManager.h"
+#include "../../../Task/SoundManager.h"
 #include "../../../Utility/Input/InputEvent.h"
 
 
@@ -22,9 +23,9 @@ void tol::Player::setup()
                                   ci::ColorA(1.0f, 1.0f, 1.0f, 1.0f),      // Diffuse
                                   ci::ColorA(1.0f, 1.0f, 1.0f, 1.0f),      // Specular
                                   80.0f,
-                                  ci::ColorA(0.5f, 0.5f, 0.8f));
+                                  ci::ColorA(0.2f, 0.5f, 1.0f));
     addComponent<tol::Material>(tol::Material(m));
-    addComponent<tol::Texture>(tol::Texture("Player"));
+   // addComponent<tol::Texture>(tol::Texture("Player"));
 
     state = State::STAND;
 
@@ -41,6 +42,9 @@ void tol::Player::setup()
     jump_duration = 10;
     jump_time = 0;
 
+
+    is_fall_dead = false;
+    SoundGet.find("Landing")->setGain(0.2f);
 }
 
 void tol::Player::update()
@@ -77,7 +81,8 @@ void tol::Player::update()
 
 void tol::Player::draw()
 {
-    gl::drawStrokedCube(Vec3f::zero(), Vec3f(2, 2, 2));
+    //gl::drawStrokedCube(Vec3f::zero(), Vec3f(2, 2, 2));
+    gl::drawCube(Vec3f::zero(), Vec3f(2, 2, 2));
 
     gl::translate(0, -transform.scale.y, 0);
     gl::scale(0.4f, 0.4f, 0.4f);
@@ -185,7 +190,7 @@ void tol::Player::axisMove()
         velocity.x *= 0.95f;
         velocity.z *= 0.95f;
     }
-    
+
     if (state == State::STAND)
     {
         valueSlowlyToZero(velocity.x, ground_move_speed);
@@ -317,8 +322,15 @@ void tol::Player::useGravity()
         velocity.y = -fall_speed_max;
 
     if (transform.position.y < 0)
-        //transform.position.y = 0;
+    {
         reset();
+        is_fall_dead = true;
+    }
+    else
+    {
+        is_fall_dead = false;
+    }
+    //transform.position.y = 0;
 }
 
 void tol::Player::stand()
@@ -375,6 +387,11 @@ void tol::Player::stateUpdate()
         if (current_state == State::MOVING)
             jump_moment_vec = velocity;
 
+        if (state == State::RIZING)
+            SoundGet.find("Jump")->start();
+        if (current_state == State::FALL)
+            SoundGet.find("Landing")->start();
+
         current_state = state;
     }
 }
@@ -385,6 +402,7 @@ void tol::Player::reset()
     velocity = Vec3f::zero();
     moving_distance = Vec3f::zero();
     jump_moment_vec = Vec3f::zero();
+
 }
 
 

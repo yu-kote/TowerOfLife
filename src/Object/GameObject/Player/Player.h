@@ -25,6 +25,8 @@ namespace tol
         ci::Ray getRizeRay() { return rize_ray; }
         void setRizeRayIntersecion(const float& t) { rize_ray_intersection = t; }
 
+        bool isDead() { return is_fall_dead; }
+
     private:
         std::shared_ptr<tol::Camera> camera;
 
@@ -101,6 +103,8 @@ namespace tol
 
         ci::Ray rize_ray;                   // 天井にぶつけるためのレイ
         float rize_ray_intersection;        // 天井にぶつけるためのレイの交差地点
+
+        bool is_fall_dead;                       // 落下死したかどうか
     };
 
 

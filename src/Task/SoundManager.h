@@ -34,7 +34,6 @@ namespace tol
             player_node = node_;
         }
 
-
     public:
 
         void start()
@@ -83,6 +82,12 @@ namespace tol
         {
             //bufferPlayerLoad(ci::app::getAssetPath("SoundData/BufferPlayerResource.txt").string());
             //filePlayerLoad(ci::app::getAssetPath("SoundData/FilePlayerResource.txt").string());
+
+            registerBufferPlayerNode("Landing", "Sound/SE/landing.wav");
+            registerBufferPlayerNode("Coin", "Sound/SE/coin.wav");
+            registerBufferPlayerNode("Jump", "Sound/SE/jump.wav");
+
+            registerFilePlayerNode("tower_bgm1", "Sound/BGM/Sunrise.mp3");
         }
 
         std::shared_ptr<Sound> find(const std::string& key_)
@@ -140,7 +145,6 @@ namespace tol
                 registerBufferPlayerNode(keytemp, pathtemp);
             }
         }
-
 
         void allStop()
         {

@@ -1,5 +1,8 @@
 #include "TolStage.h"
 
+#include "../../../Task/SoundManager.h"
+
+
 void tol::TolStage::setup()
 {
     block_holder = std::make_shared<tol::TolBlockHolder>();
@@ -12,12 +15,23 @@ void tol::TolStage::setup()
 
     coin_holder->setPlayer(player);
     coin_holder->setup();
+    SoundGet.find("tower_bgm1")->setGain(0.5f);
 }
 
 void tol::TolStage::update()
 {
     block_holder->update();
     coin_holder->update();
+
+    if (!SoundGet.find("tower_bgm1")->isEnabled())
+    {
+        SoundGet.find("tower_bgm1")->start();
+    }
+
+    if (player->isDead())
+    {
+        block_holder->reset();
+    }
 }
 
 void tol::TolStage::laterUpdate()

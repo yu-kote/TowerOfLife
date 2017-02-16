@@ -1,6 +1,7 @@
 #include "TolCoinHolder.h"
 #include <random>
 #include "../../../Utility/Utility.h"
+#include "../../../Task/SoundManager.h"
 
 using namespace ci;
 using namespace ci::app;
@@ -40,6 +41,7 @@ void tol::TolCoinHolder::playerGetCoins()
     {
         if ((*it)->isHitToCoin(player->transform.position))
         {
+            SoundGet.find("Coin")->start();
             it = coins.erase(it);
             continue;
         }

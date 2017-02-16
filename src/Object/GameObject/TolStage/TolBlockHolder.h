@@ -22,6 +22,8 @@ namespace tol
         void setPlayer(std::shared_ptr<tol::Player> player_) { player = player_; }
         void setCoinHolder(std::shared_ptr<tol::TolCoinHolder> coin_holder_) { coin_holder = coin_holder_; }
 
+        void reset();
+
     private: // プレイヤー
 
         std::shared_ptr<tol::Player> player;
@@ -45,6 +47,8 @@ namespace tol
         // 一番上に一段追加する
         void addOneStepBlocks(const std::vector<TolBlockActionType>& addblocktypes);
 
+        void addBlocks();
+
     private:
 
         // 配列番号をもらって範囲外かどうかを返す
@@ -52,6 +56,7 @@ namespace tol
         // 配列番号が超えたら一番大きい値を返す
         int adjusMinMaxNum(const int& num, const int& max_value);
 
+        // サイズもらって真ん中の値を返す
         ci::Vec2f twoDimensionalArrayCenterPoint(const int&  size_x, const int& size_y);
         // 高さをもらって、その高さの一段上のブロックの位置を返す
         float convertBlockHeight(const float& height);
@@ -59,13 +64,17 @@ namespace tol
         float centerBetweenBlockHeight(const float& height);
 
 
+        int camera_height;          // カメラの高さ
+        int camera_up_time;         // カメラが上に上がる時間
+        int camera_up_remaining_time;
+
         int current_top_height;     // 一番上のブロックの高さ
         int height_interval;        // 一段ずつの間隔
         int block_space;            // 隣のブロックとの間隔
 
 
-        int z_num;                    // ブロックの奥行きの数
-        int x_num;                    // ブロックの横の数
+        int z_num;                  // ブロックの奥行きの数
+        int x_num;                  // ブロックの横の数
 
         std::vector<std::shared_ptr<TolBlock>> blocks;
 

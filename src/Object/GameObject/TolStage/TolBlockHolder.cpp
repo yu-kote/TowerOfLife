@@ -12,18 +12,15 @@ void tol::TolBlockHolder::setup()
         x_num = 3;
         block_space = 17;
         height_interval = 12;
-
     }
     current_top_height = 0;
 
-
-    Vec2f center_num = twoDimensionalArrayCenterPoint(x_num, z_num);
-    Vec3f center = Vec3f(center_num.x * block_space,
-                         0,
-                         center_num.y * block_space);
-    camera->transform.position += center;
     ease_eyepoint = Vec3f::zero();
     ease_center = Vec3f::zero();
+
+    camera_height = 0.0f;
+    camera_up_time = 180;
+    camera_up_remaining_time = camera_up_time;
 
     std::vector<TolBlockActionType> addtypes;
     for (int i = 0; i < z_num * x_num; i++)
@@ -41,6 +38,7 @@ void tol::TolBlockHolder::setup()
 
 void tol::TolBlockHolder::update()
 {
+    addBlocks();
     decideLookAtCamera();
     playerSetStandRay();
     for (auto & it : blocks)
@@ -55,6 +53,13 @@ void tol::TolBlockHolder::draw()
         (*it).draw();
 
     popModelView();
+}
+
+void tol::TolBlockHolder::reset()
+{
+    camera_height = 0.0f;
+    camera_up_time = 300;
+    camera_up_remaining_time = camera_up_time;
 }
 
 void tol::TolBlockHolder::playerSetStandRay()
@@ -90,13 +95,31 @@ float tol::TolBlockHolder::hitValueNearInZero(const ci::Ray & ray)
 
 void tol::TolBlockHolder::decideLookAtCamera()
 {
+    { // カメラを自動的に上に上げる処理
+        if (camera_up_remaining_time-- < 0)
+        {
+            camera_up_remaining_time = camera_up_time;
+
+            camera_height += height_interval;
+        }
+        else
+        {
+            if (camera_height < player->transform.position.y - height_interval)
+            {
+                camera_up_remaining_time = camera_up_time;
+                camera_height = convertBlockHeight(player->transform.position.y - height_interval);
+            }
+        }
+    }
+    // カメラを真ん中に合わせる
     Vec2f center_num = twoDimensionalArrayCenterPoint(x_num, z_num);
-    float y = convertBlockHeight(player->transform.position.y);
+    // 今の高さを見てカメラの高さをいい感じにブロックのところに合わせる
+    float y = convertBlockHeight(camera_height);
     Vec3f eyepoint = Vec3f(center_num.x * block_space,
                            y,
                            center_num.y * block_space);
-
-    y = centerBetweenBlockHeight(player->transform.position.y);
+    // 今の高さを見てカメラの見る位置をブロックとブロックの間に合わせる
+    y = centerBetweenBlockHeight(camera_height);
     Vec3f center = Vec3f(center_num.x * block_space,
                          y,
                          center_num.y * block_space);
@@ -104,7 +127,6 @@ void tol::TolBlockHolder::decideLookAtCamera()
     float ease_speed = 0.05f;
     ease_eyepoint += (eyepoint - ease_eyepoint) * ease_speed;
     ease_center += (center - ease_center) * ease_speed;
-
 
     camera->lookAt(ease_eyepoint, ease_center);
 }
@@ -159,6 +181,20 @@ void tol::TolBlockHolder::addOneStepBlocks(const std::vector<TolBlockActionType>
     }
 }
 
+void tol::TolBlockHolder::addBlocks()
+{
+    if (player->transform.position.y > current_top_height - height_interval * 1)
+    {
+        std::vector<TolBlockActionType> addtypes;
+        for (int i = 0; i < z_num * x_num; i++)
+        {
+            addtypes.push_back(TolBlockActionType::NORMAL);
+        }
+
+        addOneStepBlocks(addtypes);
+    }
+}
+
 bool tol::TolBlockHolder::isBlockOutOfRange(const int & num)
 {
     return (num > blocks.size() - 1) ? true : false;
@@ -204,7 +240,7 @@ float tol::TolBlockHolder::convertBlockHeight(const float & height)
 float tol::TolBlockHolder::centerBetweenBlockHeight(const float & height)
 {
     float block_height_convert = height / height_interval;
-    int block_num = (int)block_height_convert;
-    // ブロックの番号*ブロックの間隔 + ブロックの真ん中
-    return block_num * height_interval + (height_interval / 2);
+    int block_step_num = (int)block_height_convert;
+    // ブロックの段数 * ブロックの間隔 + ブロックの真ん中
+    return block_step_num * height_interval + (height_interval / 2);
 }
