@@ -4,6 +4,7 @@
 #include "TolBlockActions.h"
 #include "../Camera/Camera.h"
 #include "../Player/Player.h"
+#include "TolCoinHolder.h"
 
 namespace tol
 {
@@ -13,28 +14,31 @@ namespace tol
 
         TolBlockHolder() {}
 
-        void setup();
-        void update();
-        void draw();
+        void setup()override;
+        void update()override;
+        void draw()override;
 
         void setCamera(std::shared_ptr<tol::Camera> camera_) { camera = camera_; }
         void setPlayer(std::shared_ptr<tol::Player> player_) { player = player_; }
+        void setCoinHolder(std::shared_ptr<tol::TolCoinHolder> coin_holder_) { coin_holder = coin_holder_; }
 
-    private:
-
+    private: // プレイヤー
 
         std::shared_ptr<tol::Player> player;
         void playerSetStandRay();
         // レイをもらって一番近いところに当たっている交差点を返す
         float hitValueNearInZero(const ci::Ray& ray);
 
-    private:
+    private: // カメラ
 
         void decideLookAtCamera();
         std::shared_ptr<tol::Camera> camera;
         ci::Vec3f ease_eyepoint;
         ci::Vec3f ease_center;
 
+    private: // コイン
+
+        std::shared_ptr<tol::TolCoinHolder> coin_holder;
 
     private: // ブロックの管理
 
@@ -54,9 +58,10 @@ namespace tol
         // 高さをもらって、その高さにあるブロックとブロックの間の高さを返す
         float centerBetweenBlockHeight(const float& height);
 
-        float current_top_height;     // 一番上のブロックの高さ
-        float height_interval;        // 一段ずつの間隔
-        float block_interval;         // 隣のブロックとの間隔
+
+        int current_top_height;     // 一番上のブロックの高さ
+        int height_interval;        // 一段ずつの間隔
+        int block_space;            // 隣のブロックとの間隔
 
 
         int z_num;                    // ブロックの奥行きの数

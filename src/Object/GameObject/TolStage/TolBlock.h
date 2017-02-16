@@ -28,7 +28,6 @@ namespace tol
 
         void setPlayer(std::shared_ptr<tol::Player> player_) { player = player_; }
         float calcMeshIntersection(ci::Ray ray);
-        //float playerRayIntersection();
 
     private:
         std::shared_ptr<TolBlockActionBase> action;

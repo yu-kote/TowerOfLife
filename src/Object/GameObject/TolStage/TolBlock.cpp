@@ -31,7 +31,6 @@ void tol::TolBlock::draw()
     pushModelView();
     componentsDraw();
 
-    //gl::drawCube(Vec3f::zero(), Vec3f::one());
     gl::draw(*mesh);
     popModelView();
     drawEnd();
@@ -44,12 +43,14 @@ void tol::TolBlock::transDraw()
 
 float tol::TolBlock::calcMeshIntersection(ci::Ray ray)
 {
+    // 自分の逆行列を生成
     Matrix44f m =
         Matrix44f::createTranslation(transform.position) *
         Matrix44f::createRotation(transform.angle)*
         Matrix44f::createScale(transform.scale);
     Matrix44f rm = m.inverted();
 
+    // 引数のrayを、生成した逆行列から見たrayに変更
     Vec3f dir = rm.transformVec(ray.getDirection());
     ray.setDirection(dir);
     Vec3f origin = rm * ray.getOrigin();

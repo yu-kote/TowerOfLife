@@ -115,6 +115,8 @@
     <ClCompile Include="..\src\Object\GameObject\TolStage\TolBlockActionBase.cpp" />
     <ClCompile Include="..\src\Object\GameObject\TolStage\TolBlockActions.cpp" />
     <ClCompile Include="..\src\Object\GameObject\TolStage\TolBlockHolder.cpp" />
+    <ClCompile Include="..\src\Object\GameObject\TolStage\TolCoin.cpp" />
+    <ClCompile Include="..\src\Object\GameObject\TolStage\TolCoinHolder.cpp" />
     <ClCompile Include="..\src\Object\GameObject\TolStage\TolStage.cpp" />
     <ClCompile Include="..\src\Scene\Category\GameMain.cpp" />
     <ClCompile Include="..\src\TowerOfLife.cpp" />
@@ -122,6 +124,7 @@
     <ClCompile Include="..\src\Utility\Easing\EaseType.cpp" />
     <ClCompile Include="..\src\Utility\Input\InputEvent.cpp" />
     <ClCompile Include="..\src\Utility\Time\Time.cpp" />
+    <ClCompile Include="..\src\Utility\Utility.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\src\Coroutine.h" />
@@ -139,6 +142,8 @@
     <ClInclude Include="..\src\Object\GameObject\TolStage\TolBlockActionBase.h" />
     <ClInclude Include="..\src\Object\GameObject\TolStage\TolBlockActions.h" />
     <ClInclude Include="..\src\Object\GameObject\TolStage\TolBlockHolder.h" />
+    <ClInclude Include="..\src\Object\GameObject\TolStage\TolCoin.h" />
+    <ClInclude Include="..\src\Object\GameObject\TolStage\TolCoinHolder.h" />
     <ClInclude Include="..\src\Object\GameObject\TolStage\TolStage.h" />
     <ClInclude Include="..\src\Object\Object.h" />
     <ClInclude Include="..\src\Scene\Category\GameMain.h" />
@@ -146,14 +151,16 @@
     <ClInclude Include="..\src\Task\ObjDataManager.h" />
     <ClInclude Include="..\src\Task\SoundManager.h" />
     <ClInclude Include="..\src\Task\TextureManager.h" />
-    <ClInclude Include="..\src\Utility.h" />
+    <ClInclude Include="..\src\Tol\TolGameDataManager.h" />
     <ClInclude Include="..\src\Utility\Easing\Ease.h" />
     <ClInclude Include="..\src\Utility\Easing\EaseType.h" />
     <ClInclude Include="..\src\Utility\Input\Gamepad\Gamepad.h" />
     <ClInclude Include="..\src\Utility\Input\InputEvent.h" />
     <ClInclude Include="..\src\Utility\Interface\Interface.h" />
+    <ClInclude Include="..\src\Utility\Random\Random.h" />
     <ClInclude Include="..\src\Utility\Resize\Resize.h" />
     <ClInclude Include="..\src\Utility\Time\Time.h" />
+    <ClInclude Include="..\src\Utility\Utility.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets" />

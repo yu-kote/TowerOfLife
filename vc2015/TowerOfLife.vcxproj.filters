@@ -67,14 +67,23 @@
     <Filter Include="Source Files\Object\GameObject\TolStage">
       <UniqueIdentifier>{456ac5f0-6cb7-4196-a10a-0224ef158492}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Source Files\Object\GameObject\TolStage\Blocks">
-      <UniqueIdentifier>{16ff6fb8-8789-4e10-ab51-8342972466dc}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Source Files\Object\GameObject\TolStage\Blocks\BlockAction">
-      <UniqueIdentifier>{02320584-b032-4edb-a46c-0aca1498aee4}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Source Files\Task">
       <UniqueIdentifier>{93a47132-399b-437e-ac52-b38fec74eae6}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Object\GameObject\TolStage\Block">
+      <UniqueIdentifier>{16ff6fb8-8789-4e10-ab51-8342972466dc}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Object\GameObject\TolStage\Block\BlockAction">
+      <UniqueIdentifier>{02320584-b032-4edb-a46c-0aca1498aee4}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Object\GameObject\TolStage\Coin">
+      <UniqueIdentifier>{4949143a-b580-4afd-8cbe-d9a9494f753e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Utility\Random">
+      <UniqueIdentifier>{6c9be0bf-8ed4-4a3a-8fc7-3f8368617738}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Tol">
+      <UniqueIdentifier>{ab95a829-00bc-4b91-a07c-5043af2ddae7}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -124,16 +133,25 @@
       <Filter>Source Files\Object\GameObject\TolStage</Filter>
     </ClCompile>
     <ClCompile Include="..\src\Object\GameObject\TolStage\TolBlockActionBase.cpp">
-      <Filter>Source Files\Object\GameObject\TolStage\Blocks\BlockAction</Filter>
+      <Filter>Source Files\Object\GameObject\TolStage\Block\BlockAction</Filter>
     </ClCompile>
     <ClCompile Include="..\src\Object\GameObject\TolStage\TolBlock.cpp">
-      <Filter>Source Files\Object\GameObject\TolStage\Blocks</Filter>
+      <Filter>Source Files\Object\GameObject\TolStage\Block</Filter>
     </ClCompile>
     <ClCompile Include="..\src\Object\GameObject\TolStage\TolBlockHolder.cpp">
-      <Filter>Source Files\Object\GameObject\TolStage\Blocks</Filter>
+      <Filter>Source Files\Object\GameObject\TolStage\Block</Filter>
     </ClCompile>
     <ClCompile Include="..\src\Object\GameObject\TolStage\TolBlockActions.cpp">
-      <Filter>Source Files\Object\GameObject\TolStage\Blocks\BlockAction</Filter>
+      <Filter>Source Files\Object\GameObject\TolStage\Block\BlockAction</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\Object\GameObject\TolStage\TolCoin.cpp">
+      <Filter>Source Files\Object\GameObject\TolStage\Coin</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\Object\GameObject\TolStage\TolCoinHolder.cpp">
+      <Filter>Source Files\Object\GameObject\TolStage\Coin</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\Utility\Utility.cpp">
+      <Filter>Source Files\Utility</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -151,9 +169,6 @@
     </ClInclude>
     <ClInclude Include="..\src\Utility\Time\Time.h">
       <Filter>Source Files\Utility\Time</Filter>
-    </ClInclude>
-    <ClInclude Include="..\src\Utility.h">
-      <Filter>Source Files\Utility</Filter>
     </ClInclude>
     <ClInclude Include="..\src\Utility\Interface\Interface.h">
       <Filter>Source Files\Utility\Interface</Filter>
@@ -207,13 +222,13 @@
       <Filter>Source Files\Object\GameObject\TolStage</Filter>
     </ClInclude>
     <ClInclude Include="..\src\Object\GameObject\TolStage\TolBlockActionBase.h">
-      <Filter>Source Files\Object\GameObject\TolStage\Blocks\BlockAction</Filter>
+      <Filter>Source Files\Object\GameObject\TolStage\Block\BlockAction</Filter>
     </ClInclude>
     <ClInclude Include="..\src\Object\GameObject\TolStage\TolBlockActions.h">
-      <Filter>Source Files\Object\GameObject\TolStage\Blocks\BlockAction</Filter>
+      <Filter>Source Files\Object\GameObject\TolStage\Block\BlockAction</Filter>
     </ClInclude>
     <ClInclude Include="..\src\Object\GameObject\TolStage\TolBlock.h">
-      <Filter>Source Files\Object\GameObject\TolStage\Blocks</Filter>
+      <Filter>Source Files\Object\GameObject\TolStage\Block</Filter>
     </ClInclude>
     <ClInclude Include="..\src\Task\ObjDataManager.h">
       <Filter>Source Files\Task</Filter>
@@ -225,7 +240,22 @@
       <Filter>Source Files\Task</Filter>
     </ClInclude>
     <ClInclude Include="..\src\Object\GameObject\TolStage\TolBlockHolder.h">
-      <Filter>Source Files\Object\GameObject\TolStage\Blocks</Filter>
+      <Filter>Source Files\Object\GameObject\TolStage\Block</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\Object\GameObject\TolStage\TolCoin.h">
+      <Filter>Source Files\Object\GameObject\TolStage\Coin</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\Object\GameObject\TolStage\TolCoinHolder.h">
+      <Filter>Source Files\Object\GameObject\TolStage\Coin</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\Utility\Utility.h">
+      <Filter>Source Files\Utility</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\Utility\Random\Random.h">
+      <Filter>Source Files\Utility\Random</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\Tol\TolGameDataManager.h">
+      <Filter>Source Files\Tol</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

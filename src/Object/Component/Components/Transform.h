@@ -16,15 +16,18 @@ namespace tol
 
     public:
 
+        // ワールド座標を返す（カメラも無視）
         ci::Vec3f getWorldPosition();
 
         // 向く
         void lookAt(const Transform& target_);
+        // (未実装)
         void lookAt(const ci::Vec2f& position_);
 
         // オイラー角でクォータニオンを回転
         void rotate(const ci::Vec3f& angle_);
         void rotate(ci::Vec3f axis_, float angle_);
+        // (未実装)
         void rotate(float angle_x_, float angle_y_, float angle_z_);
 
 

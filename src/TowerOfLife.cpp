@@ -40,7 +40,7 @@ public:
     // deltatime
     tol::Time time;
 
-    // frametimer
+    // frame
     Font font;
     Vec2f fpos;
     int prev_frame;

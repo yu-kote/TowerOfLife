@@ -81,7 +81,7 @@ void tol::Player::draw()
 
     gl::translate(0, -transform.scale.y, 0);
     gl::scale(0.4f, 0.4f, 0.4f);
-    gl::draw(*mesh);
+    // gl::draw(*mesh);
 }
 
 

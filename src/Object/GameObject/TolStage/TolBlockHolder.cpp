@@ -1,4 +1,5 @@
 #include "TolBlockHolder.h"
+#include "../../../Utility/Random/Random.h"
 
 using namespace ci;
 using namespace ci::app;
@@ -6,17 +7,20 @@ using namespace ci::app;
 
 void tol::TolBlockHolder::setup()
 {
-    z_num = 3;
-    x_num = 3;
-    block_interval = 20;
+    {// json—\’è
+        z_num = 3;
+        x_num = 3;
+        block_space = 17;
+        height_interval = 12;
+
+    }
     current_top_height = 0;
-    height_interval = 12;
 
 
     Vec2f center_num = twoDimensionalArrayCenterPoint(x_num, z_num);
-    Vec3f center = Vec3f(center_num.x * block_interval,
+    Vec3f center = Vec3f(center_num.x * block_space,
                          0,
-                         center_num.y * block_interval);
+                         center_num.y * block_space);
     camera->transform.position += center;
     ease_eyepoint = Vec3f::zero();
     ease_center = Vec3f::zero();
@@ -29,7 +33,7 @@ void tol::TolBlockHolder::setup()
 
     addOneStepBlocks(addtypes);
 
-    for (int i = 0; i < 1; i++)
+    for (int i = 0; i < 10; i++)
     {
         addOneStepBlocks(addtypes);
     }
@@ -88,14 +92,14 @@ void tol::TolBlockHolder::decideLookAtCamera()
 {
     Vec2f center_num = twoDimensionalArrayCenterPoint(x_num, z_num);
     float y = convertBlockHeight(player->transform.position.y);
-    Vec3f eyepoint = Vec3f(center_num.x * block_interval,
+    Vec3f eyepoint = Vec3f(center_num.x * block_space,
                            y,
-                           center_num.y * block_interval);
+                           center_num.y * block_space);
 
     y = centerBetweenBlockHeight(player->transform.position.y);
-    Vec3f center = Vec3f(center_num.x * block_interval,
+    Vec3f center = Vec3f(center_num.x * block_space,
                          y,
-                         center_num.y * block_interval);
+                         center_num.y * block_space);
 
     float ease_speed = 0.05f;
     ease_eyepoint += (eyepoint - ease_eyepoint) * ease_speed;
@@ -113,12 +117,11 @@ void tol::TolBlockHolder::addOneStepBlocks(const std::vector<TolBlockActionType>
     {
         std::shared_ptr<TolBlock> block = std::make_shared<TolBlock>();
 
-        block->transform.position.x = x * block_interval;
-        block->transform.position.z = z * block_interval;
+        block->transform.position.x = x * block_space;
+        block->transform.position.z = z * block_space;
         block->transform.position.y = current_top_height;
 
         block->setPlayer(player);
-
 
         switch (addblocktypes[i])
         {
@@ -143,6 +146,17 @@ void tol::TolBlockHolder::addOneStepBlocks(const std::vector<TolBlockActionType>
         }
     }
     current_top_height += height_interval;
+
+    {
+        int count = current_top_height / height_interval;
+        bool is_coin_pop = (count % 2 == 1) ? true : false;
+        if (is_coin_pop)
+        {
+            RandomInt rand(0, z_num * x_num - 1);
+            Vec3f pos = blocks[rand()]->transform.position;
+            coin_holder->instanceCoin(pos.xz(), current_top_height + 2, CoinType::COIN_1);
+        }
+    }
 }
 
 bool tol::TolBlockHolder::isBlockOutOfRange(const int & num)
