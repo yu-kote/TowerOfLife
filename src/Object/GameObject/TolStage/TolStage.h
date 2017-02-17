@@ -44,7 +44,7 @@ namespace tol
 
         GameLevel level;
 
-
+        bool test = true;
 
     };
 }

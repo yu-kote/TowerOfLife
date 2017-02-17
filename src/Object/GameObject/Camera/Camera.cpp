@@ -16,7 +16,7 @@ void tol::Camera::setup()
     transform.position = objective_distance;
     center_of_interest_point = Vec3d::zero();
     camera.lookAt(transform.position, center_of_interest_point);
-    camera.setPerspective(60.0f, getWindowAspectRatio(), 1.0f, 1000.0f);
+    camera.setPerspective(60.0f, getWindowAspectRatio(), 1.0f, 2000.0f);
 
 }
 

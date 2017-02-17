@@ -25,7 +25,7 @@ void tol::Player::setup()
                                   80.0f,
                                   ci::ColorA(0.2f, 0.5f, 1.0f));
     addComponent<tol::Material>(tol::Material(m));
-   // addComponent<tol::Texture>(tol::Texture("Player"));
+    // addComponent<tol::Texture>(tol::Texture("Player"));
 
     state = State::STAND;
 
@@ -44,6 +44,8 @@ void tol::Player::setup()
 
 
     is_fall_dead = false;
+    is_dead_distance_judgment = 50;
+
     SoundGet.find("Landing")->setGain(0.2f);
 }
 
@@ -71,10 +73,9 @@ void tol::Player::update()
         transform.angle.y = angle_difference;
     }
 
-
     stateUpdate();
 
-
+    gameover();
     if (env.isPush(KeyEvent::KEY_RETURN))
         reset();
 }
@@ -321,16 +322,6 @@ void tol::Player::useGravity()
     if (velocity.y < -fall_speed_max)
         velocity.y = -fall_speed_max;
 
-    if (transform.position.y < 0)
-    {
-        reset();
-        
-    }
-    else
-    {
-        is_fall_dead = false;
-    }
-    //transform.position.y = 0;
 }
 
 void tol::Player::stand()
@@ -339,7 +330,6 @@ void tol::Player::stand()
         if (stand_ray_intersection < abs(stand_ray.getDirection().y) && stand_ray_intersection > 0.0f)
         {
             velocity.y = 0;
-
         }
 }
 
@@ -373,6 +363,8 @@ void tol::Player::stateUpdate()
             can_jump = true;
         break;
     case State::MOVING:
+        if (can_jump == false)
+            jump_time = 0;
         if (is_jump_key_press == false)
             can_jump = true;
         break;
@@ -393,6 +385,19 @@ void tol::Player::stateUpdate()
             SoundGet.find("Landing")->start();
 
         current_state = state;
+    }
+}
+
+void tol::Player::gameover()
+{
+    if (transform.position.y < 0 ||
+        camera->transform.position.y - is_dead_distance_judgment > transform.position.y)
+    {
+        reset();
+    }
+    else
+    {
+        is_fall_dead = false;
     }
 }
 

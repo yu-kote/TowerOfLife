@@ -15,6 +15,8 @@
 #include "Task/SoundManager.h"
 #include "Task/TextureManager.h"
 
+#include "jsoncpp/json/json.h"
+
 using namespace ci;
 using namespace ci::app;
 
@@ -77,6 +79,14 @@ void TowerOfLife::setup()
 
     env.padSetup();
     gamemain.setup();
+
+    //Json::StyledWriter writer;
+
+    //std::string s = writer.write(value);
+    //console() << s << std::endl;
+
+    //std::ofstream o("block2.json");
+    //o << s;
 }
 
 
@@ -117,21 +127,11 @@ void TowerOfLife::draw()
     gamemain.draw();
 
 
+
+
     // お試しイージング
     gl::pushMatrices();
     gl::setMatrices(camera_o);
-    gl::color(1, 1, 1);
-    gl::drawSolidCircle(Vec2f(pos.x, pos.y), 10);
-    if (Easing.isEaseEnd(pos.x))
-    {
-        Vec3f startpos = Vec3f(getWindowSize().x - 50, getWindowSize().y - 10, 0);
-        Easing.add(pos, startpos,
-                   60, EaseType::CircIn);
-        Easing.wait(pos, 30);
-        Easing.add(pos, Vec3f(startpos.x + 40, startpos.y, 0), 60, EaseType::BounceOut);
-        Easing.wait(pos, 30);
-    }
-
 
     {// 何フレームか見る
         gl::translate(fpos);

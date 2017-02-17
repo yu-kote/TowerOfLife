@@ -88,6 +88,7 @@ void tol::GameObjectEntities::drawGameObject()
     for (const auto& it : gameobjects)
     {
         if (!it.second->getActive())continue;
+        if (!it.second->getIsDrawActive())continue;
         it.second->drawBegin();
         it.second->pushModelView();
 
@@ -107,6 +108,7 @@ void tol::GameObjectEntities::transDrawGameObject()
     for (const auto& it : gameobjects)
     {
         if (!it.second->getActive())continue;
+        if (!it.second->getIsDrawActive())continue;
         it.second->transDraw();
     }
     ci::gl::popModelView();
@@ -118,6 +120,7 @@ void tol::GameObjectEntities::laterDrawGameObject()
     for (const auto& it : gameobjects)
     {
         if (!it.second->getActive())continue;
+        if (!it.second->getIsDrawActive())continue;
         it.second->laterDraw();
     }
     ci::gl::popModelView();
@@ -129,6 +132,7 @@ void tol::GameObjectEntities::transLaterDrawGameObject()
     for (const auto& it : gameobjects)
     {
         if (!it.second->getActive())continue;
+        if (!it.second->getIsDrawActive())continue;
         it.second->transLaterDraw();
     }
     ci::gl::popModelView();

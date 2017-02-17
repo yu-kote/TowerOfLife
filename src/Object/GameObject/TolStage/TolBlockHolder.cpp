@@ -7,6 +7,7 @@ using namespace ci::app;
 
 void tol::TolBlockHolder::setup()
 {
+    blocks.clear();
     {// json予定
         z_num = 3;
         x_num = 3;
@@ -41,6 +42,7 @@ void tol::TolBlockHolder::update()
     addBlocks();
     decideLookAtCamera();
     playerSetStandRay();
+    cameraDistanceToBlock();
     for (auto & it : blocks)
         (*it).update();
 }
@@ -57,9 +59,7 @@ void tol::TolBlockHolder::draw()
 
 void tol::TolBlockHolder::reset()
 {
-    camera_height = 0.0f;
-    camera_up_time = 300;
-    camera_up_remaining_time = camera_up_time;
+    setup();
 }
 
 void tol::TolBlockHolder::playerSetStandRay()
@@ -107,28 +107,46 @@ void tol::TolBlockHolder::decideLookAtCamera()
             if (camera_height < player->transform.position.y - height_interval)
             {
                 camera_up_remaining_time = camera_up_time;
-                camera_height = convertBlockHeight(player->transform.position.y - height_interval);
+                camera_height += height_interval;
             }
         }
     }
     // カメラを真ん中に合わせる
     Vec2f center_num = twoDimensionalArrayCenterPoint(x_num, z_num);
-    // 今の高さを見てカメラの高さをいい感じにブロックのところに合わせる
-    float y = convertBlockHeight(camera_height);
+
+    // カメラの高さをいい感じにブロックのところに合わせる
+    float y = camera_height + height_interval;
     Vec3f eyepoint = Vec3f(center_num.x * block_space,
                            y,
                            center_num.y * block_space);
+
     // 今の高さを見てカメラの見る位置をブロックとブロックの間に合わせる
     y = centerBetweenBlockHeight(camera_height);
     Vec3f center = Vec3f(center_num.x * block_space,
                          y,
                          center_num.y * block_space);
 
+    // イージングさせる
     float ease_speed = 0.05f;
     ease_eyepoint += (eyepoint - ease_eyepoint) * ease_speed;
     ease_center += (center - ease_center) * ease_speed;
 
     camera->lookAt(ease_eyepoint, ease_center);
+}
+
+void tol::TolBlockHolder::cameraDistanceToBlock()
+{
+    for (auto& it : blocks)
+    {
+        if (camera->transform.position.y - 100 > it->transform.position.y)
+        {
+            for (int i = 0; i < z_num * x_num; i++)
+            {
+                blocks.pop_front();
+            }
+            return;
+        }
+    }
 }
 
 void tol::TolBlockHolder::addOneStepBlocks(const std::vector<TolBlockActionType>& addblocktypes)
@@ -176,7 +194,7 @@ void tol::TolBlockHolder::addOneStepBlocks(const std::vector<TolBlockActionType>
         {
             RandomInt rand(0, z_num * x_num - 1);
             Vec3f pos = blocks[rand()]->transform.position;
-            coin_holder->instanceCoin(pos.xz(), current_top_height + 2, CoinType::COIN_1);
+            coin_holder->instanceCoin(pos.xz(), current_top_height + 2, 1);
         }
     }
 }
@@ -190,8 +208,10 @@ void tol::TolBlockHolder::addBlocks()
         {
             addtypes.push_back(TolBlockActionType::NORMAL);
         }
-
-        addOneStepBlocks(addtypes);
+        for (int i = 0; i < 5; i++)
+        {
+            addOneStepBlocks(addtypes);
+        }
     }
 }
 
@@ -228,14 +248,7 @@ ci::Vec2f tol::TolBlockHolder::twoDimensionalArrayCenterPoint(const int&  size_x
     return ci::Vec2f(center_x, center_y);
 }
 
-float tol::TolBlockHolder::convertBlockHeight(const float & height)
-{
-    float block_height = height / height_interval;
-    int skip_value = z_num * x_num;
-    int block_num = adjusMinMaxNum(int(block_height) * skip_value, blocks.size());
 
-    return blocks[block_num]->transform.position.y + height_interval;
-}
 
 float tol::TolBlockHolder::centerBetweenBlockHeight(const float & height)
 {

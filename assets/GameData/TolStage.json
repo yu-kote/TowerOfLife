@@ -1,0 +1,30 @@
+{
+  // ブロックの情報
+  "block_info": {
+    "z_num": 1000,
+    "x_num": 3,
+    "space": 17,
+    "height_space": 12
+
+  },
+
+  "stage_info": {
+    "camera_up_time": 180
+
+  },
+
+  "player_info": {
+    "ground_speed": 0.02,
+    "ground_speed_max": 0.4,
+    "air_speed": 0.06,
+
+    "gravity": 0.07,
+    "fall_speed_max": 0.6,
+
+    "jump_power": 0.9,
+    "jump_duration": 10,
+
+    "dead_distance": 50
+  }
+
+}

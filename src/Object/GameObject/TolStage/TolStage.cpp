@@ -1,7 +1,6 @@
 #include "TolStage.h"
-
 #include "../../../Task/SoundManager.h"
-
+#include "../../../Utility/Input/InputEvent.h"
 
 void tol::TolStage::setup()
 {
@@ -15,7 +14,7 @@ void tol::TolStage::setup()
 
     coin_holder->setPlayer(player);
     coin_holder->setup();
-    SoundGet.find("tower_bgm1")->setGain(0.5f);
+
 }
 
 void tol::TolStage::update()
@@ -23,14 +22,23 @@ void tol::TolStage::update()
     block_holder->update();
     coin_holder->update();
 
-    if (!SoundGet.find("tower_bgm1")->isEnabled())
-    {
-        SoundGet.find("tower_bgm1")->start();
-    }
-
     if (player->isDead())
     {
         block_holder->reset();
+        coin_holder->reset();
+    }
+
+    if (env.isPush(ci::app::KeyEvent::KEY_0))
+        test = !test;
+
+    if (test)
+    {
+        if (!SoundGet.find("tower_bgm1")->isEnabled())
+            SoundGet.find("tower_bgm1")->start();
+    }
+    else
+    {
+        SoundGet.find("tower_bgm1")->disable();
     }
 }
 

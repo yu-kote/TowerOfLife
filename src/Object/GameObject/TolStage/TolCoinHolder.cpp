@@ -2,6 +2,7 @@
 #include <random>
 #include "../../../Utility/Utility.h"
 #include "../../../Task/SoundManager.h"
+#include "../../../Tol/TolGameDataManager.h"
 
 using namespace ci;
 using namespace ci::app;
@@ -25,14 +26,19 @@ void tol::TolCoinHolder::draw()
     popModelView();
 }
 
-void tol::TolCoinHolder::instanceCoin(const ci::Vec2f& pos, const float& height, CoinType coin_type)
+void tol::TolCoinHolder::instanceCoin(const ci::Vec2f& pos, const float& height, int coin_amount_)
 {
     std::shared_ptr<TolCoin> coin = std::make_shared<TolCoin>();
     coin->transform.position = Vec3f(pos.x, height, pos.y);
-    coin->coin_type = coin_type;
+    coin->coin_amount = coin_amount_;
     coin->setup();
 
     coins.push_back(std::move(coin));
+}
+
+void tol::TolCoinHolder::reset()
+{
+    coins.clear();
 }
 
 void tol::TolCoinHolder::playerGetCoins()
@@ -42,6 +48,7 @@ void tol::TolCoinHolder::playerGetCoins()
         if ((*it)->isHitToCoin(player->transform.position))
         {
             SoundGet.find("Coin")->start();
+            TolData.coin += (*it)->coin_amount;
             it = coins.erase(it);
             continue;
         }

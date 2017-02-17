@@ -1,0 +1,46 @@
+// SoundèÓïÒ
+{
+  "BufferPlayer": {
+    "Tol": {
+      "Title": {
+      },
+
+      "GameMain": {
+        "Landing": {
+          "Key": "Landing",
+          "Path": "Sound/SE/landing.wav"
+        },
+        "Jump": {
+          "Key": "Jump",
+          "Path": "Sound/SE/jump.wav"
+        },
+        "Coin": {
+          "Key": "Coin",
+          "Path": "Sound/SE/coin.wav"
+        }
+      },
+
+      "Result": {
+      }
+    }
+  },
+
+  "FilePlayer": {
+    "Tol": {
+      "Title": {
+      },
+
+      "GameMain": {
+        "tower_bgm1": {
+          "Key": "tower_bgm1",
+          "Path": "Sound/BGM/Sunrise.mp3",
+          "Loop": true,
+          "Gain": 0.4
+        }
+      },
+
+      "Result": {
+      }
+    }
+  }
+}

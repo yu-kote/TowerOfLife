@@ -58,6 +58,8 @@ namespace tol
         // プレイヤーの状態を更新する関数
         void stateUpdate();
 
+        void gameover();
+
         // リセット関数
         void reset();
     private:
@@ -104,7 +106,8 @@ namespace tol
         ci::Ray rize_ray;                   // 天井にぶつけるためのレイ
         float rize_ray_intersection;        // 天井にぶつけるためのレイの交差地点
 
-        bool is_fall_dead;                       // 落下死したかどうか
+        bool is_fall_dead;                  // 落下死したかどうか
+        int is_dead_distance_judgment;    // どのぐらい離れたらアウトかの値
     };
 
 

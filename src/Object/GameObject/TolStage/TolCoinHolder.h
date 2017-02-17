@@ -20,7 +20,9 @@ namespace tol
         void setPlayer(std::shared_ptr<tol::Player> player_) { player = player_; }
 
 
-        void instanceCoin(const ci::Vec2f& pos, const float& height, CoinType coin_type);
+        void instanceCoin(const ci::Vec2f& pos, const float& height, int coin_amount_);
+
+        void reset();
 
     private:
         std::shared_ptr<tol::Player> player;

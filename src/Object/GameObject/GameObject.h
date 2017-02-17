@@ -50,7 +50,8 @@ namespace tol
         bool getActive() { return active_in_scene; }
         void setIsUpdateActive(const bool& value) { is_update_active = value; }
         bool getIsUpdateActive() { return is_update_active; }
-    private:
+        void setIsDrawActive(const bool& value) { is_draw_active = value; }
+        bool getIsDrawActive() { return is_draw_active; }
 
     public:
 
@@ -110,6 +111,7 @@ namespace tol
         std::unordered_map<std::string, std::shared_ptr<Component>> components;
         bool active_in_scene;
         bool is_update_active;
+        bool is_draw_active;
     };
 
 }

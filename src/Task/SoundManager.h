@@ -5,6 +5,8 @@
 #include "cinder/audio/GainNode.h"
 #include "cinder/audio/SamplePlayerNode.h"
 
+#include "jsoncpp/json/json.h"
+
 #include <unordered_map>
 
 #define SoundGet tol::SoundManager::get()
@@ -65,6 +67,14 @@ namespace tol
 
     class SoundManager
     {
+        // 少しずつ読み込むやつがfileplayer
+        // 一気に読み込むやつがbufferplayer
+        enum SoundType
+        {
+            FILE_PLAYER,
+            BUFFER_PLAYER
+        };
+
     public:
         static SoundManager& get()
         {
@@ -83,11 +93,13 @@ namespace tol
             //bufferPlayerLoad(ci::app::getAssetPath("SoundData/BufferPlayerResource.txt").string());
             //filePlayerLoad(ci::app::getAssetPath("SoundData/FilePlayerResource.txt").string());
 
-            registerBufferPlayerNode("Landing", "Sound/SE/landing.wav");
-            registerBufferPlayerNode("Coin", "Sound/SE/coin.wav");
-            registerBufferPlayerNode("Jump", "Sound/SE/jump.wav");
+            //registerBufferPlayerNode("Landing", "Sound/SE/landing.wav");
+            //registerBufferPlayerNode("Coin", "Sound/SE/coin.wav");
+            //registerBufferPlayerNode("Jump", "Sound/SE/jump.wav");
 
-            registerFilePlayerNode("tower_bgm1", "Sound/BGM/Sunrise.mp3");
+            //registerFilePlayerNode("tower_bgm1", "Sound/BGM/Sunrise.mp3");
+
+            soundLoadJson("GameData/Sound.json");
         }
 
         std::shared_ptr<Sound> find(const std::string& key_)
@@ -97,9 +109,18 @@ namespace tol
             return sound.find(key_)->second;
         }
 
+        void allStop()
+        {
+            for (auto& it : sound)
+            {
+                it.second->stop();
+            }
+        }
+
     private:
         void registerFilePlayerNode(std::string key_, std::string filepath_)
         {
+            if (sound.find(key_) != sound.end())return;
             ci::audio::SourceFileRef source = ci::audio::load(ci::app::loadAsset(filepath_));
 
             ci::audio::FilePlayerNodeRef fileplayer = ctx->makeNode(new ci::audio::FilePlayerNode());
@@ -110,6 +131,7 @@ namespace tol
 
         void registerBufferPlayerNode(std::string key_, std::string filepath_)
         {
+            if (sound.find(key_) != sound.end())return;
             ci::audio::SourceFileRef source = ci::audio::load(ci::app::loadAsset(filepath_));
 
             ci::audio::BufferPlayerNodeRef bufferplayer = ctx->makeNode(new ci::audio::BufferPlayerNode());
@@ -146,22 +168,86 @@ namespace tol
             }
         }
 
-        void allStop()
+        void soundLoadJson(std::string asset_filename)
         {
-            for (auto& it : sound)
+            if (reader.parse(
+                static_cast<const char*>(
+                    ci::app::loadAsset(asset_filename)->getBuffer().getData()),
+                default_value))
             {
-                it.second->stop();
+                /*auto filePlayer = default_value.get("FilePlayer", default_value);
+                for (auto const& game_name : filePlayer.getMemberNames())
+                {
+                    auto game_child = filePlayer.get(game_name, filePlayer);
+                    for (auto const& scene_name : game_child.getMemberNames())
+                    {
+                        auto scene_child = game_child.get(scene_name, game_child);
+                        for (auto const& sound_name : scene_child.getMemberNames())
+                        {
+                            auto sound_child = scene_child.get(sound_name, scene_child);
+                            for (auto const& key_name : sound_child.getMemberNames())
+                            {
+                                ci::app::console() << key_name << std::endl;
+                            }
+                        }
+                    }
+                }*/
+                findSoundInfoFromValue(default_value, "FilePlayer", SoundType::FILE_PLAYER);
+                findSoundInfoFromValue(default_value, "BufferPlayer", SoundType::BUFFER_PLAYER);
+            }
+            else
+            {
+                assert(!"Could not open json file");
+            }
+        }
+
+        // サウンドのファイル読む関数
+        void findSoundInfoFromValue(const Json::Value& value, const std::string& key, const SoundType& type)
+        {
+            auto child = value.get(key, value);
+
+            if (!(child.isNull() || child.isObject()))
+            {
+                std::string key;
+                std::string path;
+                float gain = 1.0f;
+                bool is_loop = false;
+                for (auto const& keys : value.getMemberNames())
+                {
+                    if (keys == "Key")
+                        key = value[keys].asString();
+                    if (keys == "Path")
+                        path = value[keys].asString();
+                    if (keys == "Loop")
+                        is_loop = value[keys].asBool();
+                    if (keys == "Gain")
+                        is_loop = value[keys].asFloat();
+                }
+                if (type == SoundType::FILE_PLAYER)
+                    registerFilePlayerNode(key, path);
+                if (type == SoundType::BUFFER_PLAYER)
+                    registerBufferPlayerNode(key, path);
+
+                sound[key]->setGain(gain);
+                sound[key]->setLoopEnabled(is_loop);
+            }
+            else
+            {
+                // 再帰してメンバーがいないところまでたどる
+                for (auto const& it : child.getMemberNames())
+                {
+                    findSoundInfoFromValue(child, it, type);
+                }
             }
         }
 
     private:
 
-        // 少しずつ読み込むやつがfileplayer
-        // 一気に読み込むやつがbufferplayer
-
         std::unordered_map<std::string, std::shared_ptr<Sound>> sound;
         ci::audio::Context* ctx;
 
+        Json::Value default_value;
+        Json::Reader reader;
     };
 
 

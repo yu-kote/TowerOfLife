@@ -111,7 +111,8 @@
     <ClCompile Include="..\src\Object\GameObject\GameObjectEntities.cpp" />
     <ClCompile Include="..\src\Object\GameObject\Light\Light.cpp" />
     <ClCompile Include="..\src\Object\GameObject\Player\Player.cpp" />
-    <ClCompile Include="..\src\Object\GameObject\Skydome\Skydome.cpp" />
+    <ClCompile Include="..\src\Object\GameObject\Skydome\Skydomes.cpp" />
+    <ClCompile Include="..\src\Object\GameObject\Skydome\SkydomeBase.cpp" />
     <ClCompile Include="..\src\Object\GameObject\TolStage\TolBlock.cpp" />
     <ClCompile Include="..\src\Object\GameObject\TolStage\TolBlockActionBase.cpp" />
     <ClCompile Include="..\src\Object\GameObject\TolStage\TolBlockActions.cpp" />
@@ -140,7 +141,8 @@
     <ClInclude Include="..\src\Object\GameObject\GameObjectEntities.h" />
     <ClInclude Include="..\src\Object\GameObject\Light\Light.h" />
     <ClInclude Include="..\src\Object\GameObject\Player\Player.h" />
-    <ClInclude Include="..\src\Object\GameObject\Skydome\Skydome.h" />
+    <ClInclude Include="..\src\Object\GameObject\Skydome\Skydomes.h" />
+    <ClInclude Include="..\src\Object\GameObject\Skydome\SkydomeBase.h" />
     <ClInclude Include="..\src\Object\GameObject\TolStage\TolBlock.h" />
     <ClInclude Include="..\src\Object\GameObject\TolStage\TolBlockActionBase.h" />
     <ClInclude Include="..\src\Object\GameObject\TolStage\TolBlockActions.h" />

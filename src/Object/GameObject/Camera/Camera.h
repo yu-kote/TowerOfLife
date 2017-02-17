@@ -27,9 +27,9 @@ namespace tol
     private:
         ci::CameraPersp camera;
 
-        ci::Vec3f center_of_interest_point;
-        ci::Vec3f objective_distance;
-        ci::Vec3f objective_distance_init_value;
+        ci::Vec3f center_of_interest_point;         // 見る先
+        ci::Vec3f objective_distance;               // ステージとの距離
+        ci::Vec3f objective_distance_init_value;    // ステージとの距離の初期値
 
         // 行き過ぎたら戻す値を返す
         ci::Vec3f restorePeak(ci::Vec3f check_value, ci::Vec3f restore_value);

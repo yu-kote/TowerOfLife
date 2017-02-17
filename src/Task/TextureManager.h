@@ -24,8 +24,8 @@ namespace tol
         {
             //loadTextTexture(ci::app::getAssetPath("TextureData/TextureData.txt").string());
             registerTexture("Player", "Obj/Character/chr_sword.png");
-            registerTexture("Skydome", "Texture/skydome1.jpg");
-
+            registerTexture("Skydome1", "Texture/skydome1.jpg");
+            registerTexture("Skydome2", "Texture/skydome2.jpg");
         }
 
         ci::gl::TextureRef find(const std::string& findname_)

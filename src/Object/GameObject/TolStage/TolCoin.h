@@ -11,13 +11,6 @@
 
 namespace tol
 {
-    enum CoinType
-    {
-        COIN_1,
-        COIN_2,
-        COIN_3,
-        COIN_5,
-    };
 
     class TolCoin : public GameObject
     {
@@ -33,7 +26,7 @@ namespace tol
 
         bool isHitToCoin(const ci::Vec3f& pos, float radius_ = 1);
 
-        CoinType coin_type;
+        int coin_amount;
 
     private:
 

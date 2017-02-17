@@ -38,6 +38,8 @@ namespace tol
         ci::Vec3f ease_eyepoint;
         ci::Vec3f ease_center;
 
+        void cameraDistanceToBlock();
+
     private: // コイン
 
         std::shared_ptr<tol::TolCoinHolder> coin_holder;
@@ -64,19 +66,19 @@ namespace tol
         float centerBetweenBlockHeight(const float& height);
 
 
-        int camera_height;          // カメラの高さ
-        int camera_up_time;         // カメラが上に上がる時間
-        int camera_up_remaining_time;
+        int camera_height;                  // カメラの高さ
+        int camera_up_time;                 // カメラが上に上がる時間
+        int camera_up_remaining_time;       // 上に上がるまでの残り時間
 
-        int current_top_height;     // 一番上のブロックの高さ
-        int height_interval;        // 一段ずつの間隔
-        int block_space;            // 隣のブロックとの間隔
+        int current_top_height;             // 一番上のブロックの高さ
+        int height_interval;                // 一段ずつの間隔
+        int block_space;                    // 隣のブロックとの間隔
 
 
-        int z_num;                  // ブロックの奥行きの数
-        int x_num;                  // ブロックの横の数
+        int z_num;                          // ブロックの奥行きの数
+        int x_num;                          // ブロックの横の数
 
-        std::vector<std::shared_ptr<TolBlock>> blocks;
+        std::deque<std::shared_ptr<TolBlock>> blocks;
 
     };
 }
