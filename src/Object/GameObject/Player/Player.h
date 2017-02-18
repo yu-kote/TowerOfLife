@@ -25,6 +25,8 @@ namespace tol
         ci::Ray getRizeRay() { return rize_ray; }
         void setRizeRayIntersecion(const float& t) { rize_ray_intersection = t; }
 
+        ci::Ray getCameraRay() { return camera_ray; }
+
         bool isDead() { return is_fall_dead; }
 
     private:
@@ -107,7 +109,9 @@ namespace tol
         float rize_ray_intersection;        // 天井にぶつけるためのレイの交差地点
 
         bool is_fall_dead;                  // 落下死したかどうか
-        int is_dead_distance_judgment;    // どのぐらい離れたらアウトかの値
+        int is_dead_distance_judgment;      // どのぐらい離れたらアウトかの値
+
+        ci::Ray camera_ray;
     };
 
 
@@ -133,6 +137,10 @@ namespace tol
 
             pos = player->getStandRay().getOrigin();
             ci::gl::drawVector(pos, pos + player->getStandRay().getDirection());
+
+            pos = player->getCameraRay().getOrigin();
+            ci::gl::drawVector(pos, pos + player->getCameraRay().getDirection());
+
         }
         void laterDraw()override
         {
@@ -140,10 +148,13 @@ namespace tol
         }
 
         void setPlayer(std::shared_ptr<tol::Player> player_) { player = player_; }
+        void setCamera(std::shared_ptr<tol::Camera> camera_) { camera = camera_; }
 
     private:
 
-        std::shared_ptr<Player> player;
+        std::shared_ptr<tol::Player> player;
+        std::shared_ptr<tol::Camera> camera;
+
 
         float hit_sphere_y;
 

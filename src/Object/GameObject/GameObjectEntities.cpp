@@ -105,12 +105,21 @@ void tol::GameObjectEntities::drawGameObject()
 void tol::GameObjectEntities::transDrawGameObject()
 {
     ci::gl::pushModelView();
+    ci::gl::enableAlphaBlending();
     for (const auto& it : gameobjects)
     {
         if (!it.second->getActive())continue;
         if (!it.second->getIsDrawActive())continue;
+        it.second->drawBegin();
+        it.second->pushModelView();
+
+        it.second->componentsDraw();
         it.second->transDraw();
+
+        it.second->popModelView();
+        it.second->drawEnd();
     }
+    ci::gl::disableAlphaBlending();
     ci::gl::popModelView();
 }
 

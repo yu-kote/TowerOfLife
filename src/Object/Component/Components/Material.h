@@ -24,6 +24,8 @@ namespace tol
             material = mt_;
         }
 
+        ci::gl::Material getMaterial() { return material; }
+
     private:
 
         ci::gl::Material material;

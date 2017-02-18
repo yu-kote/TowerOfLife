@@ -22,7 +22,6 @@ void tol::Camera::setup()
 
 void tol::Camera::update()
 {
-
     camera.lookAt(transform.position, center_of_interest_point);
     gl::pushMatrices();
     gl::setMatrices(camera);

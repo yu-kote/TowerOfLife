@@ -40,11 +40,7 @@ namespace tol
 
     private:
 
-
-
         GameLevel level;
-
-        bool test = true;
 
     };
 }

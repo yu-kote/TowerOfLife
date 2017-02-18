@@ -18,6 +18,7 @@ void tol::TolBlockHolder::setup()
 
     ease_eyepoint = Vec3f::zero();
     ease_center = Vec3f::zero();
+    ease_speed = 0.05f;
 
     camera_height = 0.0f;
     camera_up_time = 180;
@@ -31,10 +32,10 @@ void tol::TolBlockHolder::setup()
 
     addOneStepBlocks(addtypes);
 
-    for (int i = 0; i < 10; i++)
+    /*for (int i = 0; i < 10; i++)
     {
-        addOneStepBlocks(addtypes);
-    }
+       addOneStepBlocks(addtypes);
+    }*/
 }
 
 void tol::TolBlockHolder::update()
@@ -43,8 +44,13 @@ void tol::TolBlockHolder::update()
     decideLookAtCamera();
     playerSetStandRay();
     cameraDistanceToBlock();
+    transBlock();
+
     for (auto & it : blocks)
         (*it).update();
+
+    if (player->isDead())
+        reset();
 }
 
 void tol::TolBlockHolder::draw()
@@ -53,6 +59,16 @@ void tol::TolBlockHolder::draw()
 
     for (auto & it : blocks)
         (*it).draw();
+
+    popModelView();
+}
+
+void tol::TolBlockHolder::transDraw()
+{
+    pushModelView();
+
+    for (auto & it : blocks)
+        (*it).transDraw();
 
     popModelView();
 }
@@ -127,7 +143,7 @@ void tol::TolBlockHolder::decideLookAtCamera()
                          center_num.y * block_space);
 
     // イージングさせる
-    float ease_speed = 0.05f;
+
     ease_eyepoint += (eyepoint - ease_eyepoint) * ease_speed;
     ease_center += (center - ease_center) * ease_speed;
 
@@ -165,6 +181,9 @@ void tol::TolBlockHolder::addOneStepBlocks(const std::vector<TolBlockActionType>
 
         switch (addblocktypes[i])
         {
+        case TolBlockActionType::NONE:
+            block->setBlockAction<NoneBlock>();
+            break;
         case TolBlockActionType::NORMAL:
             block->setBlockAction<NormalBlock>();
             break;
@@ -203,14 +222,56 @@ void tol::TolBlockHolder::addBlocks()
 {
     if (player->transform.position.y > current_top_height - height_interval * 1)
     {
-        std::vector<TolBlockActionType> addtypes;
-        for (int i = 0; i < z_num * x_num; i++)
+        if (json_reader.parse(
+            static_cast<const char*>(
+                ci::app::loadAsset("GameData/TolStage.json")->getBuffer().getData()),
+            json_default_value))
         {
-            addtypes.push_back(TolBlockActionType::NORMAL);
+            auto block_types = json_default_value["block_types"];
+            auto step1 = block_types["step1"];
+
+            RandomInt rand(0, step1.getMemberNames().size());
+            int pattern_num = rand();
+
+            int count = -1;
+            for (auto const& pattern : step1.getMemberNames())
+            {
+                count++;
+                if (pattern_num != count)
+                    continue;
+                for (int i = 0; i < step1[pattern].size(); i++)
+                {
+                    std::vector<TolBlockActionType> addtypes;
+                    for (int z = 0; z < z_num; z++)
+                    {
+                        auto x_array = step1[pattern][i]["z" + std::to_string(z)];
+                        for (int x = 0; x < x_num; x++)
+                        {
+                            addtypes.push_back(static_cast<TolBlockActionType>(x_array[x].asInt()));
+                        }
+                    }
+                    addOneStepBlocks(addtypes);
+                    addtypes.clear();
+                }
+                return;
+            }
         }
-        for (int i = 0; i < 5; i++)
+    }
+}
+
+void tol::TolBlockHolder::transBlock()
+{
+    for (int i = 0; i < blocks.size(); i++)
+    {
+        float intersection = blocks[i]->calcMeshIntersection(player->getCameraRay());
+        if (intersection != std::numeric_limits<float>().max())
         {
-            addOneStepBlocks(addtypes);
+            if (intersection > 0.0f)
+                blocks[i]->setTransparentize(true);
+        }
+        else
+        {
+            blocks[i]->setTransparentize(false);
         }
     }
 }
@@ -248,12 +309,10 @@ ci::Vec2f tol::TolBlockHolder::twoDimensionalArrayCenterPoint(const int&  size_x
     return ci::Vec2f(center_x, center_y);
 }
 
-
-
 float tol::TolBlockHolder::centerBetweenBlockHeight(const float & height)
 {
     float block_height_convert = height / height_interval;
     int block_step_num = (int)block_height_convert;
-    // ブロックの段数 * ブロックの間隔 + ブロックの真ん中
+    // ブロックの段数 * ブロックの間隔 + ブロックの縦の間隔の半分
     return block_step_num * height_interval + (height_interval / 2);
 }

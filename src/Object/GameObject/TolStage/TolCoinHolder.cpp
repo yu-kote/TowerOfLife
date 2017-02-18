@@ -16,6 +16,9 @@ void tol::TolCoinHolder::update()
     playerGetCoins();
     for (auto& it : coins)
         (*it).update();
+
+    if (player->isDead())
+        reset();
 }
 
 void tol::TolCoinHolder::draw()

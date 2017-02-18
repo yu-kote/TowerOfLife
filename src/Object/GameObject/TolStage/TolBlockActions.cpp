@@ -5,6 +5,16 @@ using namespace ci;
 using namespace ci::app;
 
 
+tol::NoneBlock::NoneBlock(TolBlock * block_) :
+    TolBlockActionBase(block_)
+{
+    block->setActive(false);
+}
+
+void tol::NoneBlock::update()
+{
+}
+
 tol::NormalBlock::NormalBlock(TolBlock * block_) :
     TolBlockActionBase(block_)
 {

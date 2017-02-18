@@ -41,6 +41,8 @@ void tol::GameObject::componentsUpdate()
 
 void tol::GameObject::drawBegin()
 {
+    if (!active_in_scene)return;
+    if (!is_draw_active)return;
     for (auto it : components)
     {
         it.second->drawBegin();
@@ -49,6 +51,8 @@ void tol::GameObject::drawBegin()
 
 void tol::GameObject::drawEnd()
 {
+    if (!active_in_scene)return;
+    if (!is_draw_active)return;
     for (auto it : components)
     {
         it.second->drawEnd();
@@ -57,6 +61,8 @@ void tol::GameObject::drawEnd()
 
 void tol::GameObject::componentsDraw()
 {
+    if (!active_in_scene)return;
+    if (!is_draw_active)return;
     for (auto it : components)
     {
         it.second->draw();

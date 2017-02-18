@@ -8,7 +8,8 @@
       "GameMain": {
         "Landing": {
           "Key": "Landing",
-          "Path": "Sound/SE/landing.wav"
+          "Path": "Sound/SE/landing.wav",
+          "Gain": 0.2
         },
         "Jump": {
           "Key": "Jump",
@@ -33,7 +34,7 @@
       "GameMain": {
         "tower_bgm1": {
           "Key": "tower_bgm1",
-          "Path": "Sound/BGM/Sunrise.mp3",
+          "Path": "Sound/BGM/Sunrise.wav",
           "Loop": true,
           "Gain": 0.4
         }

@@ -19,6 +19,8 @@ void tol::Player::setup()
     transform.scale = Vec3f(1, 1, 1);
 
     Params->addParam("player_pos", &transform.position);
+    //Params->addParam("camera_ray", &camera_ray.getDirection());
+
     gl::Material m = gl::Material(ci::ColorA(1.0f, 1.0f, 1.0f, 1.0f),      // Ambient
                                   ci::ColorA(1.0f, 1.0f, 1.0f, 1.0f),      // Diffuse
                                   ci::ColorA(1.0f, 1.0f, 1.0f, 1.0f),      // Specular
@@ -46,7 +48,6 @@ void tol::Player::setup()
     is_fall_dead = false;
     is_dead_distance_judgment = 50;
 
-    SoundGet.find("Landing")->setGain(0.2f);
 }
 
 void tol::Player::update()
@@ -71,6 +72,10 @@ void tol::Player::update()
         float angle_difference = angleDifference(camera->transform.angle.y, transform.angle.y);
         angle_difference *= env.getPadAxis("Vertical_Left");
         transform.angle.y = angle_difference;
+
+
+        camera_ray.setOrigin(transform.position);
+        camera_ray.setDirection(camera->getCamera().getEyePoint() - transform.position);
     }
 
     stateUpdate();

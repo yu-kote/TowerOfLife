@@ -6,8 +6,19 @@ namespace tol
 {
     enum TolBlockActionType
     {
+        NONE,
         NORMAL,
         ROUNDTRIP,
+    };
+    class NoneBlock : public TolBlockActionBase
+    {
+    public:
+        NoneBlock(TolBlock* block_);
+
+        void update()override;
+
+    private:
+
     };
 
     class NormalBlock : public TolBlockActionBase

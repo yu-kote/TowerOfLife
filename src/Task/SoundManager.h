@@ -58,6 +58,10 @@ namespace tol
         {
             player_node->setLoopEnabled(is_loop_);
         }
+        bool isLoopEnabled()
+        {
+            return player_node->isLoopEnabled();
+        }
 
         void setGain(float value_)
         {
@@ -221,7 +225,7 @@ namespace tol
                     if (keys == "Loop")
                         is_loop = value[keys].asBool();
                     if (keys == "Gain")
-                        is_loop = value[keys].asFloat();
+                        gain = value[keys].asFloat();
                 }
                 if (type == SoundType::FILE_PLAYER)
                     registerFilePlayerNode(key, path);

@@ -21,8 +21,8 @@ void GameMain::setup()
     entities.instantiate<tol::EarthSkydome>();
     entities.instantiate<tol::UniverseSkydome>();
     entities.instantiate<tol::Player>();
-    entities.instantiate<tol::TolStage>();
     entities.instantiate<tol::TestDraw>();
+    entities.instantiate<tol::TolStage>();
 
 
     // インスタンスをもらってポインタを渡すところ
@@ -32,6 +32,7 @@ void GameMain::setup()
     entities.getInstance<tol::TolStage>()->setPlayer(entities.getInstance<tol::Player>());
     entities.getInstance<tol::TolStage>()->setCamera(entities.getInstance<tol::Camera>());
     entities.getInstance<tol::TestDraw>()->setPlayer(entities.getInstance<tol::Player>());
+    entities.getInstance<tol::TestDraw>()->setCamera(entities.getInstance<tol::Camera>());
 
     entities.setupGameObject();
 
@@ -46,6 +47,7 @@ void GameMain::update()
 void GameMain::draw()
 {
     entities.drawGameObject();
+    entities.transDrawGameObject();
     entities.laterDrawGameObject();
 }
 

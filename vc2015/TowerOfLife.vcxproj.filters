@@ -97,6 +97,9 @@
     <Filter Include="Source Files\Object\GameObject\SkyDome\Skydomes">
       <UniqueIdentifier>{f3195193-1ca6-495d-8cd7-7626c5d60768}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Source Files\Object\UI">
+      <UniqueIdentifier>{1819257c-668e-42b5-af9d-fed335ee5fec}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\src\TowerOfLife.cpp">

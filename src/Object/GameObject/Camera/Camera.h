@@ -16,13 +16,17 @@ namespace tol
         void draw()override;
         void laterDraw()override;
 
-        void setCenterOfInretestPoint(const ci::Vec3f & point) { center_of_interest_point = point; }
+        void setCenterOfInterestPoint(const ci::Vec3f & point) { center_of_interest_point = point; }
+        ci::Vec3f getCenterOfInterestPoint() { return center_of_interest_point; }
+
         void setEyePoint(const ci::Vec3f & point) { transform.position = point; }
         void lookAt(const ci::Vec3f & eyepoint, const ci::Vec3f & target)
         {
             transform.position = eyepoint;
             center_of_interest_point = target;
         }
+
+        ci::CameraPersp getCamera() { return camera; }
 
     private:
         ci::CameraPersp camera;

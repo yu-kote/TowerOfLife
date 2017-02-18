@@ -1,4 +1,5 @@
 #pragma once
+#include "jsoncpp/json/json.h"
 #include "../GameObject.h"
 #include "TolBlock.h"
 #include "TolBlockActions.h"
@@ -11,12 +12,12 @@ namespace tol
     class TolBlockHolder : public GameObject
     {
     public:
-
         TolBlockHolder() {}
 
         void setup()override;
         void update()override;
         void draw()override;
+        void transDraw()override;
 
         void setCamera(std::shared_ptr<tol::Camera> camera_) { camera = camera_; }
         void setPlayer(std::shared_ptr<tol::Player> player_) { player = player_; }
@@ -27,17 +28,24 @@ namespace tol
     private: // プレイヤー
 
         std::shared_ptr<tol::Player> player;
+        // レイのあたり判定するところ
         void playerSetStandRay();
         // レイをもらって一番近いところに当たっている交差点を返す
         float hitValueNearInZero(const ci::Ray& ray);
 
     private: // カメラ
 
+        // カメラの位置と見る先を決める関数
         void decideLookAtCamera();
         std::shared_ptr<tol::Camera> camera;
-        ci::Vec3f ease_eyepoint;
-        ci::Vec3f ease_center;
+        ci::Vec3f ease_eyepoint;            // イージングするカメラの位置
+        ci::Vec3f ease_center;              // イージングするカメラの見る先
+        float ease_speed;                   // イージングの速さ
+        int camera_height;                  // カメラの高さ
+        int camera_up_time;                 // カメラが上に上がる時間
+        int camera_up_remaining_time;       // 上に上がるまでの残り時間
 
+        // カメラとブロックの距離をみてブロックを消去する関数
         void cameraDistanceToBlock();
 
     private: // コイン
@@ -48,8 +56,14 @@ namespace tol
 
         // 一番上に一段追加する
         void addOneStepBlocks(const std::vector<TolBlockActionType>& addblocktypes);
-
+        // json読み込みしてブロックを追加する関数
         void addBlocks();
+
+        // プレイヤーとブロックがかぶったらブロックを透明化する関数
+        void transBlock();
+
+        Json::Value json_default_value;
+        Json::Reader json_reader;
 
     private:
 
@@ -64,11 +78,6 @@ namespace tol
         float convertBlockHeight(const float& height);
         // 高さをもらって、その高さにあるブロックとブロックの間の高さを返す
         float centerBetweenBlockHeight(const float& height);
-
-
-        int camera_height;                  // カメラの高さ
-        int camera_up_time;                 // カメラが上に上がる時間
-        int camera_up_remaining_time;       // 上に上がるまでの残り時間
 
         int current_top_height;             // 一番上のブロックの高さ
         int height_interval;                // 一段ずつの間隔
