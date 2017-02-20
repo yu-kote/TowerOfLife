@@ -56,13 +56,13 @@ public:
 
 void TowerOfLife::setup()
 {
-    camera_o = CameraOrtho(0,
-                           getWindowSize().x,
-                           getWindowSize().y,
-                           0,
+    camera_o = CameraOrtho(0.0f,
+                           (float)getWindowSize().x,
+                           (float)getWindowSize().y,
+                           0.0f,
                            0.0f,
                            10.0f);
-    pos = Vec3f(getWindowSize().x - 10, getWindowSize().y - 10, 0);
+    pos = Vec3f((float)getWindowSize().x - 10.0f, (float)getWindowSize().y - 10.0f, 0.0f);
 
     font = Font("Hiragino Maru Gothic ProN W4", 60.0f);
     fpos = Vec2f(1380, 820);
@@ -115,7 +115,7 @@ void TowerOfLife::update()
     gamemain.shift();
 
     // タイマーの更新
-    time.update(getElapsedSeconds());
+    time.update((float)getElapsedSeconds());
     // イージングの更新
     Easing.update();
 }
@@ -127,9 +127,6 @@ void TowerOfLife::draw()
     gamemain.draw();
 
 
-
-
-    // お試しイージング
     gl::pushMatrices();
     gl::setMatrices(camera_o);
 

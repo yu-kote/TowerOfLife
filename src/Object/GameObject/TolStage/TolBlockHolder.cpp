@@ -32,10 +32,6 @@ void tol::TolBlockHolder::setup()
 
     addOneStepBlocks(addtypes);
 
-    /*for (int i = 0; i < 10; i++)
-    {
-       addOneStepBlocks(addtypes);
-    }*/
 }
 
 void tol::TolBlockHolder::update()
@@ -115,12 +111,12 @@ void tol::TolBlockHolder::decideLookAtCamera()
         if (camera_up_remaining_time-- < 0)
         {
             camera_up_remaining_time = camera_up_time;
-
             camera_height += height_interval;
         }
         else
         {
-            if (camera_height < player->transform.position.y - height_interval)
+            if (camera_height < player->transform.position.y - height_interval &&
+                player->isStand())
             {
                 camera_up_remaining_time = camera_up_time;
                 camera_height += height_interval;
@@ -143,7 +139,6 @@ void tol::TolBlockHolder::decideLookAtCamera()
                          center_num.y * block_space);
 
     // イージングさせる
-
     ease_eyepoint += (eyepoint - ease_eyepoint) * ease_speed;
     ease_center += (center - ease_center) * ease_speed;
 
@@ -192,6 +187,8 @@ void tol::TolBlockHolder::addOneStepBlocks(const std::vector<TolBlockActionType>
             break;
         }
 
+        block->setBlockNum(i);
+
         block->setup();
         blocks.push_back(std::move(block));
         {// 二次配列の計算
@@ -204,6 +201,7 @@ void tol::TolBlockHolder::addOneStepBlocks(const std::vector<TolBlockActionType>
             x = x % x_num;
         }
     }
+
     current_top_height += height_interval;
 
     {
@@ -267,12 +265,20 @@ void tol::TolBlockHolder::transBlock()
         if (intersection != std::numeric_limits<float>().max())
         {
             if (intersection > 0.0f)
+            {
                 blocks[i]->setTransparentize(true);
+                continue;
+            }
         }
         else
-        {
             blocks[i]->setTransparentize(false);
-        }
+
+        if (blocks[i]->transform.position.y >= camera_height + height_interval)
+            blocks[i]->setTransparentize(false);
+        if (blocks[i]->transform.position.y >= camera_height + height_interval * 2)
+            blocks[i]->setTransparentize(true);
+        else if (blocks[i]->transform.position.y <= camera_height)
+            blocks[i]->setTransparentize(true);
     }
 }
 
@@ -309,7 +315,7 @@ ci::Vec2f tol::TolBlockHolder::twoDimensionalArrayCenterPoint(const int&  size_x
     return ci::Vec2f(center_x, center_y);
 }
 
-float tol::TolBlockHolder::centerBetweenBlockHeight(const float & height)
+float tol::TolBlockHolder::centerBetweenBlockHeight(const int & height)
 {
     float block_height_convert = height / height_interval;
     int block_step_num = (int)block_height_convert;

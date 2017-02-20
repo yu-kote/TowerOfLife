@@ -50,17 +50,18 @@ namespace tol
         template<typename T>
         std::shared_ptr<T> getInstance()
         {
-            int script_size = sizeof(T);
             std::string classname = createClassName<T>();
             if (gameobjects.find(classname) == gameobjects.end())
                 assert(!"GameObject Not Finded");
 
-            /*if (script_size > 128)
+            /*int script_size = sizeof(T);
+            if (script_size > 128)
             {
                 return std::dynamic_pointer_cast<T>(gameobjects.find(classname)->second);
             }
             else
             {
+                return std::static_pointer_cast<T>(gameobjects.find(classname)->second);
             }*/
             return std::static_pointer_cast<T>(gameobjects.find(classname)->second);
         }

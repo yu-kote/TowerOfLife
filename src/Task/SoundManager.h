@@ -191,11 +191,14 @@ namespace tol
                             auto sound_child = scene_child.get(sound_name, scene_child);
                             for (auto const& key_name : sound_child.getMemberNames())
                             {
+                                // Ç±Ç±Ç…ì«Çﬁèàóù
                                 ci::app::console() << key_name << std::endl;
                             }
                         }
                     }
                 }*/
+
+                // Å™ÇÃíZèkî≈
                 findSoundInfoFromValue(default_value, "FilePlayer", SoundType::FILE_PLAYER);
                 findSoundInfoFromValue(default_value, "BufferPlayer", SoundType::BUFFER_PLAYER);
             }

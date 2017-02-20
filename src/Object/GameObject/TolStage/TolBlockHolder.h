@@ -71,23 +71,22 @@ namespace tol
         bool isBlockOutOfRange(const int& num);
         // 配列番号が超えたら一番大きい値を返す
         int adjusMinMaxNum(const int& num, const int& max_value);
-
         // サイズもらって真ん中の値を返す
         ci::Vec2f twoDimensionalArrayCenterPoint(const int&  size_x, const int& size_y);
-        // 高さをもらって、その高さの一段上のブロックの位置を返す
-        float convertBlockHeight(const float& height);
+
         // 高さをもらって、その高さにあるブロックとブロックの間の高さを返す
-        float centerBetweenBlockHeight(const float& height);
+        float centerBetweenBlockHeight(const int& height);
 
         int current_top_height;             // 一番上のブロックの高さ
         int height_interval;                // 一段ずつの間隔
         int block_space;                    // 隣のブロックとの間隔
 
-
         int z_num;                          // ブロックの奥行きの数
         int x_num;                          // ブロックの横の数
 
         std::deque<std::shared_ptr<TolBlock>> blocks;
+
+    private:
 
     };
 }

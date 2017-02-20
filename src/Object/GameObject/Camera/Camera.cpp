@@ -1,6 +1,8 @@
 #include "Camera.h"
 #include "../../../Utility/Interface/Interface.h"
 #include "../../../Utility/Input/InputEvent.h"
+#include "../../../Utility/Resize/Resize.h"
+
 using namespace ci;
 using namespace ci::app;
 
@@ -22,6 +24,11 @@ void tol::Camera::setup()
 
 void tol::Camera::update()
 {
+    WindowResize.setPerspCameraResize = [&]()
+    {
+        camera.setAspectRatio(getWindowAspectRatio());
+    };
+
     camera.lookAt(transform.position, center_of_interest_point);
     gl::pushMatrices();
     gl::setMatrices(camera);

@@ -32,15 +32,19 @@ namespace tol
         float calcMeshIntersection(ci::Ray ray);
         void setTransparentize(bool value) { is_transparentize = value; };
 
+        void setBlockNum(const int& num) { block_num = num; }
+
     private:
 
         // 透明にする関数
-        void transparentize();
+        void transparentize(ci::gl::Material& material);
         // constrainのカラーバージョン
         ci::ColorA constrainColorA(const ci::ColorA& value, const ci::ColorA& min, const ci::ColorA& max);
 
         bool is_transparentize;
         float trans_speed;
+
+        int block_num;
 
         std::shared_ptr<TolBlockActionBase> action;
 
@@ -52,6 +56,11 @@ namespace tol
         ci::gl::Material trans_material;
 
         std::shared_ptr<tol::Material> material;
+
+        ci::gl::Material material_z0;
+        ci::gl::Material material_z1;
+        ci::gl::Material material_z2;
+
 
     };
 }

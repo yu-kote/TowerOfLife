@@ -10,6 +10,14 @@ namespace tol
     class Player : public GameObject
     {
     public:
+        // プレイヤーの状態
+        enum State
+        {
+            STAND,
+            MOVING,
+            RIZING,
+            FALL,
+        };
 
         void setup()override;
         void update()override;
@@ -28,6 +36,10 @@ namespace tol
         ci::Ray getCameraRay() { return camera_ray; }
 
         bool isDead() { return is_fall_dead; }
+
+        bool isStand() { return (state == State::STAND || state == State::MOVING); }
+
+
 
     private:
         std::shared_ptr<tol::Camera> camera;
@@ -68,14 +80,6 @@ namespace tol
 
         ci::TriMesh* mesh;
 
-        // プレイヤーの状態
-        enum State
-        {
-            STAND,
-            MOVING,
-            RIZING,
-            FALL,
-        };
 
         State state;                        // プレイヤーの状態
         State current_state;                // 今のプレイヤーの状態を保存

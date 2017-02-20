@@ -100,6 +100,15 @@
     <Filter Include="Source Files\Object\UI">
       <UniqueIdentifier>{1819257c-668e-42b5-af9d-fed335ee5fec}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Source Files\Object\UI\Button">
+      <UniqueIdentifier>{91c23c1e-de37-4bb5-a49e-427a55a191fb}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Object\UI\TolUI">
+      <UniqueIdentifier>{a6382342-9de1-40f8-9de7-5c1d690410c6}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Object\UI\Font">
+      <UniqueIdentifier>{bb2a276d-55e9-42ad-8998-54de6de22cb5}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\src\TowerOfLife.cpp">
@@ -176,6 +185,9 @@
     </ClCompile>
     <ClCompile Include="..\src\Object\GameObject\Skydome\SkydomeBase.cpp">
       <Filter>Source Files\Object\GameObject\SkyDome</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\Object\UI\UIBase.cpp">
+      <Filter>Source Files\Object\UI</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -292,6 +304,12 @@
     </ClInclude>
     <ClInclude Include="..\src\Object\GameObject\Skydome\Skydomes.h">
       <Filter>Source Files\Object\GameObject\SkyDome\Skydomes</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\Object\UI\UIBase.h">
+      <Filter>Source Files\Object\UI</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\Object\UI\Button\ButtonBase.h">
+      <Filter>Source Files\Object\UI\Button</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

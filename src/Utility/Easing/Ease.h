@@ -23,9 +23,9 @@ public:
     {
         begin_ = begin;
         end_ = end;
-        end_frame_ = end_frame;
+        end_frame_ = static_cast<float>(end_frame);
         easefunc_ = getEaseFunc(type);
-        count_ = 0;
+        count_ = 0.0f;
     }
 
     void update()
@@ -107,7 +107,7 @@ public:
         }
     }
 
-    void add(float& target, float end, float end_frame, EaseType ease_type)
+    void add(float& target, float end, int end_frame, EaseType ease_type)
     {
         target_ = &target;
         ease_accum.push_back(EaseOrigin(target, end, end_frame, ease_type));
@@ -148,11 +148,11 @@ public:
     }
 
 
-    void add(float& target, float end, float end_frame, EaseType ease_type)
+    void add(float& target, float end, int end_frame, EaseType ease_type)
     {
         ease[&target].add(target, end, end_frame, ease_type);
     }
-    void add(ci::Vec3f & target, ci::Vec3f end, float end_frame, EaseType ease_type)
+    void add(ci::Vec3f & target, ci::Vec3f end, int end_frame, EaseType ease_type)
     {
         ease[&target.x].add(target.x, end.x, end_frame, ease_type);
         ease[&target.y].add(target.y, end.y, end_frame, ease_type);

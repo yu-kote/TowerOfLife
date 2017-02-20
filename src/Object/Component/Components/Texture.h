@@ -24,6 +24,11 @@ namespace tol
             texture->disable();
         }
 
+        ci::gl::TextureRef getTexture()&
+        {
+            return texture;
+        }
+
     private:
         ci::gl::TextureRef texture;
     };

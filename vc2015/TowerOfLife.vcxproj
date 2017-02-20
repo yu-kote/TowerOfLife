@@ -120,6 +120,7 @@
     <ClCompile Include="..\src\Object\GameObject\TolStage\TolCoin.cpp" />
     <ClCompile Include="..\src\Object\GameObject\TolStage\TolCoinHolder.cpp" />
     <ClCompile Include="..\src\Object\GameObject\TolStage\TolStage.cpp" />
+    <ClCompile Include="..\src\Object\UI\UIBase.cpp" />
     <ClCompile Include="..\src\Scene\Category\GameMain.cpp" />
     <ClCompile Include="..\src\TowerOfLife.cpp" />
     <ClCompile Include="..\src\Utility\Easing\Ease.cpp" />
@@ -151,6 +152,8 @@
     <ClInclude Include="..\src\Object\GameObject\TolStage\TolCoinHolder.h" />
     <ClInclude Include="..\src\Object\GameObject\TolStage\TolStage.h" />
     <ClInclude Include="..\src\Object\Object.h" />
+    <ClInclude Include="..\src\Object\UI\Button\ButtonBase.h" />
+    <ClInclude Include="..\src\Object\UI\UIBase.h" />
     <ClInclude Include="..\src\Scene\Category\GameMain.h" />
     <ClInclude Include="..\src\Scene\Manager\SceneBase.h" />
     <ClInclude Include="..\src\Task\ObjDataManager.h" />

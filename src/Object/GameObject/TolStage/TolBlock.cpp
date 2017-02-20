@@ -11,21 +11,38 @@ void tol::TolBlock::setup()
                                     ci::ColorA(1.0f, 1.0f, 1.0f, 1.0f),
                                     ci::ColorA(1.0f, 1.0f, 1.0f, 1.0f),
                                     80.0f,
-                                    ci::ColorA(0.2f, 0.2f, 0.2f));
-    trans_material = gl::Material(ci::ColorA(0.4f, 0.4f, 0.4f, 0.4f),
-                                  ci::ColorA(0.4f, 0.4f, 0.4f, 0.4f),
-                                  ci::ColorA(0.4f, 0.4f, 0.4f, 0.4f),
+                                    ci::ColorA(1.2f, 1.2f, 1.2f));
+
+    trans_material = gl::Material(ci::ColorA(0.6f, 0.6f, 0.6f, 0.6f),
+                                  ci::ColorA(0.6f, 0.6f, 0.6f, 0.6f),
+                                  ci::ColorA(0.6f, 0.6f, 0.6f, 0.6f),
                                   80.0f,
                                   ci::ColorA(0.0f, 0.0f, 0.0f));
 
-    addComponent<tol::Material>(tol::Material(default_material));
+    material_z0 = gl::Material(ci::ColorA(1.0f, 1.0f, 1.0f, 1.0f),
+                               ci::ColorA(1.0f, 1.0f, 1.0f, 1.0f),
+                               ci::ColorA(1.0f, 1.0f, 1.0f, 1.0f),
+                               80.0f,
+                               ci::ColorA(0.3f, 0.0f, 0.0f));
 
+    material_z1 = gl::Material(ci::ColorA(1.0f, 1.0f, 1.0f, 1.0f),
+                               ci::ColorA(1.0f, 1.0f, 1.0f, 1.0f),
+                               ci::ColorA(1.0f, 1.0f, 1.0f, 1.0f),
+                               80.0f,
+                               ci::ColorA(0.3f, 0.3f, 0.0f));
+
+    material_z2 = gl::Material(ci::ColorA(1.0f, 1.0f, 1.0f, 1.0f),
+                               ci::ColorA(1.0f, 1.0f, 1.0f, 1.0f),
+                               ci::ColorA(1.0f, 1.0f, 1.0f, 1.0f),
+                               80.0f,
+                               ci::ColorA(0.0f, 0.0f, 0.3f));
+
+    addComponent<tol::Material>(tol::Material(default_material));
     material = getComponent<tol::Material>();
 
     trans_speed = 0.03f;
     is_transparentize = false;
     mesh = &ObjDataGet.find("Block");
-    transform.scale = Vec3f(10, 0.5f, 10);
 }
 
 void tol::TolBlock::update()
@@ -33,7 +50,11 @@ void tol::TolBlock::update()
     if (!getActive())return;
     action->update();
 
-    transparentize();
+    transparentize(material_z0);
+    transparentize(material_z1);
+    transparentize(material_z2);
+    transparentize(material->getMaterial());
+
 }
 
 void tol::TolBlock::draw()
@@ -45,16 +66,31 @@ void tol::TolBlock::draw()
 void tol::TolBlock::transDraw()
 {
     if (!getActive())return;
+    ci::gl::enableAlphaBlending();
 
+
+    transform.scale = Vec3f(8, 0.55f, 8);
     drawBegin();
     pushModelView();
     componentsDraw();
 
-    ci::gl::enableAlphaBlending();
     gl::draw(*mesh);
-    ci::gl::disableAlphaBlending();
+
     popModelView();
     drawEnd();
+
+    transform.scale = Vec3f(10, 0.5f, 10);
+    pushModelView();
+    if (block_num >= 0)
+        material_z0.apply();
+    if (block_num >= 3)
+        material_z1.apply();
+    if (block_num >= 6)
+        material_z2.apply();
+    gl::draw(*mesh);
+    popModelView();
+
+    ci::gl::disableAlphaBlending();
 }
 
 float tol::TolBlock::calcMeshIntersection(ci::Ray ray)
@@ -95,71 +131,69 @@ float tol::TolBlock::calcMeshIntersection(ci::Ray ray)
     return intersection;
 }
 
-void tol::TolBlock::transparentize()
+void tol::TolBlock::transparentize(ci::gl::Material& material)
 {
     if (is_transparentize)
     {
-        gl::Material m = material->getMaterial();
-        m.setAmbient(ColorA(m.getAmbient().r,
-                            m.getAmbient().g,
-                            m.getAmbient().b,
-                            constrain(m.getAmbient().a - trans_speed,
-                                      trans_material.getAmbient().a,
-                                      1.0f)));
-
-        m.setDiffuse(ColorA(m.getDiffuse().r,
-                            m.getDiffuse().g,
-                            m.getDiffuse().b,
-                            constrain(m.getDiffuse().a - trans_speed,
-                                      trans_material.getDiffuse().a,
-                                      1.0f)));
-
-        m.setSpecular(ColorA(m.getSpecular().r,
-                             m.getSpecular().g,
-                             m.getSpecular().b,
-                             constrain(m.getSpecular().a - trans_speed,
-                                       trans_material.getSpecular().a,
+        gl::Material* m = &material;
+        m->setAmbient(ColorA(m->getAmbient().r,
+                             m->getAmbient().g,
+                             m->getAmbient().b,
+                             constrain(m->getAmbient().a - trans_speed,
+                                       trans_material.getAmbient().a,
                                        1.0f)));
 
-        m.setEmission(ColorA(m.getEmission().r,
-                             m.getEmission().g,
-                             m.getEmission().b,
-                             constrain(m.getEmission().a - trans_speed,
-                                       trans_material.getEmission().a,
+        m->setDiffuse(ColorA(m->getDiffuse().r,
+                             m->getDiffuse().g,
+                             m->getDiffuse().b,
+                             constrain(m->getDiffuse().a - trans_speed,
+                                       trans_material.getDiffuse().a,
                                        1.0f)));
-        material->setMaterial(m);
+
+        m->setSpecular(ColorA(m->getSpecular().r,
+                              m->getSpecular().g,
+                              m->getSpecular().b,
+                              constrain(m->getSpecular().a - trans_speed,
+                                        trans_material.getSpecular().a,
+                                        1.0f)));
+
+        m->setEmission(ColorA(m->getEmission().r,
+                              m->getEmission().g,
+                              m->getEmission().b,
+                              constrain(m->getEmission().a - trans_speed,
+                                        trans_material.getEmission().a,
+                                        1.0f)));
     }
     else
     {
-        gl::Material m = material->getMaterial();
-        m.setAmbient(ColorA(m.getAmbient().r,
-                            m.getAmbient().g,
-                            m.getAmbient().b,
-                            constrain(m.getAmbient().a + trans_speed,
-                                      trans_material.getAmbient().a,
-                                      1.0f)));
-
-        m.setDiffuse(ColorA(m.getDiffuse().r,
-                            m.getDiffuse().g,
-                            m.getDiffuse().b,
-                            constrain(m.getDiffuse().a + trans_speed,
-                                      trans_material.getDiffuse().a,
-                                      1.0f)));
-
-        m.setSpecular(ColorA(m.getSpecular().r,
-                             m.getSpecular().g,
-                             m.getSpecular().b,
-                             constrain(m.getSpecular().a + trans_speed,
-                                       trans_material.getSpecular().a,
+        gl::Material* m = &material;
+        m->setAmbient(ColorA(m->getAmbient().r,
+                             m->getAmbient().g,
+                             m->getAmbient().b,
+                             constrain(m->getAmbient().a + trans_speed,
+                                       trans_material.getAmbient().a,
                                        1.0f)));
 
-        m.setEmission(ColorA(m.getEmission().r,
-                             m.getEmission().g,
-                             m.getEmission().b,
-                             constrain(m.getEmission().a + trans_speed,
-                                       trans_material.getEmission().a,
+        m->setDiffuse(ColorA(m->getDiffuse().r,
+                             m->getDiffuse().g,
+                             m->getDiffuse().b,
+                             constrain(m->getDiffuse().a + trans_speed,
+                                       trans_material.getDiffuse().a,
                                        1.0f)));
-        material->setMaterial(m);
+
+        m->setSpecular(ColorA(m->getSpecular().r,
+                              m->getSpecular().g,
+                              m->getSpecular().b,
+                              constrain(m->getSpecular().a + trans_speed,
+                                        trans_material.getSpecular().a,
+                                        1.0f)));
+
+        m->setEmission(ColorA(m->getEmission().r,
+                              m->getEmission().g,
+                              m->getEmission().b,
+                              constrain(m->getEmission().a + trans_speed,
+                                        trans_material.getEmission().a,
+                                        1.0f)));
     }
 }
 

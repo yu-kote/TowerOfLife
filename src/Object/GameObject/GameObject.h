@@ -25,12 +25,13 @@ namespace tol
         virtual void laterDraw() {};
         virtual void transLaterDraw() {};
 
-        void componentsUpdate();
 
         // コンポーネントの描画初めの処理
         void drawBegin();
         // コンポーネントの描画終わりの処理
         void drawEnd();
+
+        void componentsUpdate();
         void componentsDraw();
         void componentsDestroy();
 
@@ -43,7 +44,7 @@ namespace tol
 
     public:
         /* 位置や回転などの情報や、
-           行列計算関数などがある*/
+           行列計算関数などがある */
         Transform transform;
 
         void setActive(const bool& value) { active_in_scene = value; }
@@ -79,11 +80,11 @@ namespace tol
         template<typename T>
         std::shared_ptr<T> getComponent()
         {
-            int script_size = sizeof(T);
             std::string componentname = createComponentName<T>();
             if (components.find(componentname) == components.end())
                 assert(!"Component Not Finded");
             /*
+            int script_size = sizeof(T);
             if (script_size > 128)
             {
                 return std::dynamic_pointer_cast<T>(components.find(componentname)->second);
