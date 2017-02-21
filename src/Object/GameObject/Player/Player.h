@@ -120,7 +120,7 @@ namespace tol
 
 
 
-    class TestDraw : public GameObject
+    class DebugDraw : public GameObject
     {
     public:
 
@@ -137,7 +137,7 @@ namespace tol
         {
             ci::Vec3f pos = player->getStandRay().calcPosition(player->getStandRayIntersection());
             ci::gl::drawSphere(pos, 0.3f);
-            ci::gl::drawSphere(player->getStandRay().calcPosition(hit_sphere_y), 0.3);
+            ci::gl::drawSphere(player->getStandRay().calcPosition(hit_sphere_y), 0.3f);
 
             pos = player->getStandRay().getOrigin();
             ci::gl::drawVector(pos, pos + player->getStandRay().getDirection());

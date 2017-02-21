@@ -26,6 +26,8 @@ namespace tol
             registerTexture("Player", "Obj/Character/chr_sword.png");
             registerTexture("Skydome1", "Texture/skydome1.jpg");
             registerTexture("Skydome2", "Texture/skydome2.jpg");
+            registerTexture("Sample", "Texture/Item.png");
+            registerTexture("SamplePush", "Texture/Itempush.png");
         }
 
         ci::gl::TextureRef find(const std::string& findname_)

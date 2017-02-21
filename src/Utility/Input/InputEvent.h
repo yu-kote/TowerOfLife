@@ -23,10 +23,40 @@ static bool verbose = true;
 
 #define POLL_ITERATION_INTERVAL 30
 
+#define env InputEvent::get()
+
 class InputEvent : private boost::noncopyable
 {
-private:
     InputEvent();
+public:
+    static InputEvent& get();
+
+    // if(env.isPush(KeyEvent::KEY_1)
+
+    bool isPush(const int& num);
+    bool isPress(const int& num);
+    bool isPull(const int& num);
+
+    void mouseMove(ci::app::MouseEvent event);
+    void mouseDrag(ci::app::MouseEvent event);
+    void mouseDown(ci::app::MouseEvent event);
+    void mouseUp(ci::app::MouseEvent event);
+
+    void keyDown(ci::app::KeyEvent event);
+    void keyUp(ci::app::KeyEvent event);
+
+    void flushInput();
+    void end();
+
+    ci::Vec2f mousePosition() { return mouse_position; }
+
+
+private:
+
+    void setPush(const int& num);
+    void setPress(const int& num);
+    void setPull(const int& num);
+    void erasePress(const int& num);
 
     std::set<int> push;
     std::set<int> press;
@@ -34,27 +64,7 @@ private:
     bool mouse_left_press;
     bool mouse_right_press;
 
-    void setPush(const int& num);
-    void setPress(const int& num);
-    void setPull(const int& num);
-    void erasePress(const int& num);
-
-public:
-
-    static InputEvent& get();
-
-    // if(env.isPush(KeyEvent::KEY_1)
-    bool isPush(const int& num);
-    bool isPress(const int& num);
-    bool isPull(const int& num);
-
-    void mouseDown(ci::app::MouseEvent event);
-    void mouseUp(ci::app::MouseEvent event);
-    void keyDown(ci::app::KeyEvent event);
-    void keyUp(ci::app::KeyEvent event);
-
-    void flushInput();
-    void end();
+    ci::Vec2f mouse_position;
 
 private:
 
@@ -139,4 +149,3 @@ void onDeviceAttached(struct Gamepad_device * device, void * context);
 void onDeviceRemoved(struct Gamepad_device * device, void * context);
 
 
-#define env InputEvent::get()

@@ -120,7 +120,11 @@
     <ClCompile Include="..\src\Object\GameObject\TolStage\TolCoin.cpp" />
     <ClCompile Include="..\src\Object\GameObject\TolStage\TolCoinHolder.cpp" />
     <ClCompile Include="..\src\Object\GameObject\TolStage\TolStage.cpp" />
+    <ClCompile Include="..\src\Object\UI\Button\ButtonBase.cpp" />
+    <ClCompile Include="..\src\Object\UI\TolUI\Gacha\GachaButton.cpp" />
+    <ClCompile Include="..\src\Object\UI\TolUI\Gacha\GachaHolder.cpp" />
     <ClCompile Include="..\src\Object\UI\UIBase.cpp" />
+    <ClCompile Include="..\src\Object\UI\UICamera\UICamera.cpp" />
     <ClCompile Include="..\src\Scene\Category\GameMain.cpp" />
     <ClCompile Include="..\src\TowerOfLife.cpp" />
     <ClCompile Include="..\src\Utility\Easing\Ease.cpp" />
@@ -153,7 +157,10 @@
     <ClInclude Include="..\src\Object\GameObject\TolStage\TolStage.h" />
     <ClInclude Include="..\src\Object\Object.h" />
     <ClInclude Include="..\src\Object\UI\Button\ButtonBase.h" />
+    <ClInclude Include="..\src\Object\UI\TolUI\Gacha\GachaButton.h" />
+    <ClInclude Include="..\src\Object\UI\TolUI\Gacha\GachaHolder.h" />
     <ClInclude Include="..\src\Object\UI\UIBase.h" />
+    <ClInclude Include="..\src\Object\UI\UICamera\UICamera.h" />
     <ClInclude Include="..\src\Scene\Category\GameMain.h" />
     <ClInclude Include="..\src\Scene\Manager\SceneBase.h" />
     <ClInclude Include="..\src\Task\ObjDataManager.h" />

@@ -14,29 +14,6 @@ InputEvent::InputEvent()
     padAxisSetup();
 }
 
-
-void InputEvent::setPush(const int& num)
-{
-    if (press.find(num) == press.end())
-        push.emplace(num);
-}
-
-void InputEvent::setPress(const int& num)
-{
-    press.emplace(num);
-}
-
-void InputEvent::setPull(const int& num)
-{
-    pull.emplace(num);
-}
-
-void InputEvent::erasePress(const int& num)
-{
-    if (press.find(num) != press.end())
-        press.erase(press.find(num));
-}
-
 bool InputEvent::isPush(const int& num)
 {
     if (push.find(num) == push.end())
@@ -58,6 +35,15 @@ bool InputEvent::isPull(const int& num)
         return false;
     pull.erase(pull.find(num));
     return true;
+}
+
+void InputEvent::mouseMove(ci::app::MouseEvent event)
+{
+    mouse_position = event.getPos();
+}
+
+void InputEvent::mouseDrag(ci::app::MouseEvent event)
+{
 }
 
 void InputEvent::mouseDown(MouseEvent event)
@@ -109,6 +95,29 @@ void InputEvent::keyUp(KeyEvent event)
     setPull(event.getCode());
     erasePress(event.getCode());
 }
+
+void InputEvent::setPush(const int& num)
+{
+    if (press.find(num) == press.end())
+        push.emplace(num);
+}
+
+void InputEvent::setPress(const int& num)
+{
+    press.emplace(num);
+}
+
+void InputEvent::setPull(const int& num)
+{
+    pull.emplace(num);
+}
+
+void InputEvent::erasePress(const int& num)
+{
+    if (press.find(num) != press.end())
+        press.erase(press.find(num));
+}
+
 
 void InputEvent::axisSetup()
 {

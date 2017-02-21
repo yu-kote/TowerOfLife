@@ -25,3 +25,4 @@ bool rectToRect(const ci::Rectf& rect1,
                 const ci::Rectf& rect2);
 
 
+bool pointToQuadrangle(const ci::Vec2f& point, const std::vector<ci::Vec2f>& vertex);

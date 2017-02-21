@@ -23,14 +23,16 @@ using namespace ci::app;
 class TowerOfLife : public AppNative
 {
 public:
-    void setup();
-    void update();
-    void draw();
+    void setup()    override;
+    void update()   override;
+    void draw()     override;
 
-    void keyDown(KeyEvent event) override;
-    void keyUp(KeyEvent event) override;
+    void mouseMove(MouseEvent event) override;
+    void mouseDrag(MouseEvent event) override;
     void mouseDown(MouseEvent event) override;
-    void mouseUp(MouseEvent event) override;
+    void mouseUp(MouseEvent event)   override;
+    void keyDown(KeyEvent event)     override;
+    void keyUp(KeyEvent event)       override;
 
     void resize()override;
     void prepareSettings(Settings *settings)override;
@@ -57,7 +59,7 @@ public:
 void TowerOfLife::setup()
 {
     camera_o = CameraOrtho(0.0f,
-                           (float)getWindowSize().x,
+        (float)getWindowSize().x,
                            (float)getWindowSize().y,
                            0.0f,
                            0.0f,
@@ -126,7 +128,6 @@ void TowerOfLife::draw()
 
     gamemain.draw();
 
-
     gl::pushMatrices();
     gl::setMatrices(camera_o);
 
@@ -145,8 +146,6 @@ void TowerOfLife::draw()
     }
     gl::popMatrices();
 
-
-
     // Param‚ÌXV
     Params->draw();
 }
@@ -159,6 +158,16 @@ void TowerOfLife::keyDown(KeyEvent event)
 void TowerOfLife::keyUp(KeyEvent event)
 {
     env.keyUp(event);
+}
+
+void TowerOfLife::mouseMove(MouseEvent event)
+{
+    env.mouseMove(event);
+}
+
+void TowerOfLife::mouseDrag(MouseEvent event)
+{
+    env.mouseDrag(event);
 }
 
 void TowerOfLife::mouseDown(MouseEvent event)

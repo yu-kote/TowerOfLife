@@ -13,4 +13,5 @@ public:
 
 protected:
     tol::GameObjectEntities entities;
+    tol::GameObjectEntities ui_entities;
 };

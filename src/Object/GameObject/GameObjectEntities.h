@@ -11,8 +11,11 @@ namespace tol
         ~GameObjectEntities();
 
         void setupGameObject();
+
         void updateGameObject();
         void laterUpdateGameObject();
+
+        void awakeDrawGameObject();
         void drawGameObject();
         void transDrawGameObject();
         void laterDrawGameObject();
@@ -45,8 +48,9 @@ namespace tol
             gameobjects.insert(std::make_pair(classname, std::make_shared<T>(ptr)));
         }
 
-
         // GameObjectを継承したクラスの情報を知りたいとき
+        // static_pointer_cast<> shared_ptrのキャスト
+        // 参考 https://cpprefjp.github.io/reference/memory/shared_ptr/static_pointer_cast.html
         template<typename T>
         std::shared_ptr<T> getInstance()
         {

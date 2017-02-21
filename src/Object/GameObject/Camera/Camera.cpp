@@ -30,8 +30,7 @@ void tol::Camera::update()
     };
 
     camera.lookAt(transform.position, center_of_interest_point);
-    gl::pushMatrices();
-    gl::setMatrices(camera);
+
 }
 
 // デバッグ用にカメラを近づけたり引いたりできるようにした
@@ -67,9 +66,10 @@ void tol::Camera::laterUpdate()
     transform.position += objective_distance;
 }
 
-void tol::Camera::draw()
+void tol::Camera::awakeDraw()
 {
-
+    gl::pushMatrices();
+    gl::setMatrices(camera);
 }
 
 void tol::Camera::laterDraw()

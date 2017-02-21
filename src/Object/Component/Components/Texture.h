@@ -24,7 +24,7 @@ namespace tol
             texture->disable();
         }
 
-        ci::gl::TextureRef getTexture()&
+        ci::gl::TextureRef& getTexture()
         {
             return texture;
         }

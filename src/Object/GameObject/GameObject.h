@@ -17,13 +17,16 @@ namespace tol
         GameObject();
         GameObject(const std::string& name_);
 
-        virtual void setup() {};
-        virtual void update() {};
-        virtual void laterUpdate() {};
-        virtual void draw() {};
-        virtual void transDraw() {};
-        virtual void laterDraw() {};
-        virtual void transLaterDraw() {};
+        virtual void setup() {}
+
+        virtual void update() {}
+        virtual void laterUpdate() {}
+
+        virtual void awakeDraw() {}
+        virtual void draw() {}
+        virtual void transDraw() {}
+        virtual void laterDraw() {}
+        virtual void transLaterDraw() {}
 
 
         // コンポーネントの描画初めの処理

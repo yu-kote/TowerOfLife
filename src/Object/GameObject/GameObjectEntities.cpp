@@ -10,49 +10,6 @@ tol::GameObjectEntities::~GameObjectEntities()
     //allDestroy();
 }
 
-void tol::GameObjectEntities::componentsUpdate()
-{
-    for (const auto& it : gameobjects)
-    {
-        if (!it.second->getActive())continue;
-        it.second->componentsUpdate();
-    }
-}
-
-void tol::GameObjectEntities::drawBegin()
-{
-    for (const auto& it : gameobjects)
-    {
-        it.second->drawBegin();
-    }
-}
-
-void tol::GameObjectEntities::drawEnd()
-{
-    for (const auto& it : gameobjects)
-    {
-        it.second->drawEnd();
-    }
-}
-
-void tol::GameObjectEntities::componentsDraw()
-{
-    for (const auto& it : gameobjects)
-    {
-        if (!it.second->getActive())continue;
-        it.second->componentsDraw();
-    }
-}
-
-void tol::GameObjectEntities::componentsDestory()
-{
-    for (const auto& it : gameobjects)
-    {
-        it.second->componentsDestroy();
-    }
-}
-
-
 void tol::GameObjectEntities::setupGameObject()
 {
     for (const auto& it : gameobjects)
@@ -79,6 +36,15 @@ void tol::GameObjectEntities::laterUpdateGameObject()
     {
         if (!it.second->getActive())continue;
         it.second->laterUpdate();
+    }
+}
+
+void tol::GameObjectEntities::awakeDrawGameObject()
+{
+    for (const auto& it : gameobjects)
+    {
+        if (!it.second->getActive())continue;
+        it.second->awakeDraw();
     }
 }
 
@@ -155,4 +121,46 @@ void tol::GameObjectEntities::allDestroy()
         it.second->componentsDestroy();
     }
     gameobjects.clear();
+}
+
+void tol::GameObjectEntities::componentsUpdate()
+{
+    for (const auto& it : gameobjects)
+    {
+        if (!it.second->getActive())continue;
+        it.second->componentsUpdate();
+    }
+}
+
+void tol::GameObjectEntities::drawBegin()
+{
+    for (const auto& it : gameobjects)
+    {
+        it.second->drawBegin();
+    }
+}
+
+void tol::GameObjectEntities::drawEnd()
+{
+    for (const auto& it : gameobjects)
+    {
+        it.second->drawEnd();
+    }
+}
+
+void tol::GameObjectEntities::componentsDraw()
+{
+    for (const auto& it : gameobjects)
+    {
+        if (!it.second->getActive())continue;
+        it.second->componentsDraw();
+    }
+}
+
+void tol::GameObjectEntities::componentsDestory()
+{
+    for (const auto& it : gameobjects)
+    {
+        it.second->componentsDestroy();
+    }
 }

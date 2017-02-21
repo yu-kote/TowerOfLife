@@ -220,9 +220,9 @@ ci::Vec2f tol::Player::getLeftAxisVec()
     auto axis_angle = atan2(y_axis, x_axis);
     axis_angle = toDegrees(axis_angle);
 
-    auto vx = cos(axis_angle * M_PI / 180) * abs(x_axis);
-    auto vy = sin(axis_angle * M_PI / 180)* abs(y_axis);
-
+    float vx = cosf(axis_angle * M_PI / 180.0f) * abs(x_axis);
+    float vy = sinf(axis_angle * M_PI / 180.0f)* abs(y_axis);
+     
     return ci::Vec2f(vx, vy);
 }
 
@@ -263,13 +263,13 @@ float tol::Player::angleDifference(const float & angle1, const float & angle2)
     float angle_difference = angle1 - angle2;
     if (angle_difference < -M_PI)
     {
-        angle_difference = 2 * M_PI + angle_difference;
+        angle_difference = 2.0f * M_PI + angle_difference;
     }
     else if (angle_difference > M_PI)
     {
-        angle_difference = 2 * -M_PI + angle_difference;
+        angle_difference = 2.0f * -M_PI + angle_difference;
     }
-    angle_difference = std::fmod(angle_difference, 2 * M_PI);
+    angle_difference = std::fmodf(angle_difference, 2.0f * M_PI);
     return angle_difference;
 }
 

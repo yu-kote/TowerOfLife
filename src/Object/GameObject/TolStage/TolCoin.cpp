@@ -25,7 +25,7 @@ void tol::TolCoin::setup()
 void tol::TolCoin::update()
 {
     transform.angle.y += rotate_speed;
-    transform.angle.y = std::fmod(transform.angle.y, 360);
+    transform.angle.y = std::fmod(transform.angle.y, 360.0f);
 }
 
 void tol::TolCoin::draw()

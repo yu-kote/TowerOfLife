@@ -109,6 +109,12 @@
     <Filter Include="Source Files\Object\UI\Font">
       <UniqueIdentifier>{bb2a276d-55e9-42ad-8998-54de6de22cb5}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Source Files\Object\UI\TolUI\Gacha">
+      <UniqueIdentifier>{6a85b802-23db-4da7-ad38-64a022d69283}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Object\UI\TolUI\UICamera">
+      <UniqueIdentifier>{ea2738f5-3ace-46ba-b579-98a57401c4df}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\src\TowerOfLife.cpp">
@@ -188,6 +194,18 @@
     </ClCompile>
     <ClCompile Include="..\src\Object\UI\UIBase.cpp">
       <Filter>Source Files\Object\UI</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\Object\UI\TolUI\Gacha\GachaHolder.cpp">
+      <Filter>Source Files\Object\UI\TolUI\Gacha</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\Object\UI\TolUI\Gacha\GachaButton.cpp">
+      <Filter>Source Files\Object\UI\TolUI\Gacha</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\Object\UI\Button\ButtonBase.cpp">
+      <Filter>Source Files\Object\UI\Button</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\Object\UI\UICamera\UICamera.cpp">
+      <Filter>Source Files\Object\UI\TolUI\UICamera</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -310,6 +328,15 @@
     </ClInclude>
     <ClInclude Include="..\src\Object\UI\Button\ButtonBase.h">
       <Filter>Source Files\Object\UI\Button</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\Object\UI\TolUI\Gacha\GachaHolder.h">
+      <Filter>Source Files\Object\UI\TolUI\Gacha</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\Object\UI\TolUI\Gacha\GachaButton.h">
+      <Filter>Source Files\Object\UI\TolUI\Gacha</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\Object\UI\UICamera\UICamera.h">
+      <Filter>Source Files\Object\UI\TolUI\UICamera</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

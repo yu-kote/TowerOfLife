@@ -1,11 +1,11 @@
 #pragma once
-#include "../../GameObject/GameObject.h"
 #include "cinder/Camera.h"
+#include "../../GameObject/GameObject.h"
 
 
 namespace tol
 {
-    class Camera : public GameObject
+    class Camera : public tol::GameObject
     {
     public:
         Camera();
@@ -13,7 +13,8 @@ namespace tol
         void setup()override;
         void update()override;
         void laterUpdate()override;
-        void draw()override;
+
+        void awakeDraw()override;
         void laterDraw()override;
 
         void setCenterOfInterestPoint(const ci::Vec3f & point) { center_of_interest_point = point; }
