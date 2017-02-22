@@ -13,12 +13,12 @@ tol::GachaButton::GachaButton()
 
 void tol::GachaButton::setup()
 {
-    Vec2f pos = Vec2f(500,500);
-    points.push_back(Vec2f(0.0f, 0.0f) + pos);
-    points.push_back(Vec2f(100.0f, 0.0f) + pos);
-    points.push_back(Vec2f(50.0f, 50.0f) + pos);
-    points.push_back(Vec2f(50.0f, 100.0f) + pos);
-    points.push_back(Vec2f(0.0f, 100.0f) + pos);
+    transform.position = Vec3f(500, 500, 0.0f);
+    points.push_back(Vec2f(0.0f, 0.0f));
+    points.push_back(Vec2f(100.0f, 0.0f));
+    points.push_back(Vec2f(150.0f, 50.0f));
+    points.push_back(Vec2f(50.0f, 100.0f));
+    points.push_back(Vec2f(0.0f, 100.0f));
 
     addComponent<tol::Color>(tol::Color(1.0f, 1.0f, 1.0f));
     color = getComponent<tol::Color>();
@@ -26,8 +26,7 @@ void tol::GachaButton::setup()
 
 void tol::GachaButton::update()
 {
-    //if (pointToRect(env.mousePosition(), Rectf(points)))
-    if (pointToQuadrangle(env.mousePosition(), points))
+    if (pointToQuadrangle(mouse_position, points))
         is_select = true;
     else
         is_select = false;
@@ -46,7 +45,6 @@ void tol::GachaButton::update()
             //setTexture(TextureGet.find("Sample"));
         }
     }
-    transform.position = Vec3f(1, 1, 0);
 }
 
 void tol::GachaButton::draw()

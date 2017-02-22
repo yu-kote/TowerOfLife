@@ -4,7 +4,6 @@
 using namespace ci;
 using namespace ci::app;
 
-
 void tol::TolBlockHolder::setup()
 {
     blocks.clear();
@@ -37,15 +36,16 @@ void tol::TolBlockHolder::setup()
 void tol::TolBlockHolder::update()
 {
     addBlocks();
+    easeCamera();
     decideLookAtCamera();
     playerSetStandRay();
-    cameraDistanceToBlock();
+    cameraDistanceToBlockErase();
     transBlock();
 
     for (auto & it : blocks)
         (*it).update();
 
-    if (player->isDead())
+    if (player->isRestart())
         reset();
 }
 
@@ -107,6 +107,12 @@ float tol::TolBlockHolder::hitValueNearInZero(const ci::Ray & ray)
 
 void tol::TolBlockHolder::decideLookAtCamera()
 {
+    camera->lookAt(ease_eyepoint, ease_center);
+}
+
+void tol::TolBlockHolder::easeCamera()
+{
+    if (player->isNotOperation())return;
     { // カメラを自動的に上に上げる処理
         if (camera_up_remaining_time-- < 0)
         {
@@ -123,6 +129,7 @@ void tol::TolBlockHolder::decideLookAtCamera()
             }
         }
     }
+
     // カメラを真ん中に合わせる
     Vec2f center_num = twoDimensionalArrayCenterPoint(x_num, z_num);
 
@@ -142,14 +149,13 @@ void tol::TolBlockHolder::decideLookAtCamera()
     ease_eyepoint += (eyepoint - ease_eyepoint) * ease_speed;
     ease_center += (center - ease_center) * ease_speed;
 
-    camera->lookAt(ease_eyepoint, ease_center);
 }
 
-void tol::TolBlockHolder::cameraDistanceToBlock()
+void tol::TolBlockHolder::cameraDistanceToBlockErase()
 {
     for (auto& it : blocks)
     {
-        if (camera->transform.position.y - 100 > it->transform.position.y)
+        if (camera->transform.position.y - 60 > it->transform.position.y)
         {
             for (int i = 0; i < z_num * x_num; i++)
             {

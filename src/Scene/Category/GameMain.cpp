@@ -35,6 +35,7 @@ void GameMain::setup()
 
 
     // インスタンスをもらってポインタを渡すところ
+    // 3D Objcts
     entities.getInstance<tol::EarthSkydome>()->setTerget(entities.getInstance<tol::Camera>());
     entities.getInstance<tol::UniverseSkydome>()->setTerget(entities.getInstance<tol::Camera>());
     entities.getInstance<tol::Player>()->setCamera(entities.getInstance<tol::Camera>());
@@ -43,33 +44,24 @@ void GameMain::setup()
     entities.getInstance<tol::DebugDraw>()->setPlayer(entities.getInstance<tol::Player>());
     entities.getInstance<tol::DebugDraw>()->setCamera(entities.getInstance<tol::Camera>());
 
+    // UI
+    ui_entities.getInstance<tol::GachaHolder>()->setPlayer(entities.getInstance<tol::Player>());
 
 
-    entities.setupGameObject();
-    ui_entities.setupGameObject();
+    entities.setup();
+    ui_entities.setup();
 }
 
 void GameMain::update()
 {
-    entities.updateGameObject();
-    ui_entities.updateGameObject();
-    entities.laterUpdateGameObject();
-    ui_entities.laterUpdateGameObject();
+    entities.update();
+    ui_entities.update();
 }
 
 void GameMain::draw()
 {
-    entities.awakeDrawGameObject();
-    entities.drawGameObject();
-    entities.transDrawGameObject();
-    entities.laterDrawGameObject();
-    entities.transLaterDrawGameObject();
-
-    ui_entities.awakeDrawGameObject();
-    ui_entities.drawGameObject();
-    ui_entities.transDrawGameObject();
-    ui_entities.laterDrawGameObject();
-    ui_entities.transLaterDrawGameObject();
+    entities.draw();
+    ui_entities.draw();
 }
 
 void GameMain::shift()

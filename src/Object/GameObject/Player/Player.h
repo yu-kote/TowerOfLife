@@ -35,11 +35,10 @@ namespace tol
 
         ci::Ray getCameraRay() { return camera_ray; }
 
-        bool isDead() { return is_fall_dead; }
+        bool isNotOperation() { return not_operation; }
+        bool isRestart() { return is_restart; }
 
         bool isStand() { return (state == State::STAND || state == State::MOVING); }
-
-
 
     private:
         std::shared_ptr<tol::Camera> camera;
@@ -68,22 +67,20 @@ namespace tol
         void stand();
         // 頭をぶつける
         void hitTheHead();
-
         // プレイヤーの状態を更新する関数
         void stateUpdate();
 
+        // ゲームオーバー管理
         void gameover();
 
         // リセット関数
         void reset();
     private:
 
-        ci::TriMesh* mesh;
-
+        ci::TriMesh* mesh;                  // メッシュ
 
         State state;                        // プレイヤーの状態
         State current_state;                // 今のプレイヤーの状態を保存
-
 
         ci::Vec3f velocity;                 // ベクトル
         ci::Quatf current_quat;             // 今のクォータニオン
@@ -93,10 +90,8 @@ namespace tol
         bool is_max_speed;                  // 加速が終わっているかどうか
         float air_move_speed;               // 空中にいるときの移動速度
 
-
         float gravity;                      // 重力
         float fall_speed_max;               // 落下する最大速度
-
 
         float jump_power;                   // ジャンプ力
         ci::Vec3f jump_moment_vec;          // ジャンプする瞬間の移動ベクトル
@@ -105,17 +100,19 @@ namespace tol
         bool is_jump_key_press;             // ジャンプキーを押しているかどうか
         bool can_jump;                      // ジャンプできるかどうか
 
-
         ci::Ray stand_ray;                  // 地面に立つためのレイ
         float stand_ray_intersection;       // 地面に立つためのレイの交差地点
 
         ci::Ray rize_ray;                   // 天井にぶつけるためのレイ
         float rize_ray_intersection;        // 天井にぶつけるためのレイの交差地点
 
-        bool is_fall_dead;                  // 落下死したかどうか
+        bool is_restart;                    // リスタートするかどうか
+        bool not_operation;                 // 操作してはいけないかどうか
         int is_dead_distance_judgment;      // どのぐらい離れたらアウトかの値
 
-        ci::Ray camera_ray;
+        ci::Ray camera_ray;                 // プレイヤーからカメラへのレイ
+
+
     };
 
 

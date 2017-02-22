@@ -17,15 +17,17 @@ void tol::TolCoinHolder::update()
     for (auto& it : coins)
         (*it).update();
 
-    if (player->isDead())
+    if (player->isRestart())
         reset();
 }
 
 void tol::TolCoinHolder::draw()
 {
     pushModelView();
+
     for (auto& it : coins)
         (*it).draw();
+
     popModelView();
 }
 

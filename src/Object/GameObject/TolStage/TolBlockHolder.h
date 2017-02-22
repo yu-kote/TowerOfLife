@@ -37,6 +37,9 @@ namespace tol
 
         // カメラの位置と見る先を決める関数
         void decideLookAtCamera();
+        // カメラをイージングする
+        void easeCamera();
+
         std::shared_ptr<tol::Camera> camera;
         ci::Vec3f ease_eyepoint;            // イージングするカメラの位置
         ci::Vec3f ease_center;              // イージングするカメラの見る先
@@ -46,7 +49,7 @@ namespace tol
         int camera_up_remaining_time;       // 上に上がるまでの残り時間
 
         // カメラとブロックの距離をみてブロックを消去する関数
-        void cameraDistanceToBlock();
+        void cameraDistanceToBlockErase();
 
     private: // コイン
 

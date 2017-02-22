@@ -10,12 +10,53 @@ tol::GameObjectEntities::~GameObjectEntities()
     //allDestroy();
 }
 
+void tol::GameObjectEntities::setup()
+{
+    awakeGameObject();
+    setupGameObject();
+}
+
+void tol::GameObjectEntities::update()
+{
+    awakeUpdateGameObject();
+    updateGameObject();
+    laterUpdateGameObject();
+}
+
+void tol::GameObjectEntities::draw()
+{
+    awakeDrawGameObject();
+    drawGameObject();
+    transDrawGameObject();
+    laterDrawGameObject();
+    transLaterDrawGameObject();
+}
+
+void tol::GameObjectEntities::awakeGameObject()
+{
+    for (const auto& it : gameobjects)
+    {
+        if (!it.second->getActive())continue;
+        it.second->awake();
+    }
+}
+
 void tol::GameObjectEntities::setupGameObject()
 {
     for (const auto& it : gameobjects)
     {
         if (!it.second->getActive())continue;
         it.second->setup();
+    }
+}
+
+void tol::GameObjectEntities::awakeUpdateGameObject()
+{
+    for (const auto& it : gameobjects)
+    {
+        if (!it.second->getActive())continue;
+        if (!it.second->getIsUpdateActive())continue;
+        it.second->awakeUpdate();
     }
 }
 

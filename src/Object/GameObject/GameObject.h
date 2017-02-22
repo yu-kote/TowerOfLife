@@ -17,8 +17,10 @@ namespace tol
         GameObject();
         GameObject(const std::string& name_);
 
+        virtual void awake() {}
         virtual void setup() {}
 
+        virtual void awakeUpdate() {}
         virtual void update() {}
         virtual void laterUpdate() {}
 

@@ -10,8 +10,16 @@ namespace tol
         GameObjectEntities();
         ~GameObjectEntities();
 
+        void setup();
+        void update();
+        void draw();
+
+    public:
+
+        void awakeGameObject();
         void setupGameObject();
 
+        void awakeUpdateGameObject();
         void updateGameObject();
         void laterUpdateGameObject();
 
@@ -22,6 +30,7 @@ namespace tol
         void transLaterDrawGameObject();
 
         void allDestroy();
+
     private:
 
         void componentsUpdate();

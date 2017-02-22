@@ -19,7 +19,6 @@ void tol::Camera::setup()
     center_of_interest_point = Vec3d::zero();
     camera.lookAt(transform.position, center_of_interest_point);
     camera.setPerspective(60.0f, getWindowAspectRatio(), 1.0f, 2000.0f);
-
 }
 
 void tol::Camera::update()
@@ -48,7 +47,6 @@ void tol::Camera::laterUpdate()
         Vec3f leave_value = init_value_normalize;
         vec += leave_value;
     }
-
     if (env.isPress(KeyEvent::KEY_UP))
     {
         float up_vec = init_value_normalize.y;

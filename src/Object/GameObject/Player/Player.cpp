@@ -27,7 +27,7 @@ void tol::Player::setup()
                                   80.0f,
                                   ci::ColorA(0.2f, 0.5f, 1.0f));
     addComponent<tol::Material>(tol::Material(m));
-    // addComponent<tol::Texture>(tol::Texture("Player"));
+    //addComponent<tol::Texture>(tol::Texture("Player"));
 
     state = State::STAND;
 
@@ -44,10 +44,9 @@ void tol::Player::setup()
     jump_duration = 10;
     jump_time = 0;
 
-
-    is_fall_dead = false;
+    is_restart = false;
+    not_operation = false;
     is_dead_distance_judgment = 50;
-
 }
 
 void tol::Player::update()
@@ -56,13 +55,15 @@ void tol::Player::update()
     axisMove();
 
     // ベクトルから向きを求める
-    //vecRotate();
+    vecRotate();
 
-
+    // レイの更新
     rayUpdate();
+
     // 処理順注意(vecを足してから消す)
     useGravity();
     stand();
+
     // 処理順注意
     jump();
     hitTheHead();
@@ -78,11 +79,14 @@ void tol::Player::update()
         camera_ray.setDirection(camera->getCamera().getEyePoint() - transform.position);
     }
 
+    // 状態の更新
     stateUpdate();
 
+    // ゲームオーバー
     gameover();
+
     if (env.isPush(KeyEvent::KEY_RETURN))
-        reset();
+        is_restart = true;
 }
 
 void tol::Player::draw()
@@ -92,7 +96,7 @@ void tol::Player::draw()
 
     gl::translate(0, -transform.scale.y, 0);
     gl::scale(0.4f, 0.4f, 0.4f);
-    // gl::draw(*mesh);
+    //gl::draw(*mesh);
 }
 
 
@@ -102,6 +106,9 @@ void tol::Player::laterDraw()
 
 void tol::Player::axisMove()
 {
+    // 操作不能かどうか
+    if (not_operation)return;
+
     { // デバッグ用のキー移動
         if (env.isPress(KeyEvent::KEY_a))
         {
@@ -211,7 +218,7 @@ ci::Vec2f tol::Player::getLeftAxisVec()
     auto x_axis = env.getPadAxis("Horizontal_Left") * -1;
     auto y_axis = env.getPadAxis("Vertical_Left");
 
-    auto min_speed = 0.01f;
+    auto min_speed = 0.2f;
     if (x_axis <= min_speed && x_axis >= -min_speed)
         x_axis = 0;
     if (y_axis <= min_speed && y_axis >= -min_speed)
@@ -222,36 +229,40 @@ ci::Vec2f tol::Player::getLeftAxisVec()
 
     float vx = cosf(axis_angle * M_PI / 180.0f) * abs(x_axis);
     float vy = sinf(axis_angle * M_PI / 180.0f)* abs(y_axis);
-     
+
     return ci::Vec2f(vx, vy);
 }
 
 void tol::Player::vecRotate()
 {
+    if (velocity.x == 0.0f && velocity.z == 0.0f) return;
+
     Vec3f rotateaxis = Vec3f(0.0f, 0.0f, 1.0f);
     Vec3f targetvec = Vec3f(velocity.x, 0, velocity.z);
-    rotateaxis.normalize();
     targetvec.normalize();
 
     Vec3f quataxis = rotateaxis.cross(targetvec);
     Quatf targetquat;
 
-    //console() << atan2f(velocity.x, velocity.z) << std::endl;
-
-    if (atan2f(velocity.x, velocity.z) >= 0.0f)
+    // 左回り
+    if (atan2f(velocity.x, velocity.z) > 0.0f)
         targetquat = Quatf(quataxis,
                            atan2f(velocity.x, velocity.z));
+    // 右回り
     else if (atan2f(velocity.x, velocity.z) < 0.0f)
         targetquat = Quatf(quataxis,
                            -atan2f(velocity.x, velocity.z));
 
-    if (targetquat.getAngle() <= M_PI - 0.000001)
-        transform.rotation = targetquat.toMatrix44();
+    auto axis_length = rotateaxis.xz().cross(targetvec.xz());
+    if (axis_length == 0.0f)
+    {
+        if (velocity.z > 0.0f)
+            targetquat = Quatf(Vec3f::yAxis(), 0);
+        if (velocity.z < 0.0f)
+            targetquat = Quatf(Vec3f::yAxis(), (float)M_PI);
+    }
 
-    if (velocity.x == 0.0f && velocity.z == 0.0f)
-        transform.rotation = current_quat.toMatrix44();
-    else
-        current_quat = transform.rotation;
+    transform.rotation = targetquat.toMatrix44();
 }
 
 float tol::Player::angleDifference(const float & angle1, const float & angle2)
@@ -395,14 +406,17 @@ void tol::Player::stateUpdate()
 
 void tol::Player::gameover()
 {
+    if (is_restart)
+    {
+        is_restart = false;
+        reset();
+    }
+    if (not_operation == true)return;
+
     if (transform.position.y < 0 ||
         camera->transform.position.y - is_dead_distance_judgment > transform.position.y)
     {
-        reset();
-    }
-    else
-    {
-        is_fall_dead = false;
+        not_operation = true;
     }
 }
 
@@ -412,7 +426,7 @@ void tol::Player::reset()
     velocity = Vec3f::zero();
     moving_distance = Vec3f::zero();
     jump_moment_vec = Vec3f::zero();
-    is_fall_dead = true;
+    not_operation = false;
 }
 
 

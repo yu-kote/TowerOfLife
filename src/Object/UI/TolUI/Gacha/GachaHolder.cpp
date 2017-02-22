@@ -3,6 +3,7 @@
 void tol::GachaHolder::setup()
 {
     gachabutton = std::make_shared<tol::GachaButton>();
+
     gachabutton->setup();
 }
 

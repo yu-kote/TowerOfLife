@@ -48,6 +48,7 @@ public:
     Font font;
     Vec2f fpos;
     int prev_frame;
+    std::vector<float> frame_buf;
 
     GameMain gamemain;
 
@@ -135,10 +136,21 @@ void TowerOfLife::draw()
         gl::translate(fpos);
 
         int frame = static_cast<int>((1000.0f / time.deltaTime()) * 0.001f);
-        if (prev_frame > frame + 3 || prev_frame < frame - 3)
+
+        frame_buf.push_back(frame);
+
+        int avg_size = 30;
+        if (frame_buf.size() > avg_size)
         {
-            prev_frame = frame;
+            int frame_total = 0;
+            for (int i = 0; i < frame_buf.size(); i++)
+            {
+                frame_total += frame_buf[i];
+            }
+            prev_frame = frame_total / avg_size;
+            frame_buf.clear();
         }
+
         gl::drawString(std::to_string(prev_frame),
                        Vec2f::zero(),
                        Color(1.0f, 1.0f, 1.0f),
@@ -147,7 +159,7 @@ void TowerOfLife::draw()
     gl::popMatrices();
 
     // Param‚ÌXV
-    Params->setPosition(Vec2i(0,300));
+    Params->setPosition(Vec2i(0, 300));
     Params->draw();
 }
 
