@@ -48,9 +48,12 @@ bool pointToQuadrangle(const ci::Vec2f & point, const std::vector<ci::Vec2f>& ve
         else
             v2 = vertex[0];
 
+        Vec2f v = v2 - v1;
+
         // ŠOÏ
-        float calc = (v2.x - v1.x) * (point.y - v1.y) - (point.x - v1.x) * (v2.y - v1.y);
-        if (calc > 0.0f)
+        float c = v.cross(point);
+        float calc = ((v2.x - v1.x) * (point.y - v1.y) - (v2.y - v1.y) * (point.x - v1.x));
+        if (calc < 0.0f)
             is_inside = false;
     }
     return is_inside;

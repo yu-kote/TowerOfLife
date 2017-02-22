@@ -147,6 +147,7 @@ void TowerOfLife::draw()
     gl::popMatrices();
 
     // Param‚ÌXV
+    Params->setPosition(Vec2i(0,300));
     Params->draw();
 }
 

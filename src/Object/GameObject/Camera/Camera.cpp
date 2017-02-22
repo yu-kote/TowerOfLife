@@ -28,9 +28,7 @@ void tol::Camera::update()
     {
         camera.setAspectRatio(getWindowAspectRatio());
     };
-
     camera.lookAt(transform.position, center_of_interest_point);
-
 }
 
 // デバッグ用にカメラを近づけたり引いたりできるようにした

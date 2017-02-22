@@ -1,6 +1,6 @@
 #pragma once
 #include "../../Button/ButtonBase.h"
-
+#include "../../../Component/Components/Color.h"
 
 
 namespace tol
@@ -17,6 +17,7 @@ namespace tol
     private:
 
         std::vector<ci::Vec2f> points;
+        std::shared_ptr<tol::Color> color;
 
     };
 

@@ -7,6 +7,7 @@ namespace tol
     class ButtonBase : public tol::UIBase
     {
     public:
+        ButtonBase();
         ButtonBase(const std::string& texture_name);
         ButtonBase(const std::string& texture_name, const std::function<void()>& func);
 

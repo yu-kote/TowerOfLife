@@ -44,6 +44,7 @@ void InputEvent::mouseMove(ci::app::MouseEvent event)
 
 void InputEvent::mouseDrag(ci::app::MouseEvent event)
 {
+    mouse_position = event.getPos();
 }
 
 void InputEvent::mouseDown(MouseEvent event)
