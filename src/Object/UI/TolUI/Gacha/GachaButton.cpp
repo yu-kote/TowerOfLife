@@ -61,6 +61,6 @@ void tol::GachaButton::draw()
         else
             e = Vec3f(points[0].x, points[0].y, 0.0f);
 
-        gl::drawVector(s, e);
+        //gl::drawVector(s, e);
     }
 }

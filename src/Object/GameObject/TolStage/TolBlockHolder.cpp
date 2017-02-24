@@ -6,23 +6,11 @@ using namespace ci::app;
 
 void tol::TolBlockHolder::setup()
 {
-    blocks.clear();
-    {// json予定
-        z_num = 3;
-        x_num = 3;
-        block_space = 17;
-        height_interval = 12;
-    }
+    stageSetup();
+
     current_top_height = 0;
 
-    ease_eyepoint = Vec3f::zero();
-    ease_center = Vec3f::zero();
-    ease_speed = 0.05f;
-
-    camera_height = 0.0f;
-    camera_up_time = 180;
-    camera_up_remaining_time = camera_up_time;
-
+    // 最初はマス目すべてにブロックを配置する
     std::vector<TolBlockActionType> addtypes;
     for (int i = 0; i < z_num * x_num; i++)
     {
@@ -30,7 +18,6 @@ void tol::TolBlockHolder::setup()
     }
 
     addOneStepBlocks(addtypes);
-
 }
 
 void tol::TolBlockHolder::update()
@@ -71,6 +58,7 @@ void tol::TolBlockHolder::transDraw()
 
 void tol::TolBlockHolder::reset()
 {
+    blocks.clear();
     setup();
 }
 
@@ -148,7 +136,6 @@ void tol::TolBlockHolder::easeCamera()
     // イージングさせる
     ease_eyepoint += (eyepoint - ease_eyepoint) * ease_speed;
     ease_center += (center - ease_center) * ease_speed;
-
 }
 
 void tol::TolBlockHolder::cameraDistanceToBlockErase()
@@ -166,6 +153,30 @@ void tol::TolBlockHolder::cameraDistanceToBlockErase()
     }
 }
 
+void tol::TolBlockHolder::stageSetup()
+{
+    if (json.openJson("GameData/TolStage.json"))
+    {
+        auto block_info = json.root["block_info"];
+
+        z_num = block_info["z_num"].asInt();
+        x_num = block_info["x_num"].asInt();
+
+        block_space = block_info["space"].asInt();
+        height_interval = block_info["height_space"].asInt();
+
+        auto stage_info = json.root["stage_info"];
+        camera_up_time = stage_info["camera_up_time"].asInt();
+
+        camera_height = 0.0f;
+        camera_up_remaining_time = camera_up_time;
+
+        ease_eyepoint = Vec3f::zero();
+        ease_center = Vec3f::zero();
+        ease_speed = stage_info["ease_speed"].asFloat();
+    }
+}
+
 void tol::TolBlockHolder::addOneStepBlocks(const std::vector<TolBlockActionType>& addblocktypes)
 {
     int x = 0;
@@ -178,6 +189,7 @@ void tol::TolBlockHolder::addOneStepBlocks(const std::vector<TolBlockActionType>
         block->transform.position.z = z * block_space;
         block->transform.position.y = current_top_height;
 
+        block->setBlockNum(i);
         block->setPlayer(player);
 
         switch (addblocktypes[i])
@@ -193,10 +205,11 @@ void tol::TolBlockHolder::addOneStepBlocks(const std::vector<TolBlockActionType>
             break;
         }
 
-        block->setBlockNum(i);
 
         block->setup();
+
         blocks.push_back(std::move(block));
+
         {// 二次配列の計算
             if (x == x_num - 1)
             {
@@ -208,8 +221,10 @@ void tol::TolBlockHolder::addOneStepBlocks(const std::vector<TolBlockActionType>
         }
     }
 
+    // 高さの更新
     current_top_height += height_interval;
 
+    // コインのランダム配置
     {
         int count = current_top_height / height_interval;
         bool is_coin_pop = (count % 2 == 1) ? true : false;
@@ -226,12 +241,9 @@ void tol::TolBlockHolder::addBlocks()
 {
     if (player->transform.position.y > current_top_height - height_interval * 1)
     {
-        if (json_reader.parse(
-            static_cast<const char*>(
-                ci::app::loadAsset("GameData/TolStage.json")->getBuffer().getData()),
-            json_default_value))
+        if (json.openJson("GameData/TolStage.json"))
         {
-            auto block_types = json_default_value["block_types"];
+            auto block_types = json.root["block_types"];
             auto step1 = block_types["step1"];
 
             RandomInt rand(0, step1.getMemberNames().size());
@@ -321,10 +333,14 @@ ci::Vec2f tol::TolBlockHolder::twoDimensionalArrayCenterPoint(const int&  size_x
     return ci::Vec2f(center_x, center_y);
 }
 
+int tol::TolBlockHolder::currentTopBlockStep()
+{
+    return current_top_height / height_interval;
+}
+
 float tol::TolBlockHolder::centerBetweenBlockHeight(const int & height)
 {
-    float block_height_convert = height / height_interval;
-    int block_step_num = (int)block_height_convert;
+    int block_step_num = height / height_interval;
     // ブロックの段数 * ブロックの間隔 + ブロックの縦の間隔の半分
     return block_step_num * height_interval + (height_interval / 2);
 }

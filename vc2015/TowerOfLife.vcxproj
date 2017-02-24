@@ -130,7 +130,7 @@
     <ClCompile Include="..\src\Utility\Easing\Ease.cpp" />
     <ClCompile Include="..\src\Utility\Easing\EaseType.cpp" />
     <ClCompile Include="..\src\Utility\Input\InputEvent.cpp" />
-    <ClCompile Include="..\src\Utility\Json\jsoncpp.cpp" />
+    <ClCompile Include="..\src\Utility\Json\JsonInfo.cpp" />
     <ClCompile Include="..\src\Utility\Time\Time.cpp" />
     <ClCompile Include="..\src\Utility\Utility.cpp" />
   </ItemGroup>
@@ -172,8 +172,7 @@
     <ClInclude Include="..\src\Utility\Input\Gamepad\Gamepad.h" />
     <ClInclude Include="..\src\Utility\Input\InputEvent.h" />
     <ClInclude Include="..\src\Utility\Interface\Interface.h" />
-    <ClInclude Include="..\src\Utility\Json\jsoncpp\json-forwards.h" />
-    <ClInclude Include="..\src\Utility\Json\jsoncpp\json.h" />
+    <ClInclude Include="..\src\Utility\Json\JsonInfo.h" />
     <ClInclude Include="..\src\Utility\Random\Random.h" />
     <ClInclude Include="..\src\Utility\Resize\Resize.h" />
     <ClInclude Include="..\src\Utility\Time\Time.h" />

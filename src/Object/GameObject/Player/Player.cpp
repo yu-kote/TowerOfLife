@@ -68,7 +68,7 @@ void tol::Player::update()
     jump();
     hitTheHead();
 
-    // カメラとの角度差を埋める　※ カメラを回転させないため使ってない
+    // カメラとの角度差を埋める ※ カメラを回転させないため使ってない
     {
         float angle_difference = angleDifference(camera->transform.angle.y, transform.angle.y);
         angle_difference *= env.getPadAxis("Vertical_Left");
@@ -85,6 +85,7 @@ void tol::Player::update()
     // ゲームオーバー
     gameover();
 
+    // デバッグ用にリスタート
     if (env.isPush(KeyEvent::KEY_RETURN))
         is_restart = true;
 }
@@ -109,33 +110,40 @@ void tol::Player::axisMove()
     // 操作不能かどうか
     if (not_operation)return;
 
+    // 左スティックのベクトルをもらう
+    auto v = getLeftAxisVec();
+
     { // デバッグ用のキー移動
         if (env.isPress(KeyEvent::KEY_a))
         {
-            velocity.x = (ground_move_speed * 1);
+            v.x = (ground_move_speed_max * 1);
+            moving_distance.x = (ground_move_speed_max * 1);
+            is_max_speed = true;
         }
         if (env.isPress(KeyEvent::KEY_d))
         {
-            velocity.x = -(ground_move_speed * 1);
+            v.x = -(ground_move_speed_max * 1);
+            moving_distance.x = -(ground_move_speed_max * 1);
+            is_max_speed = true;
         }
         if (env.isPress(KeyEvent::KEY_w))
         {
-            velocity.z = (ground_move_speed * 1);
+            v.y = (ground_move_speed_max * 1);
+            moving_distance.y = (ground_move_speed_max * 1);
+            is_max_speed = true;
         }
         if (env.isPress(KeyEvent::KEY_s))
         {
-            velocity.z = -(ground_move_speed * 1);
+            v.y = -(ground_move_speed_max * 1);
+            moving_distance.y = -(ground_move_speed_max * 1);
+            is_max_speed = true;
         }
     }
 
     if (state == State::STAND || state == State::MOVING)
     {
-        // 左スティックのベクトルをもらう
-        auto v = getLeftAxisVec();
-
         moving_distance.x = ground_move_speed  * v.x;
         moving_distance.z = ground_move_speed  * v.y;
-
 
         velocity.x += moving_distance.x;
         velocity.z += moving_distance.z;
@@ -143,6 +151,7 @@ void tol::Player::axisMove()
         if (state == State::STAND)
             is_max_speed = false;
 
+        // 速度を一定に抑える処理
         auto max_vec_x = abs(ground_move_speed_max * v.x);
         if (velocity.x > max_vec_x)
         {
@@ -180,15 +189,10 @@ void tol::Player::axisMove()
 
     if (state == State::FALL || state == State::RIZING)
     {
-        // 左スティックのベクトルをもらう
-        auto v = getLeftAxisVec();
-
-        //velocity.x = jump_moment_vec.x;
-        //velocity.z = jump_moment_vec.z;
-
         velocity.x += air_move_speed  * v.x;
         velocity.z += air_move_speed  * v.y;
 
+        // 速度を一定に抑える処理
         auto max_vec_x = abs(ground_move_speed_max);
         if (velocity.x > max_vec_x)
             velocity.x = max_vec_x;
@@ -337,7 +341,6 @@ void tol::Player::useGravity()
     velocity.y -= gravity;
     if (velocity.y < -fall_speed_max)
         velocity.y = -fall_speed_max;
-
 }
 
 void tol::Player::stand()
@@ -417,6 +420,7 @@ void tol::Player::gameover()
         camera->transform.position.y - is_dead_distance_judgment > transform.position.y)
     {
         not_operation = true;
+        is_restart = true;
     }
 }
 

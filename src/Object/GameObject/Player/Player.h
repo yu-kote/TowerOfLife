@@ -45,12 +45,10 @@ namespace tol
 
         // 移動関数
         void axisMove();
-        // パッドの左スティックの大きさを取得
+        // ゲームパッドの左スティックの大きさを取得
         ci::Vec2f getLeftAxisVec();
-
         // ベクトルをみて回転させる関数
         void vecRotate();
-
         // 角度の差を出す
         float angleDifference(const float& angle1, const float& angle2);
 
@@ -116,7 +114,7 @@ namespace tol
     };
 
 
-
+    // デバッグ用の描画クラス
     class DebugDraw : public GameObject
     {
     public:

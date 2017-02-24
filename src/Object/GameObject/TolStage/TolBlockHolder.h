@@ -1,5 +1,5 @@
 #pragma once
-#include "jsoncpp/json/json.h"
+#include "../../../Utility/Json/JsonInfo.h"
 #include "../GameObject.h"
 #include "TolBlock.h"
 #include "TolBlockActions.h"
@@ -23,6 +23,7 @@ namespace tol
         void setPlayer(std::shared_ptr<tol::Player> player_) { player = player_; }
         void setCoinHolder(std::shared_ptr<tol::TolCoinHolder> coin_holder_) { coin_holder = coin_holder_; }
 
+        // リセット関数
         void reset();
 
     private: // プレイヤー
@@ -51,12 +52,14 @@ namespace tol
         // カメラとブロックの距離をみてブロックを消去する関数
         void cameraDistanceToBlockErase();
 
-    private: // コイン
+    private: // コインの情報
 
         std::shared_ptr<tol::TolCoinHolder> coin_holder;
 
-    private: // ブロックの管理
+    private: // ブロックの情報管理
 
+        // jsonからブロックの情報を初期化する関数
+        void stageSetup();
         // 一番上に一段追加する
         void addOneStepBlocks(const std::vector<TolBlockActionType>& addblocktypes);
         // json読み込みしてブロックを追加する関数
@@ -65,10 +68,9 @@ namespace tol
         // プレイヤーとブロックがかぶったらブロックを透明化する関数
         void transBlock();
 
-        Json::Value json_default_value;
-        Json::Reader json_reader;
+        JsonInfo json;
 
-    private:
+    private: // ステージの情報
 
         // 配列番号をもらって範囲外かどうかを返す
         bool isBlockOutOfRange(const int& num);
@@ -76,7 +78,8 @@ namespace tol
         int adjusMinMaxNum(const int& num, const int& max_value);
         // サイズもらって真ん中の値を返す
         ci::Vec2f twoDimensionalArrayCenterPoint(const int&  size_x, const int& size_y);
-
+        // 今一番高いところの段数を返す
+        int currentTopBlockStep();
         // 高さをもらって、その高さにあるブロックとブロックの間の高さを返す
         float centerBetweenBlockHeight(const int& height);
 
@@ -87,7 +90,7 @@ namespace tol
         int z_num;                          // ブロックの奥行きの数
         int x_num;                          // ブロックの横の数
 
-        std::deque<std::shared_ptr<TolBlock>> blocks;
+        std::deque<std::shared_ptr<TolBlock>> blocks;   // popfrontをするのでdequeが最速
 
     private:
 
