@@ -121,6 +121,8 @@
     <ClCompile Include="..\src\Object\GameObject\TolStage\TolCoinHolder.cpp" />
     <ClCompile Include="..\src\Object\GameObject\TolStage\TolStage.cpp" />
     <ClCompile Include="..\src\Object\UI\Button\ButtonBase.cpp" />
+    <ClCompile Include="..\src\Object\UI\Font\FontBase.cpp" />
+    <ClCompile Include="..\src\Object\UI\FrameView\FrameRateView.cpp" />
     <ClCompile Include="..\src\Object\UI\TolUI\Gacha\GachaButton.cpp" />
     <ClCompile Include="..\src\Object\UI\TolUI\Gacha\GachaHolder.cpp" />
     <ClCompile Include="..\src\Object\UI\UIBase.cpp" />
@@ -158,6 +160,8 @@
     <ClInclude Include="..\src\Object\GameObject\TolStage\TolStage.h" />
     <ClInclude Include="..\src\Object\Object.h" />
     <ClInclude Include="..\src\Object\UI\Button\ButtonBase.h" />
+    <ClInclude Include="..\src\Object\UI\Font\FontBase.h" />
+    <ClInclude Include="..\src\Object\UI\FrameView\FrameRateView.h" />
     <ClInclude Include="..\src\Object\UI\TolUI\Gacha\GachaButton.h" />
     <ClInclude Include="..\src\Object\UI\TolUI\Gacha\GachaHolder.h" />
     <ClInclude Include="..\src\Object\UI\UIBase.h" />

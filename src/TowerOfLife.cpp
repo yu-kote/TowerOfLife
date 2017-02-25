@@ -42,15 +42,6 @@ public:
     CameraOrtho camera_o;
     Vec3f pos;
 
-    // deltatime
-    tol::Time time;
-
-    // frame
-    Font font;
-    Vec2f fpos;
-    int prev_frame;
-    std::vector<float> frame_buf;
-
     GameMain gamemain;
 
     CameraPersp camera;
@@ -60,29 +51,15 @@ public:
 
 void TowerOfLife::setup()
 {
-    camera_o = CameraOrtho(0.0f,
-        (float)getWindowSize().x,
-                           (float)getWindowSize().y,
-                           0.0f,
-                           0.0f,
-                           10.0f);
-    pos = Vec3f((float)getWindowSize().x - 10.0f, (float)getWindowSize().y - 10.0f, 0.0f);
-
-    font = Font("Hiragino Maru Gothic ProN W4", 60.0f);
-    fpos = Vec2f(1380, 820);
-    prev_frame = 0;
-
     TextureGet.setup();
     SoundGet.setup();
     ObjDataGet.setup();
-
 
     gl::enableDepthRead();
     gl::enableDepthWrite();
     gl::enable(GL_CULL_FACE);
 
     env.padSetup();
-
 
     SceneCreate<GameMain>(new GameMain());
     SceneManager::instance().get().setup();
@@ -94,6 +71,8 @@ void TowerOfLife::setup()
 
     //std::ofstream o("block2.json");
     //o << s;
+
+    Params->setPosition(Vec2i(0, 300));
 }
 
 
@@ -123,7 +102,7 @@ void TowerOfLife::update()
     SceneManager::instance().get().shift();
 
     // タイマーの更新
-    time.update((float)getElapsedSeconds());
+    tol::Timer.update((float)getElapsedSeconds());
     // イージングの更新
     Easing.update();
 }
@@ -134,37 +113,7 @@ void TowerOfLife::draw()
 
     SceneManager::instance().get().draw();
 
-    gl::pushMatrices();
-    gl::setMatrices(camera_o);
-
-    {// 何フレームか見る
-        gl::translate(fpos);
-
-        int frame = static_cast<int>((1000.0f / time.deltaTime()) * 0.001f);
-
-        frame_buf.push_back(frame);
-
-        int avg_size = 30;
-        if (frame_buf.size() > avg_size)
-        {
-            int frame_total = 0;
-            for (int i = 0; i < frame_buf.size(); i++)
-            {
-                frame_total += frame_buf[i];
-            }
-            prev_frame = frame_total / avg_size;
-            frame_buf.clear();
-        }
-
-        gl::drawString(std::to_string(prev_frame),
-                       Vec2f::zero(),
-                       Color(1.0f, 1.0f, 1.0f),
-                       font);
-    }
-    gl::popMatrices();
-
     // Paramの更新
-    Params->setPosition(Vec2i(0, 300));
     Params->draw();
 }
 

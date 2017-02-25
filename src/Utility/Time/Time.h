@@ -1,13 +1,21 @@
 #pragma once
 #include "cinder/app/AppNative.h"
 
+#define Timer Time::instance()
+
 namespace tol
 {
     class Time
     {
     private:
-    public:
         Time() {}
+    public:
+
+        static Time & instance()
+        {
+            static Time time;
+            return time;
+        }
 
         float deltaTime()
         {

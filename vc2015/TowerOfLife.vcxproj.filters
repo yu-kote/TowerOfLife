@@ -112,6 +112,9 @@
     <Filter Include="Source Files\Object\UI\TolUI\UICamera">
       <UniqueIdentifier>{ea2738f5-3ace-46ba-b579-98a57401c4df}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Source Files\Object\UI\FrameView">
+      <UniqueIdentifier>{3aa5ea8a-ddf5-4c4d-8b3a-9400bdb14bef}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\src\TowerOfLife.cpp">
@@ -206,6 +209,12 @@
     </ClCompile>
     <ClCompile Include="..\src\Scene\Category\Gacha.cpp">
       <Filter>Source Files\Scene\Category</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\Object\UI\Font\FontBase.cpp">
+      <Filter>Source Files\Object\UI\Font</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\Object\UI\FrameView\FrameRateView.cpp">
+      <Filter>Source Files\Object\UI\FrameView</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -340,6 +349,12 @@
     </ClInclude>
     <ClInclude Include="..\src\Scene\Manager\SceneManager.h">
       <Filter>Source Files\Scene\Manager</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\Object\UI\Font\FontBase.h">
+      <Filter>Source Files\Object\UI\Font</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\Object\UI\FrameView\FrameRateView.h">
+      <Filter>Source Files\Object\UI\FrameView</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

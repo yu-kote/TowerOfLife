@@ -10,7 +10,7 @@
 #include "../../Object/GameObject/TolStage/TolStage.h"
 
 #include "../../Object/UI/UICamera/UICamera.h"
-#include "../../Object/UI/TolUI/Gacha/GachaHolder.h"
+#include "../../Object/UI/FrameView/FrameRateView.h"
 
 
 GameMain::GameMain()
@@ -31,7 +31,7 @@ void GameMain::setup()
 
     // UI
     ui_entities.instantiate<tol::UICamera>();
-    ui_entities.instantiate<tol::GachaHolder>();
+    ui_entities.instantiate<tol::FrameRateView>();
 
 
 
@@ -44,10 +44,6 @@ void GameMain::setup()
     entities.getInstance<tol::TolStage>()->setCamera(entities.getInstance<tol::Camera>());
     entities.getInstance<tol::DebugDraw>()->setPlayer(entities.getInstance<tol::Player>());
     entities.getInstance<tol::DebugDraw>()->setCamera(entities.getInstance<tol::Camera>());
-
-    // UI
-    ui_entities.getInstance<tol::GachaHolder>()->setPlayer(entities.getInstance<tol::Player>());
-
 
     entities.setup();
     ui_entities.setup();

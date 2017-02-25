@@ -2,10 +2,14 @@
 
 tol::UIBase::UIBase()
 {
+    addComponent<tol::Color>(tol::Color(1.0f, 1.0f, 1.0f));
+    color = getComponent<tol::Color>();
 }
 
 tol::UIBase::UIBase(const std::string & name)
 {
+    addComponent<tol::Color>(tol::Color(1.0f, 1.0f, 1.0f));
+    color = getComponent<tol::Color>();
 }
 
 void tol::UIBase::drawReflect()

@@ -11,6 +11,7 @@
 #include "../../Utility/Utility.h"
 #include "../../Utility/Input/InputEvent.h"
 #include "../Component/Components/Texture.h"
+#include "../Component/Components/Color.h"
 
 namespace tol
 {
@@ -27,6 +28,7 @@ namespace tol
 
     protected:
 
+        std::shared_ptr<tol::Color> color;
 
     };
 }
