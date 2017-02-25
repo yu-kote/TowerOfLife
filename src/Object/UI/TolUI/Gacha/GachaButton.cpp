@@ -14,12 +14,6 @@ tol::GachaButton::GachaButton()
 void tol::GachaButton::setup()
 {
     transform.position = Vec3f(500, 500, 0.0f);
-    points.push_back(Vec2f(0.0f, 0.0f));
-    points.push_back(Vec2f(100.0f, 0.0f));
-    points.push_back(Vec2f(150.0f, 50.0f));
-    points.push_back(Vec2f(50.0f, 100.0f));
-    points.push_back(Vec2f(0.0f, 100.0f));
-
     addComponent<tol::Color>(tol::Color(1.0f, 1.0f, 1.0f));
     color = getComponent<tol::Color>();
 }
@@ -61,6 +55,11 @@ void tol::GachaButton::draw()
         else
             e = Vec3f(points[0].x, points[0].y, 0.0f);
 
-        //gl::drawVector(s, e);
+        gl::drawVector(s, e);
     }
+}
+
+void tol::GachaButton::setPolygon(const std::vector<ci::Vec2f>& vartex)
+{
+    points = vartex;
 }

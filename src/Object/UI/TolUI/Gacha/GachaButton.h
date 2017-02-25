@@ -14,6 +14,8 @@ namespace tol
         void update()override;
         void draw()override;
 
+        void setPolygon(const std::vector<ci::Vec2f>& vartex);
+
     private:
 
         std::vector<ci::Vec2f> points;

@@ -23,6 +23,8 @@ namespace tol
         // draw関数を行列関数、コンポーネント関数を回しつつ読んでくれる関数
         void drawReflect();
 
+        void setPos(const ci::Vec3f& pos) { transform.position = pos; }
+
     protected:
 
 

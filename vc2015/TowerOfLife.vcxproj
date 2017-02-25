@@ -125,6 +125,7 @@
     <ClCompile Include="..\src\Object\UI\TolUI\Gacha\GachaHolder.cpp" />
     <ClCompile Include="..\src\Object\UI\UIBase.cpp" />
     <ClCompile Include="..\src\Object\UI\UICamera\UICamera.cpp" />
+    <ClCompile Include="..\src\Scene\Category\Gacha.cpp" />
     <ClCompile Include="..\src\Scene\Category\GameMain.cpp" />
     <ClCompile Include="..\src\TowerOfLife.cpp" />
     <ClCompile Include="..\src\Utility\Easing\Ease.cpp" />
@@ -161,8 +162,10 @@
     <ClInclude Include="..\src\Object\UI\TolUI\Gacha\GachaHolder.h" />
     <ClInclude Include="..\src\Object\UI\UIBase.h" />
     <ClInclude Include="..\src\Object\UI\UICamera\UICamera.h" />
+    <ClInclude Include="..\src\Scene\Category\Gacha.h" />
     <ClInclude Include="..\src\Scene\Category\GameMain.h" />
     <ClInclude Include="..\src\Scene\Manager\SceneBase.h" />
+    <ClInclude Include="..\src\Scene\Manager\SceneManager.h" />
     <ClInclude Include="..\src\Task\ObjDataManager.h" />
     <ClInclude Include="..\src\Task\SoundManager.h" />
     <ClInclude Include="..\src\Task\TextureManager.h" />

@@ -17,7 +17,6 @@ namespace tol
 
     private:
 
-        //std::shared_ptr<tol::Camera> camera;
         std::shared_ptr<tol::Player> player;
 
         std::shared_ptr<GachaButton> gachabutton;

@@ -204,6 +204,9 @@
     <ClCompile Include="..\src\Utility\Json\JsonInfo.cpp">
       <Filter>Source Files\Utility\Json</Filter>
     </ClCompile>
+    <ClCompile Include="..\src\Scene\Category\Gacha.cpp">
+      <Filter>Source Files\Scene\Category</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\src\Utility\Easing\Ease.h">
@@ -331,6 +334,12 @@
     </ClInclude>
     <ClInclude Include="..\src\Utility\Json\JsonInfo.h">
       <Filter>Source Files\Utility\Json</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\Scene\Category\Gacha.h">
+      <Filter>Source Files\Scene\Category</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\Scene\Manager\SceneManager.h">
+      <Filter>Source Files\Scene\Manager</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

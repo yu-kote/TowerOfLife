@@ -16,7 +16,6 @@ void tol::TolBlockHolder::setup()
     {
         addtypes.push_back(TolBlockActionType::NORMAL);
     }
-
     addOneStepBlocks(addtypes);
 }
 
@@ -204,7 +203,6 @@ void tol::TolBlockHolder::addOneStepBlocks(const std::vector<TolBlockActionType>
             block->setBlockAction<RoundTripBlock>();
             break;
         }
-
 
         block->setup();
 

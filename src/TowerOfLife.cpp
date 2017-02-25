@@ -2,6 +2,7 @@
 #include "cinder/gl/gl.h"
 #include "cinder/Camera.h"
 
+#include "Scene/Manager/SceneManager.h"
 #include "Scene/Category/GameMain.h"
 
 #include "Utility/Time/Time.h"
@@ -81,7 +82,10 @@ void TowerOfLife::setup()
     gl::enable(GL_CULL_FACE);
 
     env.padSetup();
-    gamemain.setup();
+
+
+    SceneCreate<GameMain>(new GameMain());
+    SceneManager::instance().get().setup();
 
     //Json::StyledWriter writer;
 
@@ -106,7 +110,7 @@ void TowerOfLife::prepareSettings(Settings * settings)
 void TowerOfLife::shutdown()
 {
     env.padShutDown();
-    gamemain.shutdown();
+    SceneManager::instance().get().shutdown();
     Easing.shutdown();
 }
 
@@ -114,8 +118,9 @@ void TowerOfLife::update()
 {
     env.padUpdate();
     env.padProcessEvent();
-    gamemain.update();
-    gamemain.shift();
+
+    SceneManager::instance().get().update();
+    SceneManager::instance().get().shift();
 
     // タイマーの更新
     time.update((float)getElapsedSeconds());
@@ -127,7 +132,7 @@ void TowerOfLife::draw()
 {
     gl::clear(Color(0, 0, 0));
 
-    gamemain.draw();
+    SceneManager::instance().get().draw();
 
     gl::pushMatrices();
     gl::setMatrices(camera_o);

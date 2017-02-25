@@ -1,5 +1,6 @@
 #include "GameMain.h"
 
+#include "../../Scene/Manager/SceneManager.h"
 #include "../../Task/SoundManager.h"
 
 #include "../../Object/GameObject/Light/Light.h"
@@ -64,10 +65,18 @@ void GameMain::draw()
     ui_entities.draw();
 }
 
+#include "Gacha.h"
 void GameMain::shift()
 {
-    //entities.allDestroy();
-    //ui_entities.allDestroy();
+    if (env.isPush(ci::app::KeyEvent::KEY_1))
+    {
+        SoundGet.allStop();
+        entities.allDestroy();
+        ui_entities.allDestroy();
+
+        SceneCreate<Gacha>(new Gacha());
+        SceneManager::instance().get().setup();
+    }
 }
 
 void GameMain::shutdown()

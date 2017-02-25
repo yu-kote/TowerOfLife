@@ -38,7 +38,7 @@ bool rectToRect(const ci::Rectf& rect1, const ci::Rectf& rect2)
 bool pointToQuadrangle(const ci::Vec2f & point, const std::vector<ci::Vec2f>& vertex)
 {
     int is_inside = true;
-    for (int i = 0; i < vertex.size(); i++)
+    for (int  i = 0; i < vertex.size(); i++)
     {
         // ƒxƒNƒgƒ‹ì‚è
         Vec2f v1, v2;
