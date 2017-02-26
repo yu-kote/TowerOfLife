@@ -29,6 +29,7 @@ namespace tol
         ci::Ray getStandRay() { return stand_ray; }
         void setStandRayIntersection(const float & t) { stand_ray_intersection = t; }
         float getStandRayIntersection() { return stand_ray_intersection; }
+        float getGravityPower() { return velocity.y; }
 
         ci::Ray getRizeRay() { return rize_ray; }
         void setRizeRayIntersecion(const float& t) { rize_ray_intersection = t; }
@@ -113,17 +114,31 @@ namespace tol
 
     };
 
+    // プレイヤーの影描画
+    class PlayerShadow : public GameObject
+    {
+    public:
+
+        void setup()override;
+
+        void draw()override;
+
+
+        void setPlayer(std::shared_ptr<tol::Player> player_) { player = player_; }
+
+    private:
+        std::shared_ptr<tol::Player> player;
+
+    };
+
 
     // デバッグ用の描画クラス
     class DebugDraw : public GameObject
     {
     public:
 
-        void setup()override
-        {
-            hit_sphere_y = 0.0f;
-            Params->addParam("hit_sphere_y", &hit_sphere_y).step(0.01f);
-        }
+        void setup()override;
+
         void update()override
         {
 
@@ -131,8 +146,6 @@ namespace tol
         void draw()override
         {
             ci::Vec3f pos = player->getStandRay().calcPosition(player->getStandRayIntersection());
-            ci::gl::drawSphere(pos, 0.3f);
-            ci::gl::drawSphere(player->getStandRay().calcPosition(hit_sphere_y), 0.3f);
 
             pos = player->getStandRay().getOrigin();
             ci::gl::drawVector(pos, pos + player->getStandRay().getDirection());
@@ -156,7 +169,6 @@ namespace tol
 
 
         float hit_sphere_y;
-
     };
 }
 

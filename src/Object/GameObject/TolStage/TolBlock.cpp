@@ -68,7 +68,6 @@ void tol::TolBlock::transDraw()
     if (!getActive())return;
     ci::gl::enableAlphaBlending();
 
-
     transform.scale = Vec3f(8, 0.55f, 8);
     drawBegin();
     pushModelView();

@@ -1,6 +1,80 @@
 // Texture情報
 {
+  "Tol": {
 
+    "Title": {
+      // 背景
+      "BlocksBackGround": {
+        "Key": "BlocksBackGround",
+        "Path": "Texture/blocksbackground2.png"
+      },
+      // ガチャへ行くボタン
+      "GotoGachaButton": {
+        "Key": "GachaButton",
+        "Path": "Texture/title_gacha.png"
+      },
+      // ゲームをスタートするボタン
+      "GotoPlayButton": {
+        "Key": "GotoPlayButton",
+        "Path": "Texture/title_play.png"
+      }
+    },
+    "GameMain": {
+      // プレイヤー
+      "Player": {
+        "Key": "Player",
+        "Path": "Obj/Character/chr_sword.png"
+      },
+      // スカイドーム
+      "Skydome1": {
+        "Key": "Skydome1",
+        "Path": "Texture/skydome1.jpg"
+      },
+      "Skydome2": {
+        "Key": "Skydome2",
+        "Path": "Texture/skydome2.jpg"
+      },
 
+      // コンテニューするとき
+      "ContinueFont": {
+        "Key": "ContinueFont",
+        "Path": "Texture/continue_logo.png"
+      },
+      "ContinueNoButton": {
+        "Key": "ContinueNoButton",
+        "Path": "Texture/continue_no.png"
+      },
+      "ContinueYesButton": {
+        "Key": "ContinueYesButton",
+        "Path": "Texture/continue_yes.png"
+      },
 
+      // ガチャ
+      "GachaRightBar": {
+        "Key": "GachaRightBar",
+        "Path": "Texture/gachalight_bar.png"
+      },
+      "GachaRightElipse": {
+        "Key": "GachaRightElipse",
+        "Path": "Texture/gachalight_ellipse.png"
+      },
+
+      // アイテム
+      "Item01": {
+        "Key": "Item01",
+        "Path": "Texture/icon01.png"
+      },
+      "Item02": {
+        "Key": "Item02",
+        "Path": "Texture/icon02.png"
+      },
+      "Item03": {
+        "Key": "Item03",
+        "Path": "Texture/icon03.png"
+      }
+    },
+    "Result": {
+
+    }
+  }
 }

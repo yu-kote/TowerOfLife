@@ -33,7 +33,7 @@ namespace tol
 
         ci::ColorA getColor() { return color; }
         void setColor(ci::ColorA color_) { color = color_; }
-        void setColor(float r, float g, float b) { color = ci::ColorA(r, g, b); }
+        void setColor(float r, float g, float b, float a = 1.0f) { color = ci::ColorA(r, g, b, a); }
 
     private:
         ci::ColorA color;

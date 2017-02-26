@@ -137,7 +137,14 @@ void tol::GameObjectEntities::laterDrawGameObject()
     {
         if (!it.second->getActive())continue;
         if (!it.second->getIsDrawActive())continue;
+        it.second->drawBegin();
+        it.second->pushModelView();
+
+        it.second->componentsDraw();
         it.second->laterDraw();
+
+        it.second->popModelView();
+        it.second->drawEnd();
     }
     ci::gl::popModelView();
 }
@@ -145,12 +152,21 @@ void tol::GameObjectEntities::laterDrawGameObject()
 void tol::GameObjectEntities::transLaterDrawGameObject()
 {
     ci::gl::pushModelView();
+    ci::gl::enableAlphaBlending();
     for (const auto& it : gameobjects)
     {
         if (!it.second->getActive())continue;
         if (!it.second->getIsDrawActive())continue;
+        it.second->drawBegin();
+        it.second->pushModelView();
+
+        it.second->componentsDraw();
         it.second->transLaterDraw();
+
+        it.second->popModelView();
+        it.second->drawEnd();
     }
+    ci::gl::disableAlphaBlending();
     ci::gl::popModelView();
 }
 

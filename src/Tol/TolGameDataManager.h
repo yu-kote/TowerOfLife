@@ -2,11 +2,23 @@
 
 #define TolData TolGameDataManager::instance()
 
+enum SceneCategory
+{
+    TITLE,
+    GAMEMAIN,
+    GACHA,
+};
+
 namespace tol
 {
     class TolGameDataManager
     {
-        TolGameDataManager() {}
+        TolGameDataManager()
+        {
+            temp_coin = 0;
+            coin = 0;
+            score = 0;
+        }
     public:
 
         static TolGameDataManager& instance()
@@ -15,9 +27,11 @@ namespace tol
             return data;
         }
 
+        SceneCategory prev_scene;
 
-        int coin = 0;
-        int score = 0;
+        int temp_coin;
+        int coin;
+        int score;
 
 
 

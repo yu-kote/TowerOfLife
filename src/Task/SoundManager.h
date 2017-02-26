@@ -172,7 +172,7 @@ namespace tol
                 findSoundInfoFromValue(json.root, "BufferPlayer", SoundType::BUFFER_PLAYER);
             }
             else
-                assert(!"Could not open json file");
+                assert(!"Could not open Sound.json file");
         }
 
         // サウンドのファイル読む関数

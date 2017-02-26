@@ -433,4 +433,27 @@ void tol::Player::reset()
     not_operation = false;
 }
 
+void tol::PlayerShadow::setup()
+{
+    gl::Material m = gl::Material(ci::ColorA(0, 0, 0, 0.7f),
+                                  ci::ColorA(0, 0, 0, 0.7f),
+                                  ci::ColorA(0, 0, 0, 0.7f),
+                                  80.0f,
+                                  ci::ColorA(0, 0, 0, 0.7f));
+
+    addComponent<tol::Material>(tol::Material(m));
+}
+
+void tol::PlayerShadow::draw()
+{
+    ci::Vec3f pos = player->getStandRay().calcPosition(player->getStandRayIntersection());
+
+    pos.y -= player->getGravityPower() + 0.1f;
+    ci::gl::drawCube(pos, ci::Vec3f(2, 0.0f, 2));
+}
+
+void tol::DebugDraw::setup()
+{
+    hit_sphere_y = 0.0f;
+}
 

@@ -64,6 +64,8 @@ void tol::Camera::laterUpdate()
 
 void tol::Camera::awakeDraw()
 {
+    gl::enableDepthRead();
+    gl::enableDepthWrite();
     gl::pushMatrices();
     gl::setMatrices(camera);
 }

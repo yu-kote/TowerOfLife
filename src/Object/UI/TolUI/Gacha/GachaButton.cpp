@@ -5,7 +5,6 @@
 using namespace ci;
 using namespace ci::app;
 
-
 tol::GachaButton::GachaButton()
 //  : ButtonBase("Sample")
 {

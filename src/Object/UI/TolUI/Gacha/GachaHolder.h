@@ -1,7 +1,10 @@
 #pragma once
 #include "../../../GameObject/GameObject.h"
-#include "GachaButton.h"
 #include "../../../GameObject/Player/Player.h"
+#include "../../TolUI/Fade/Fade.h"
+
+#include "GachaButton.h"
+#include "GachaItem.h"
 
 namespace tol
 {
@@ -14,12 +17,18 @@ namespace tol
         void draw()override;
 
         void setPlayer(std::shared_ptr<tol::Player> player_) { player = player_; }
+        void setFadeIn(std::shared_ptr<tol::FadeIn> fade) { fadein = fade; }
+
+    private:
+        std::shared_ptr<tol::Player> player;
+        std::shared_ptr<tol::FadeIn> fadein;
+
 
     private:
 
-        std::shared_ptr<tol::Player> player;
-
         std::shared_ptr<GachaButton> gachabutton;
+        std::shared_ptr<GachaItem> item;
+
 
     };
 }

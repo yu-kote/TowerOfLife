@@ -97,9 +97,6 @@
     <Filter Include="Source Files\Object\UI">
       <UniqueIdentifier>{1819257c-668e-42b5-af9d-fed335ee5fec}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Source Files\Object\UI\Button">
-      <UniqueIdentifier>{91c23c1e-de37-4bb5-a49e-427a55a191fb}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Source Files\Object\UI\TolUI">
       <UniqueIdentifier>{a6382342-9de1-40f8-9de7-5c1d690410c6}</UniqueIdentifier>
     </Filter>
@@ -109,11 +106,23 @@
     <Filter Include="Source Files\Object\UI\TolUI\Gacha">
       <UniqueIdentifier>{6a85b802-23db-4da7-ad38-64a022d69283}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Source Files\Object\UI\TolUI\UICamera">
-      <UniqueIdentifier>{ea2738f5-3ace-46ba-b579-98a57401c4df}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Source Files\Object\UI\FrameView">
       <UniqueIdentifier>{3aa5ea8a-ddf5-4c4d-8b3a-9400bdb14bef}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Object\UI\TolUI\BackGround">
+      <UniqueIdentifier>{f99e0cf8-1f74-463a-934b-38099fd2adf4}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Object\UI\UICamera">
+      <UniqueIdentifier>{ea2738f5-3ace-46ba-b579-98a57401c4df}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Object\UI\TextureUI">
+      <UniqueIdentifier>{5c9d49ee-0f31-4178-bee6-c3f60b4b452c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Object\UI\TextureUI\Button">
+      <UniqueIdentifier>{91c23c1e-de37-4bb5-a49e-427a55a191fb}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Object\UI\TolUI\Fade">
+      <UniqueIdentifier>{bc251d3d-d034-498e-abc3-d7f74f0f3ac4}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -199,10 +208,10 @@
       <Filter>Source Files\Object\UI\TolUI\Gacha</Filter>
     </ClCompile>
     <ClCompile Include="..\src\Object\UI\Button\ButtonBase.cpp">
-      <Filter>Source Files\Object\UI\Button</Filter>
+      <Filter>Source Files\Object\UI\TextureUI\Button</Filter>
     </ClCompile>
     <ClCompile Include="..\src\Object\UI\UICamera\UICamera.cpp">
-      <Filter>Source Files\Object\UI\TolUI\UICamera</Filter>
+      <Filter>Source Files\Object\UI\UICamera</Filter>
     </ClCompile>
     <ClCompile Include="..\src\Utility\Json\JsonInfo.cpp">
       <Filter>Source Files\Utility\Json</Filter>
@@ -215,6 +224,12 @@
     </ClCompile>
     <ClCompile Include="..\src\Object\UI\FrameView\FrameRateView.cpp">
       <Filter>Source Files\Object\UI\FrameView</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\Scene\Category\Title.cpp">
+      <Filter>Source Files\Scene\Category</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\Object\UI\TolUI\Gacha\GachaItem.cpp">
+      <Filter>Source Files\Object\UI\TolUI\Gacha</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -330,7 +345,7 @@
       <Filter>Source Files\Object\UI</Filter>
     </ClInclude>
     <ClInclude Include="..\src\Object\UI\Button\ButtonBase.h">
-      <Filter>Source Files\Object\UI\Button</Filter>
+      <Filter>Source Files\Object\UI\TextureUI\Button</Filter>
     </ClInclude>
     <ClInclude Include="..\src\Object\UI\TolUI\Gacha\GachaHolder.h">
       <Filter>Source Files\Object\UI\TolUI\Gacha</Filter>
@@ -339,7 +354,7 @@
       <Filter>Source Files\Object\UI\TolUI\Gacha</Filter>
     </ClInclude>
     <ClInclude Include="..\src\Object\UI\UICamera\UICamera.h">
-      <Filter>Source Files\Object\UI\TolUI\UICamera</Filter>
+      <Filter>Source Files\Object\UI\UICamera</Filter>
     </ClInclude>
     <ClInclude Include="..\src\Utility\Json\JsonInfo.h">
       <Filter>Source Files\Utility\Json</Filter>
@@ -355,6 +370,21 @@
     </ClInclude>
     <ClInclude Include="..\src\Object\UI\FrameView\FrameRateView.h">
       <Filter>Source Files\Object\UI\FrameView</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\Object\UI\TolUI\BackGround\BlocksBackGround.h">
+      <Filter>Source Files\Object\UI\TolUI\BackGround</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\Object\UI\TextureRenderer\TextureRenderer.h">
+      <Filter>Source Files\Object\UI\TextureUI</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\Object\UI\TolUI\Fade\Fade.h">
+      <Filter>Source Files\Object\UI\TolUI\Fade</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\Scene\Category\Title.h">
+      <Filter>Source Files\Scene\Category</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\Object\UI\TolUI\Gacha\GachaItem.h">
+      <Filter>Source Files\Object\UI\TolUI\Gacha</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

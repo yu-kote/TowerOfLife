@@ -3,7 +3,8 @@
 #include "cinder/gl/gl.h"
 #include "cinder/gl/Texture.h"
 #include "cinder/imageIo.h"
-#include "cinder/Json.h"
+
+#include "../Utility/Json/JsonInfo.h"
 
 #include <unordered_map>
 
@@ -22,10 +23,10 @@ namespace tol
 
         void setup()
         {
-            //loadTextTexture(ci::app::getAssetPath("TextureData/TextureData.txt").string());
-            registerTexture("Player", "Obj/Character/chr_sword.png");
-            registerTexture("Skydome1", "Texture/skydome1.jpg");
-            registerTexture("Skydome2", "Texture/skydome2.jpg");
+            if (json.openJson("GameData/Texture.json"))
+                findTextureInfoFromValue(json.root, "Tol");
+            else
+                assert(!"Could not open Texture.json file");
         }
 
         ci::gl::TextureRef find(const std::string& findname_)
@@ -49,25 +50,49 @@ namespace tol
             }
         }
 
-        void loadJsonTexture(const std::string& filepath_)
-        {
-            ci::JsonTree json(filepath_);
-            std::string key, path;
-
-
-        }
-
         void registerTexture(const std::string& key_, const std::string& filepath_)
         {
             ci::DataSourceRef data_source = ci::app::loadAsset(filepath_);
             ci::ImageSourceRef image_source = loadImage(data_source);
             auto f = ci::gl::Texture::Format();
-            f.setWrap(GL_REPEAT, GL_REPEAT);
+            //f.setWrap(GL_REPEAT, GL_REPEAT);
 
             texture.insert(std::make_pair(key_, ci::gl::TextureRef(std::make_shared<ci::gl::Texture>(image_source, f))));
         }
 
     private:
+
+        // 画像のデータをjsonから読む
+        void findTextureInfoFromValue(const Json::Value& value, const std::string& key)
+        {
+            auto child = value.get(key, value);
+
+            if (!json.isValue(child))
+            {
+                std::string key;
+                std::string path;
+
+                for (auto const& keys : value.getMemberNames())
+                {
+                    if (keys == "Key")
+                        key = value[keys].asString();
+                    if (keys == "Path")
+                        path = value[keys].asString();
+                }
+                registerTexture(key, path);
+            }
+            else
+            {
+                // 再帰してメンバーがいないところまでたどる
+                for (auto const& it : child.getMemberNames())
+                {
+                    findTextureInfoFromValue(child, it);
+                }
+            }
+        }
+
         std::unordered_map<std::string, ci::gl::TextureRef> texture;
+
+        JsonInfo json;
     };
 }

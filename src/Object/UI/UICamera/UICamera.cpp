@@ -37,6 +37,9 @@ void tol::UICamera::update()
 
 void tol::UICamera::awakeDraw()
 {
+    ci::gl::disableDepthWrite();
+    ci::gl::disableDepthRead();
+
     gl::enableAlphaBlending();
     gl::pushMatrices();
     gl::setMatrices(camera);
@@ -47,6 +50,10 @@ void tol::UICamera::laterUpdate()
 }
 
 void tol::UICamera::laterDraw()
+{
+}
+
+void tol::UICamera::transLaterDraw()
 {
     gl::popMatrices();
     gl::disableAlphaBlending();

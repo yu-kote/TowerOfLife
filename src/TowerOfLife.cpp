@@ -2,8 +2,11 @@
 #include "cinder/gl/gl.h"
 #include "cinder/Camera.h"
 
+#include "Tol/TolGameDataManager.h"
+
 #include "Scene/Manager/SceneManager.h"
 #include "Scene/Category/GameMain.h"
+#include "Scene/Category/Gacha.h"
 
 #include "Utility/Time/Time.h"
 #include "Utility/Easing/Ease.h"
@@ -55,13 +58,12 @@ void TowerOfLife::setup()
     SoundGet.setup();
     ObjDataGet.setup();
 
-    gl::enableDepthRead();
-    gl::enableDepthWrite();
     gl::enable(GL_CULL_FACE);
 
     env.padSetup();
 
-    SceneCreate<GameMain>(new GameMain());
+    tol::TolData.prev_scene = SceneCategory::GAMEMAIN;
+    SceneCreate<Gacha>(new Gacha());
     SceneManager::instance().get().setup();
 
     //Json::StyledWriter writer;

@@ -1,4 +1,5 @@
 #include "GameMain.h"
+#include "../../Tol/TolGameDataManager.h"
 
 #include "../../Scene/Manager/SceneManager.h"
 #include "../../Task/SoundManager.h"
@@ -23,16 +24,16 @@ void GameMain::setup()
     // 3D Objcts
     entities.instantiate<tol::Light>();
     entities.instantiate<tol::Camera>();
-    entities.instantiate<tol::EarthSkydome>();
     entities.instantiate<tol::UniverseSkydome>();
+    entities.instantiate<tol::EarthSkydome>();
     entities.instantiate<tol::Player>();
+    entities.instantiate<tol::PlayerShadow>();
     entities.instantiate<tol::DebugDraw>();
     entities.instantiate<tol::TolStage>();
 
     // UI
     ui_entities.instantiate<tol::UICamera>();
     ui_entities.instantiate<tol::FrameRateView>();
-
 
 
     // インスタンスをもらってポインタを渡すところ
@@ -42,6 +43,7 @@ void GameMain::setup()
     entities.getInstance<tol::Player>()->setCamera(entities.getInstance<tol::Camera>());
     entities.getInstance<tol::TolStage>()->setPlayer(entities.getInstance<tol::Player>());
     entities.getInstance<tol::TolStage>()->setCamera(entities.getInstance<tol::Camera>());
+    entities.getInstance<tol::PlayerShadow>()->setPlayer(entities.getInstance<tol::Player>());
     entities.getInstance<tol::DebugDraw>()->setPlayer(entities.getInstance<tol::Player>());
     entities.getInstance<tol::DebugDraw>()->setCamera(entities.getInstance<tol::Camera>());
 

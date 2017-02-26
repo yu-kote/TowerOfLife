@@ -13,8 +13,8 @@ tol::FrameRateView::FrameRateView()
 
 void tol::FrameRateView::setup()
 {
-    //setFontFromAsset("Font/nicokaku_v1.ttf", 60.0f);
-    setFont("Hiragino Maru Gothic ProN W4", 60.0f);
+    setFontFromAsset("Font/nicokaku_v1.ttf", 60.0f);
+    //setFont("Hiragino Maru Gothic ProN W4", 60.0f);
     transform.position = Vec3f(1380, 820, 0);
     prev_frame = 0;
     avg_size = 30;

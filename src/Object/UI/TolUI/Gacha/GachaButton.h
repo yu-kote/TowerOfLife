@@ -19,7 +19,6 @@ namespace tol
     private:
 
         std::vector<ci::Vec2f> points;
-        std::shared_ptr<tol::Color> color;
 
     };
 
