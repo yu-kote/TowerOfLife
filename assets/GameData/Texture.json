@@ -3,6 +3,11 @@
   "Tol": {
 
     "Title": {
+      // É^ÉCÉgÉãÉçÉS
+      "TitleLogo": {
+        "Key": "TitleLogo",
+        "Path": "Texture/title_logo.png"
+      },
       // îwåi
       "BlocksBackGround": {
         "Key": "BlocksBackGround",
@@ -40,13 +45,13 @@
         "Key": "ContinueFont",
         "Path": "Texture/continue_logo.png"
       },
-      "ContinueNoButton": {
-        "Key": "ContinueNoButton",
-        "Path": "Texture/continue_no.png"
-      },
       "ContinueYesButton": {
         "Key": "ContinueYesButton",
         "Path": "Texture/continue_yes.png"
+      },
+      "ContinueNoButton": {
+        "Key": "ContinueNoButton",
+        "Path": "Texture/continue_no.png"
       },
 
       // ÉKÉ`ÉÉ
@@ -60,16 +65,16 @@
       },
 
       // ÉAÉCÉeÉÄ
-      "Item01": {
-        "Key": "Item01",
+      "Item0": {
+        "Key": "Item0",
         "Path": "Texture/icon01.png"
       },
-      "Item02": {
-        "Key": "Item02",
+      "Item1": {
+        "Key": "Item1",
         "Path": "Texture/icon02.png"
       },
-      "Item03": {
-        "Key": "Item03",
+      "Item2": {
+        "Key": "Item2",
         "Path": "Texture/icon03.png"
       }
     },

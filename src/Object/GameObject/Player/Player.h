@@ -111,7 +111,8 @@ namespace tol
 
         ci::Ray camera_ray;                 // プレイヤーからカメラへのレイ
 
-
+        bool can_one_more_jump;             // 二段ジャンプできるかどうか
+        int jump_step;                      // ジャンプの段階
     };
 
     // プレイヤーの影描画

@@ -21,3 +21,10 @@ void tol::UIBase::drawReflect()
     popModelView();
     drawEnd();
 }
+
+void tol::UIBase::drawReflectTransform()
+{
+    pushModelView();
+    draw();
+    popModelView();
+}

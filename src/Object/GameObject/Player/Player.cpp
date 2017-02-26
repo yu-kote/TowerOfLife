@@ -7,6 +7,8 @@
 #include "../../../Task/SoundManager.h"
 #include "../../../Utility/Input/InputEvent.h"
 
+#include "../../../Tol/TolGameDataManager.h"
+
 
 using namespace ci;
 using namespace ci::app;
@@ -17,9 +19,6 @@ void tol::Player::setup()
 
     transform.position.y = 5;
     transform.scale = Vec3f(1, 1, 1);
-
-    Params->addParam("player_pos", &transform.position);
-    //Params->addParam("camera_ray", &camera_ray.getDirection());
 
     gl::Material m = gl::Material(ci::ColorA(1.0f, 1.0f, 1.0f, 1.0f),      // Ambient
                                   ci::ColorA(1.0f, 1.0f, 1.0f, 1.0f),      // Diffuse
@@ -47,6 +46,9 @@ void tol::Player::setup()
     is_restart = false;
     not_operation = false;
     is_dead_distance_judgment = 50;
+
+    can_one_more_jump = false;
+    jump_step = 0;
 }
 
 void tol::Player::update()
@@ -309,23 +311,53 @@ void tol::Player::rayUpdate()
 
 void tol::Player::jump()
 {
+    if (TolData.using_item == TolItem::TWO_STEP_JUMP)
+    {
+        if (jump_step == 2 || jump_step == 3)
+        {
+            if (env.isPadPress(env.BUTTON_2))
+            {
+                jump_time++;
+                if (jump_time < jump_duration)
+                    velocity.y = jump_power;
+                if (jump_step == 2)
+                    SoundGet.find("Jump")->start();
+                jump_step = 3;
+            }
+            else
+            {
+                if (jump_step == 3)
+                    jump_step = 4;
+            }
+        }
+    }
+
     if (env.isPadPress(env.BUTTON_2))
     {
         if (can_jump)
         {
+            if (jump_step == 0)
+                SoundGet.find("Jump")->start();
             jump_time++;
             if (jump_time < jump_duration)
-            {
                 velocity.y = jump_power;
-            }
+            jump_step = 1;
         }
         is_jump_key_press = true;
     }
     else
     {
+        if (jump_step == 1)
+        {
+            jump_step = 2;
+            jump_time = 0;
+        }
         is_jump_key_press = false;
         can_jump = false;
     }
+
+
+
     if (env.isPress(KeyEvent::KEY_SPACE))
     {
         if (jump_time < jump_duration)
@@ -377,15 +409,23 @@ void tol::Player::stateUpdate()
     {
     case State::STAND:
         if (can_jump == false)
+        {
             jump_time = 0;
+            jump_step = 0;
+        }
         if (is_jump_key_press == false)
             can_jump = true;
+        can_one_more_jump = true;
         break;
     case State::MOVING:
         if (can_jump == false)
+        {
             jump_time = 0;
+            jump_step = 0;
+        }
         if (is_jump_key_press == false)
             can_jump = true;
+        can_one_more_jump = true;
         break;
     case State::RIZING:
         break;
@@ -398,8 +438,6 @@ void tol::Player::stateUpdate()
         if (current_state == State::MOVING)
             jump_moment_vec = velocity;
 
-        if (state == State::RIZING)
-            SoundGet.find("Jump")->start();
         if (current_state == State::FALL)
             SoundGet.find("Landing")->start();
 
@@ -420,7 +458,6 @@ void tol::Player::gameover()
         camera->transform.position.y - is_dead_distance_judgment > transform.position.y)
     {
         not_operation = true;
-        is_restart = true;
     }
 }
 

@@ -194,7 +194,14 @@ public:
         ease[&target].clear();
     }
 
-    void shutdown()
+    void kill(ci::Vec3f & target)
+    {
+        ease[&target.x].clear();
+        ease[&target.y].clear();
+        ease[&target.z].clear();
+    }
+
+    void allClear()
     {
         for (auto & it : ease)
         {

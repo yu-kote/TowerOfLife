@@ -1,5 +1,6 @@
 #include "TolBlockHolder.h"
 #include "../../../Utility/Random/Random.h"
+#include "../../../Tol/TolGameDataManager.h"
 
 using namespace ci;
 using namespace ci::app;
@@ -100,6 +101,10 @@ void tol::TolBlockHolder::decideLookAtCamera()
 void tol::TolBlockHolder::easeCamera()
 {
     if (player->isNotOperation())return;
+
+    if (TolData.using_item == TolItem::SCROLL_STOP)
+        camera_up_remaining_time = camera_up_time;
+
     { // ƒJƒƒ‰‚ğ©“®“I‚Éã‚Éã‚°‚éˆ—
         if (camera_up_remaining_time-- < 0)
         {

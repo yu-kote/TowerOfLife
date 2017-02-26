@@ -3,6 +3,11 @@
   "BufferPlayer": {
     "Tol": {
       "Title": {
+        "ButtonPush": {
+          "Key": "ButtonPush",
+          "Path": "Sound/SE/buttonpush.mp3",
+          "Gain": 0.2
+        }
       },
 
       "GameMain": {
@@ -17,11 +22,32 @@
         },
         "Coin": {
           "Key": "Coin",
-          "Path": "Sound/SE/coin.wav"
+          "Path": "Sound/SE/coin.wav",
+          "Gain": 0.5
+        },
+        "ContinueSelect": {
+          "Key": "ContinueSelect",
+          "Path": "Sound/SE/continueselect.wav",
+          "Gain": 0.2
         }
       },
 
-      "Result": {
+      "Gacha": {
+        "ScaleItem": {
+          "Key": "ScaleItem",
+          "Path": "Sound/SE/get_3.wav",
+          "Gain": 0.2
+        },
+        "FallItem": {
+          "Key": "FallItem",
+          "Path": "Sound/SE/FallItem.wav",
+          "Gain": 0.4
+        },
+        "GetItem": {
+          "Key": "GetItem",
+          "Path": "Sound/SE/announce.wav",
+          "Gain": 0.2
+        }
       }
     }
   },
@@ -29,6 +55,12 @@
   "FilePlayer": {
     "Tol": {
       "Title": {
+        "TitleBGM": {
+          "Key": "TitleBGM",
+          "Path": "Sound/BGM/light_song.wav",
+          "Loop": true,
+          "Gain": 0.4
+        }
       },
 
       "GameMain": {

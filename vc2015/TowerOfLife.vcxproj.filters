@@ -124,6 +124,15 @@
     <Filter Include="Source Files\Object\UI\TolUI\Fade">
       <UniqueIdentifier>{bc251d3d-d034-498e-abc3-d7f74f0f3ac4}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Source Files\Object\UI\TolUI\Continue">
+      <UniqueIdentifier>{5156e921-6451-4490-b3c4-0d4848a8c503}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Object\UI\TolUI\Title">
+      <UniqueIdentifier>{45af788c-fb2e-42c5-8cc0-f2d4d2e5155a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Object\UI\TolUI\GameItem">
+      <UniqueIdentifier>{608660d0-57fc-4a2f-a293-fb1dc5cb86a2}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\src\TowerOfLife.cpp">
@@ -230,6 +239,18 @@
     </ClCompile>
     <ClCompile Include="..\src\Object\UI\TolUI\Gacha\GachaItem.cpp">
       <Filter>Source Files\Object\UI\TolUI\Gacha</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\Tol\TolGameDataManager.cpp">
+      <Filter>Source Files\Tol</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\Object\UI\TolUI\Continue\ContinueHolder.cpp">
+      <Filter>Source Files\Object\UI\TolUI\Continue</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\Object\UI\TolUI\Title\TitleSelect.cpp">
+      <Filter>Source Files\Object\UI\TolUI\Title</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\Object\UI\TolUI\GameItem\ItemHolder.cpp">
+      <Filter>Source Files\Object\UI\TolUI\GameItem</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -385,6 +406,15 @@
     </ClInclude>
     <ClInclude Include="..\src\Object\UI\TolUI\Gacha\GachaItem.h">
       <Filter>Source Files\Object\UI\TolUI\Gacha</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\Object\UI\TolUI\Continue\ContinueHolder.h">
+      <Filter>Source Files\Object\UI\TolUI\Continue</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\Object\UI\TolUI\Title\TitleSelect.h">
+      <Filter>Source Files\Object\UI\TolUI\Title</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\Object\UI\TolUI\GameItem\ItemHolder.h">
+      <Filter>Source Files\Object\UI\TolUI\GameItem</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

@@ -7,6 +7,8 @@
 #include "Scene/Manager/SceneManager.h"
 #include "Scene/Category/GameMain.h"
 #include "Scene/Category/Gacha.h"
+#include "Scene/Category/Title.h"
+
 
 #include "Utility/Time/Time.h"
 #include "Utility/Easing/Ease.h"
@@ -42,12 +44,6 @@ public:
     void prepareSettings(Settings *settings)override;
     void shutdown()override;
 
-    CameraOrtho camera_o;
-    Vec3f pos;
-
-    GameMain gamemain;
-
-    CameraPersp camera;
 public:
 
 };
@@ -62,8 +58,7 @@ void TowerOfLife::setup()
 
     env.padSetup();
 
-    tol::TolData.prev_scene = SceneCategory::GAMEMAIN;
-    SceneCreate<Gacha>(new Gacha());
+    SceneCreate<GameMain>(new GameMain());
     SceneManager::instance().get().setup();
 
     //Json::StyledWriter writer;
@@ -92,7 +87,7 @@ void TowerOfLife::shutdown()
 {
     env.padShutDown();
     SceneManager::instance().get().shutdown();
-    Easing.shutdown();
+    Easing.allClear();
 }
 
 void TowerOfLife::update()

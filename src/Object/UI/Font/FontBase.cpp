@@ -28,3 +28,8 @@ void tol::FontBase::drawFont()
     gl::drawString(drawstring, Vec2f::zero(),
                    color->getColor(), font);
 }
+
+void tol::FontBase::drawFontCenter()
+{
+    gl::drawStringCentered(drawstring, Vec2f::zero(), color->getColor(), font);
+}

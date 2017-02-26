@@ -12,6 +12,9 @@
 
 #include "../../Object/UI/UICamera/UICamera.h"
 #include "../../Object/UI/FrameView/FrameRateView.h"
+#include "../../Object/UI/TolUI/Fade/Fade.h"
+#include "../../Object/UI/TolUI/Continue/ContinueHolder.h"
+#include "../../Object/UI/TolUI/GameItem/ItemHolder.h"
 
 
 GameMain::GameMain()
@@ -34,6 +37,12 @@ void GameMain::setup()
     // UI
     ui_entities.instantiate<tol::UICamera>();
     ui_entities.instantiate<tol::FrameRateView>();
+    ui_entities.instantiate<tol::FadeIn>(tol::FadeIn(ci::ColorA(0, 0, 0, 1), 120));
+    ui_entities.getInstance<tol::FadeIn>()->fadeStart();
+    ui_entities.instantiate<tol::Continue>();
+    ui_entities.instantiate<tol::FadeOut>(tol::FadeOut(ci::ColorA(0, 0, 0, 0), 120));
+    ui_entities.instantiate<tol::ItemHolder>();
+
 
 
     // インスタンスをもらってポインタを渡すところ
@@ -47,8 +56,12 @@ void GameMain::setup()
     entities.getInstance<tol::DebugDraw>()->setPlayer(entities.getInstance<tol::Player>());
     entities.getInstance<tol::DebugDraw>()->setCamera(entities.getInstance<tol::Camera>());
 
+    // UI
+    ui_entities.getInstance<tol::Continue>()->setPlayer(entities.getInstance<tol::Player>());
+
     entities.setup();
     ui_entities.setup();
+    select_name = "";
 }
 
 void GameMain::update()
@@ -64,17 +77,31 @@ void GameMain::draw()
 }
 
 #include "Gacha.h"
+#include "Title.h"
+
 void GameMain::shift()
 {
-    if (env.isPush(ci::app::KeyEvent::KEY_1))
+    if (!entities.getInstance<tol::Player>()->isNotOperation())return;
+    if (select_name == "")
     {
-        SoundGet.allStop();
-        entities.allDestroy();
-        ui_entities.allDestroy();
-
-        SceneCreate<Gacha>(new Gacha());
-        SceneManager::instance().get().setup();
+        select_name = ui_entities.getInstance<tol::Continue>()->getSelectButtonName();
+        return;
     }
+    ui_entities.getInstance<tol::Continue>()->setIsUpdateActive(false);
+    ui_entities.getInstance<tol::FadeOut>()->fadeStart();
+    if (!ui_entities.getInstance<tol::FadeOut>()->isFadeEnd())
+        return;
+    entities.allDestroy();
+    ui_entities.allDestroy();
+    Easing.allClear();
+    SoundGet.allStop();
+
+    tol::TolData.prev_scene = SceneCategory::GAMEMAIN;
+    if (select_name == "Yes")
+        SceneCreate<Gacha>(new Gacha());
+    else if (select_name == "No")
+        SceneCreate<Title>(new Title());
+    SceneManager::instance().get().setup();
 }
 
 void GameMain::shutdown()

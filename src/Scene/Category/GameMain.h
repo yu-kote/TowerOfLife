@@ -13,4 +13,6 @@ public:
     void shutdown()override;
 
 private:
+
+    std::string select_name;
 };

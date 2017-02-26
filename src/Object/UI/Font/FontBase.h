@@ -15,6 +15,7 @@ namespace tol
 
         // •¶Žš•`‰æ
         void drawFont();
+        void drawFontCenter();
 
     protected:
 

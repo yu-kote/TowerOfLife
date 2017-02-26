@@ -1,5 +1,6 @@
 #include "TolBlock.h"
 #include "../../../Task/ObjDataManager.h"
+#include "../../../Tol/TolGameDataManager.h"
 
 using namespace ci;
 using namespace ci::app;
@@ -48,7 +49,8 @@ void tol::TolBlock::setup()
 void tol::TolBlock::update()
 {
     if (!getActive())return;
-    action->update();
+    if (TolData.using_item != TolItem::GIMMICK_STOP)
+        action->update();
 
     transparentize(material_z0);
     transparentize(material_z1);
