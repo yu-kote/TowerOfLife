@@ -58,7 +58,7 @@ void TowerOfLife::setup()
 
     env.padSetup();
 
-    SceneCreate<GameMain>(new GameMain());
+    SceneCreate<Title>(new Title());
     SceneManager::instance().get().setup();
 
     //Json::StyledWriter writer;
@@ -111,7 +111,7 @@ void TowerOfLife::draw()
     SceneManager::instance().get().draw();
 
     // Param‚ÌXV
-    Params->draw();
+    //Params->draw();
 }
 
 void TowerOfLife::keyDown(KeyEvent event)

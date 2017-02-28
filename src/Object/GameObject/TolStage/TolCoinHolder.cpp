@@ -53,7 +53,7 @@ void tol::TolCoinHolder::playerGetCoins()
         if ((*it)->isHitToCoin(player->transform.position))
         {
             SoundGet.find("Coin")->start();
-            TolData.coin += (*it)->coin_amount;
+            TolData.temp_coin += (*it)->coin_amount;
             it = coins.erase(it);
             continue;
         }

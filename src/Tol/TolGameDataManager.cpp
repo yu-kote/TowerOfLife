@@ -49,6 +49,21 @@ int tol::TolGameDataManager::itemCountCheck(const TolItem & item)
     return count;
 }
 
+void tol::TolGameDataManager::coinInstance()
+{
+    coin = temp_coin;
+    temp_coin = 0;
+}
+
+int tol::TolGameDataManager::calcScore()
+{
+    if (high_score < score)
+    {
+        high_score = score;
+    }
+    return score + (temp_coin * 100);
+}
+
 std::string tol::TolGameDataManager::getItemName(const TolItem& item)
 {
     switch (item)

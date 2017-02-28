@@ -58,9 +58,12 @@ void Gacha::shift()
         Easing.allClear();
         SoundGet.allStop();
 
+        tol::TolData.score = 0;
+        tol::TolData.temp_coin = 0;
+
         if (tol::TolData.prev_scene == SceneCategory::GAMEMAIN)
             SceneCreate<GameMain>(new GameMain());
-        else if(tol::TolData.prev_scene == SceneCategory::TITLE)
+        else if (tol::TolData.prev_scene == SceneCategory::TITLE)
             SceneCreate<Title>(new Title());
         tol::TolData.prev_scene = SceneCategory::GACHA;
         SceneManager::instance().get().setup();
