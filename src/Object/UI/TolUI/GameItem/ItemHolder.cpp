@@ -288,11 +288,11 @@ void tol::ItemIcon2::start(const int & time)
 // ‚Ü‚Æ‚ß
 ////////////////////////////////////////////////////////////////////////////////////////////
 
-tol::ItemHolder::ItemHolder()
+tol::GameMainUI::GameMainUI()
 {
 }
 
-void tol::ItemHolder::setup()
+void tol::GameMainUI::setup()
 {
     transform.position = Vec3f(100, 50, 0);
 
@@ -314,7 +314,7 @@ void tol::ItemHolder::setup()
     TolData.using_item = TolItem::ITEM_MAX;
 }
 
-void tol::ItemHolder::update()
+void tol::GameMainUI::update()
 {
     useItem();
     usingItemUpdate();
@@ -327,7 +327,7 @@ void tol::ItemHolder::update()
     coin->setCoin(TolData.temp_coin);
 }
 
-void tol::ItemHolder::transDraw()
+void tol::GameMainUI::transDraw()
 {
     item0->drawReflect();
     item1->drawReflect();
@@ -336,7 +336,7 @@ void tol::ItemHolder::transDraw()
     score->drawReflect();
 }
 
-void tol::ItemHolder::useItem()
+void tol::GameMainUI::useItem()
 {
     if (is_using_item)return;
     if (env.getPadAxis(env.CROSS_HORIZONTAL) <= -1)
@@ -365,7 +365,7 @@ void tol::ItemHolder::useItem()
     }
 }
 
-void tol::ItemHolder::usingItemUpdate()
+void tol::GameMainUI::usingItemUpdate()
 {
     if (TolData.using_item == TolItem::ITEM_MAX)return;
     item_count++;

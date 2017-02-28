@@ -36,12 +36,12 @@ void GameMain::setup()
 
     // UI
     ui_entities.instantiate<tol::UICamera>();
-    //ui_entities.instantiate<tol::FrameRateView>();
-    ui_entities.instantiate<tol::FadeIn>(tol::FadeIn(ci::ColorA(0, 0, 0, 1), 120));
+    ui_entities.instantiate<tol::FrameRateView>();
+    ui_entities.instantiate<tol::FadeIn>(tol::FadeIn(ci::ColorA(0, 0, 0, 1), 15));
     ui_entities.getInstance<tol::FadeIn>()->fadeStart();
     ui_entities.instantiate<tol::Continue>();
-    ui_entities.instantiate<tol::FadeOut>(tol::FadeOut(ci::ColorA(0, 0, 0, 0), 120));
-    ui_entities.instantiate<tol::ItemHolder>();
+    ui_entities.instantiate<tol::FadeOut>(tol::FadeOut(ci::ColorA(0, 0, 0, 0), 15));
+    ui_entities.instantiate<tol::GameMainUI>();
 
 
 

@@ -121,11 +121,11 @@ namespace tol
     };
 
 
-    class ItemHolder : public UIBase
+    class GameMainUI : public UIBase
     {
     public:
 
-        ItemHolder();
+        GameMainUI();
 
         void setup()override;
         void update()override;
