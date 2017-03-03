@@ -58,7 +58,7 @@ void TowerOfLife::setup()
 
     env.padSetup();
 
-    SceneCreate<GameMain>(new GameMain());
+    SceneCreate<Title>(new Title());
     SceneManager::instance().get().setup();
 
     //Json::StyledWriter writer;
