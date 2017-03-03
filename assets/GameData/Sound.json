@@ -5,7 +5,7 @@
       "Title": {
         "ButtonPush": {
           "Key": "ButtonPush",
-          "Path": "Sound/SE/buttonpush.mp3",
+          "Path": "Sound/SE/buttonpush.wav",
           "Gain": 0.2
         }
       },

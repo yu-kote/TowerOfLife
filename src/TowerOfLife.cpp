@@ -111,7 +111,7 @@ void TowerOfLife::draw()
     SceneManager::instance().get().draw();
 
     // Param‚ÌXV
-    Params->draw();
+    //Params->draw();
 }
 
 void TowerOfLife::keyDown(KeyEvent event)

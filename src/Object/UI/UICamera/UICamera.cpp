@@ -23,16 +23,16 @@ void tol::UICamera::setup()
 
 void tol::UICamera::update()
 {
-    WindowResize.setOrthoCameraResize = [&]()
-    {
-        camera.setOrtho(
-            0.0f,
-            (float)getWindowSize().x,
-            (float)getWindowSize().y,
-            0.0f,
-            0.0f,
-            100.0f);
-    };
+    //WindowResize.setOrthoCameraResize = [&]()
+    //{
+    //    camera.setOrtho(
+    //        0.0f,
+    //        (float)getWindowSize().x,
+    //        (float)getWindowSize().y,
+    //        0.0f,
+    //        0.0f,
+    //        100.0f);
+    //};
 }
 
 void tol::UICamera::awakeDraw()

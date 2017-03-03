@@ -17,12 +17,9 @@ void Title::setup()
 {
     ui_entities.instantiate<tol::UICamera>();
     ui_entities.instantiate<tol::BlocksBackGround>();
-
     ui_entities.instantiate<tol::TitleSelect>();
-
-    ui_entities.instantiate<tol::FadeIn>(tol::FadeIn(ci::ColorA(0, 0, 0, 1), 60));
-
-    ui_entities.instantiate<tol::FadeOut>(tol::FadeOut(ci::ColorA(0, 0, 0, 0), 120));
+    ui_entities.instantiate<tol::FadeIn>(tol::FadeIn(ci::ColorA(0, 0, 0, 1), 30));
+    ui_entities.instantiate<tol::FadeOut>(tol::FadeOut(ci::ColorA(0, 0, 0, 0), 30));
 
     ui_entities.getInstance<tol::FadeIn>()->fadeStart();
 

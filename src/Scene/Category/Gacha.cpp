@@ -20,9 +20,11 @@ void Gacha::setup()
     ui_entities.instantiate<tol::UICamera>();
     ui_entities.instantiate<tol::BlocksBackGround>();
     ui_entities.instantiate<tol::GachaHolder>();
-    ui_entities.instantiate<tol::FadeIn>(tol::FadeIn(ci::ColorA(0, 0, 0, 1), 120));
-    ui_entities.instantiate<tol::FadeOut>(tol::FadeOut(ci::ColorA(0, 0, 0, 0), 120));
+    ui_entities.instantiate<tol::FadeIn>(tol::FadeIn(ci::ColorA(0, 0, 0, 1), 30));
+    ui_entities.instantiate<tol::FadeOut>(tol::FadeOut(ci::ColorA(0, 0, 0, 0), 30));
 
+
+    // 
     ui_entities.getInstance<tol::GachaHolder>()->setFadeIn(ui_entities.getInstance<tol::FadeIn>());
 
     ui_entities.getInstance<tol::FadeIn>()->fadeStart();
@@ -58,9 +60,12 @@ void Gacha::shift()
         Easing.allClear();
         SoundGet.allStop();
 
+        tol::TolData.score = 0;
+        tol::TolData.temp_coin = 0;
+
         if (tol::TolData.prev_scene == SceneCategory::GAMEMAIN)
             SceneCreate<GameMain>(new GameMain());
-        else if(tol::TolData.prev_scene == SceneCategory::TITLE)
+        else if (tol::TolData.prev_scene == SceneCategory::TITLE)
             SceneCreate<Title>(new Title());
         tol::TolData.prev_scene = SceneCategory::GACHA;
         SceneManager::instance().get().setup();

@@ -140,6 +140,8 @@ void tol::TolBlockHolder::easeCamera()
     // イージングさせる
     ease_eyepoint += (eyepoint - ease_eyepoint) * ease_speed;
     ease_center += (center - ease_center) * ease_speed;
+
+    TolData.score = ease_eyepoint.y;
 }
 
 void tol::TolBlockHolder::cameraDistanceToBlockErase()

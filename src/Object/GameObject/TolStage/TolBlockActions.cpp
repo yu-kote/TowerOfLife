@@ -33,6 +33,6 @@ tol::RoundTripBlock::RoundTripBlock(TolBlock * block_) :
 
 void tol::RoundTripBlock::update()
 {
-    movecount += 0.1f;
+    movecount += 0.2f;
     block->transform.position.x = start_pos.x + sin(0.7f + 0.3f * movecount);
 }

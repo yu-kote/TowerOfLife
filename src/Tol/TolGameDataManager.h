@@ -26,6 +26,7 @@ namespace tol
             temp_coin = 0;
             coin = 0;
             score = 0;
+            high_score = 0;
             setup();
         }
 
@@ -49,7 +50,11 @@ namespace tol
 
         int temp_coin;
         int coin;
+        void coinInstance();
+
         int score;
+        int high_score;
+        int calcScore();
 
         std::string getItemName(const TolItem& item);
         std::string getItemInstruction(const TolItem& item);
