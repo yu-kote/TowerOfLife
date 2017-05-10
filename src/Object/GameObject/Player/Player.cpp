@@ -94,7 +94,6 @@ void tol::Player::update()
 
 void tol::Player::draw()
 {
-    //gl::drawStrokedCube(Vec3f::zero(), Vec3f(2, 2, 2));
     gl::drawCube(Vec3f::zero(), Vec3f(2, 2, 2));
 
     gl::translate(0, -transform.scale.y, 0);
@@ -357,7 +356,6 @@ void tol::Player::jump()
     }
 
 
-
     if (env.isPress(KeyEvent::KEY_SPACE))
     {
         if (jump_time < jump_duration)
@@ -452,10 +450,10 @@ void tol::Player::gameover()
         is_restart = false;
         reset();
     }
-    if (not_operation == true)return;
+    if (not_operation == true)
+        return;
 
-    if (transform.position.y < 0 ||
-        camera->transform.position.y - is_dead_distance_judgment > transform.position.y)
+    if (camera->transform.position.y - is_dead_distance_judgment > transform.position.y)
     {
         not_operation = true;
     }
@@ -469,6 +467,8 @@ void tol::Player::reset()
     jump_moment_vec = Vec3f::zero();
     not_operation = false;
 }
+
+// ‰e
 
 void tol::PlayerShadow::setup()
 {

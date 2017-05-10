@@ -76,6 +76,16 @@
       "Item2": {
         "Key": "Item2",
         "Path": "Texture/icon03.png"
+      },
+
+      // ÉRÉCÉì
+      "Coin": {
+        "Key": "Coin",
+        "Path": "Texture/coin.png"
+      },
+      "CoinObj": {
+        "Key": "CoinObj",
+        "Path": "Obj/Coin/coin3d.png"
       }
     },
     "Result": {

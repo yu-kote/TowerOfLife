@@ -124,14 +124,26 @@
     <Filter Include="Source Files\Object\UI\TolUI\Fade">
       <UniqueIdentifier>{bc251d3d-d034-498e-abc3-d7f74f0f3ac4}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Source Files\Object\UI\TolUI\Continue">
-      <UniqueIdentifier>{5156e921-6451-4490-b3c4-0d4848a8c503}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Source Files\Object\UI\TolUI\Title">
       <UniqueIdentifier>{45af788c-fb2e-42c5-8cc0-f2d4d2e5155a}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Source Files\Object\UI\TolUI\GameItem">
+    <Filter Include="Source Files\Object\UI\TolUI\GameMainUI">
+      <UniqueIdentifier>{d0d9b1a6-3e65-4c17-b664-760d4f71a601}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Object\UI\TolUI\GameMainUI\Continue">
+      <UniqueIdentifier>{5156e921-6451-4490-b3c4-0d4848a8c503}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Object\UI\TolUI\GameMainUI\Item">
       <UniqueIdentifier>{608660d0-57fc-4a2f-a293-fb1dc5cb86a2}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Object\UI\TolUI\GameMainUI\CountDown">
+      <UniqueIdentifier>{c0f782da-c6e3-48a0-b5af-f7c78efe0757}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Object\UI\TolUI\GameMainUI\Pause">
+      <UniqueIdentifier>{439a8fb9-8161-4094-b76e-1d98c5c4403e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Object\UI\TolUI\Title\TitleUI">
+      <UniqueIdentifier>{f881370d-4749-4347-8193-55b9bae43222}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -244,13 +256,22 @@
       <Filter>Source Files\Tol</Filter>
     </ClCompile>
     <ClCompile Include="..\src\Object\UI\TolUI\Continue\ContinueHolder.cpp">
-      <Filter>Source Files\Object\UI\TolUI\Continue</Filter>
+      <Filter>Source Files\Object\UI\TolUI\GameMainUI\Continue</Filter>
     </ClCompile>
     <ClCompile Include="..\src\Object\UI\TolUI\Title\TitleSelect.cpp">
       <Filter>Source Files\Object\UI\TolUI\Title</Filter>
     </ClCompile>
-    <ClCompile Include="..\src\Object\UI\TolUI\GameItem\ItemHolder.cpp">
-      <Filter>Source Files\Object\UI\TolUI\GameItem</Filter>
+    <ClCompile Include="..\src\Object\UI\TolUI\GameMainUI\CountDown\CountDown.cpp">
+      <Filter>Source Files\Object\UI\TolUI\GameMainUI\CountDown</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\Object\UI\TolUI\GameMainUI\Pause\Pause.cpp">
+      <Filter>Source Files\Object\UI\TolUI\GameMainUI\Pause</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\Object\UI\TolUI\GameItem\GameMainUI.cpp">
+      <Filter>Source Files\Object\UI\TolUI\GameMainUI\Item</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\Object\UI\TolUI\Title\TitleUI\TitleUI.cpp">
+      <Filter>Source Files\Object\UI\TolUI\Title\TitleUI</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -408,13 +429,22 @@
       <Filter>Source Files\Object\UI\TolUI\Gacha</Filter>
     </ClInclude>
     <ClInclude Include="..\src\Object\UI\TolUI\Continue\ContinueHolder.h">
-      <Filter>Source Files\Object\UI\TolUI\Continue</Filter>
+      <Filter>Source Files\Object\UI\TolUI\GameMainUI\Continue</Filter>
     </ClInclude>
     <ClInclude Include="..\src\Object\UI\TolUI\Title\TitleSelect.h">
       <Filter>Source Files\Object\UI\TolUI\Title</Filter>
     </ClInclude>
-    <ClInclude Include="..\src\Object\UI\TolUI\GameItem\ItemHolder.h">
-      <Filter>Source Files\Object\UI\TolUI\GameItem</Filter>
+    <ClInclude Include="..\src\Object\UI\TolUI\GameMainUI\CountDown\CountDown.h">
+      <Filter>Source Files\Object\UI\TolUI\GameMainUI\CountDown</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\Object\UI\TolUI\GameMainUI\Pause\Pause.h">
+      <Filter>Source Files\Object\UI\TolUI\GameMainUI\Pause</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\Object\UI\TolUI\GameItem\GameMainUI.h">
+      <Filter>Source Files\Object\UI\TolUI\GameMainUI\Item</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\Object\UI\TolUI\Title\TitleUI\TitleUI.h">
+      <Filter>Source Files\Object\UI\TolUI\Title\TitleUI</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

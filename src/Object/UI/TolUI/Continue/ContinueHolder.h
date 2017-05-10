@@ -160,7 +160,7 @@ namespace tol
 
         void setPlayer(std::shared_ptr<tol::Player> player_) { player = player_; }
 
-        std::string getSelectButtonName() { return canvas->getSelectButtonName(); }
+        std::string getSelectButtonName() { return select_name; }
 
     private:
 
@@ -172,5 +172,6 @@ namespace tol
         std::shared_ptr<ContinueCanvas> canvas;
 
         bool current_active;
+        std::string select_name;
     };
 }

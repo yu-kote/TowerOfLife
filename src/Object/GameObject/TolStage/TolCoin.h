@@ -30,6 +30,8 @@ namespace tol
 
     private:
 
+        ci::TriMesh* mesh;
+
         float rotate_speed;         // ‰ñ“]‘¬“x
         float radius;               // ”¼Œa
 

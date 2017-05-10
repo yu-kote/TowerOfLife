@@ -7,7 +7,6 @@ tol::GameObjectEntities::GameObjectEntities()
 
 tol::GameObjectEntities::~GameObjectEntities()
 {
-    //allDestroy();
 }
 
 void tol::GameObjectEntities::setup()
@@ -55,7 +54,7 @@ void tol::GameObjectEntities::awakeUpdateGameObject()
     for (const auto& it : gameobjects)
     {
         if (!it.second->getActive())continue;
-        if (!it.second->getIsUpdateActive())continue;
+        if (!it.second->getUpdateActive())continue;
         it.second->awakeUpdate();
     }
 }
@@ -65,7 +64,7 @@ void tol::GameObjectEntities::updateGameObject()
     for (const auto& it : gameobjects)
     {
         if (!it.second->getActive())continue;
-        if (!it.second->getIsUpdateActive())continue;
+        if (!it.second->getUpdateActive())continue;
         it.second->componentsUpdate();
         it.second->update();
     }
@@ -76,6 +75,7 @@ void tol::GameObjectEntities::laterUpdateGameObject()
     for (const auto& it : gameobjects)
     {
         if (!it.second->getActive())continue;
+        if (!it.second->getUpdateActive())continue;
         it.second->laterUpdate();
     }
 }
@@ -85,6 +85,7 @@ void tol::GameObjectEntities::awakeDrawGameObject()
     for (const auto& it : gameobjects)
     {
         if (!it.second->getActive())continue;
+        if (!it.second->getDrawActive())continue;
         it.second->awakeDraw();
     }
 }
@@ -95,7 +96,7 @@ void tol::GameObjectEntities::drawGameObject()
     for (const auto& it : gameobjects)
     {
         if (!it.second->getActive())continue;
-        if (!it.second->getIsDrawActive())continue;
+        if (!it.second->getDrawActive())continue;
         it.second->drawBegin();
         it.second->pushModelView();
 
@@ -116,7 +117,7 @@ void tol::GameObjectEntities::transDrawGameObject()
     for (const auto& it : gameobjects)
     {
         if (!it.second->getActive())continue;
-        if (!it.second->getIsDrawActive())continue;
+        if (!it.second->getDrawActive())continue;
         it.second->drawBegin();
         it.second->pushModelView();
 
@@ -136,7 +137,7 @@ void tol::GameObjectEntities::laterDrawGameObject()
     for (const auto& it : gameobjects)
     {
         if (!it.second->getActive())continue;
-        if (!it.second->getIsDrawActive())continue;
+        if (!it.second->getDrawActive())continue;
         it.second->drawBegin();
         it.second->pushModelView();
 
@@ -156,7 +157,7 @@ void tol::GameObjectEntities::transLaterDrawGameObject()
     for (const auto& it : gameobjects)
     {
         if (!it.second->getActive())continue;
-        if (!it.second->getIsDrawActive())continue;
+        if (!it.second->getDrawActive())continue;
         it.second->drawBegin();
         it.second->pushModelView();
 
@@ -168,6 +169,14 @@ void tol::GameObjectEntities::transLaterDrawGameObject()
     }
     ci::gl::disableAlphaBlending();
     ci::gl::popModelView();
+}
+
+void tol::GameObjectEntities::allUpdateActive(const bool & active)
+{
+    for (auto it : gameobjects)
+    {
+        it.second->setUpdateActive(active);
+    }
 }
 
 void tol::GameObjectEntities::allDestroy()

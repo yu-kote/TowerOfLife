@@ -18,3 +18,15 @@ Json::Value tol::JsonInfo::getValue(const std::string & key, const Json::Value &
 {
     return value.get(key, value);
 }
+
+void tol::JsonInfo::save(const std::string & file_name)
+{
+    Json::StyledWriter writer;
+
+    std::ofstream out_put;
+    out_put.open(ci::app::getAssetPath(file_name).string());
+
+    out_put << writer.write(root);
+
+    out_put.close();
+}

@@ -1,6 +1,10 @@
 #include "TolBlockHolder.h"
 #include "../../../Utility/Random/Random.h"
 #include "../../../Tol/TolGameDataManager.h"
+#include "cinder/app/App.h"
+
+#include "../Player/Player.h"
+#include "../Camera/Camera.h"
 
 using namespace ci;
 using namespace ci::app;
@@ -14,17 +18,15 @@ void tol::TolBlockHolder::setup()
     // 最初はマス目すべてにブロックを配置する
     std::vector<TolBlockActionType> addtypes;
     for (int i = 0; i < z_num * x_num; i++)
-    {
         addtypes.push_back(TolBlockActionType::NORMAL);
-    }
+
     addOneStepBlocks(addtypes);
+    addBlocks();
 }
 
 void tol::TolBlockHolder::update()
 {
     addBlocks();
-    easeCamera();
-    decideLookAtCamera();
     playerSetStandRay();
     cameraDistanceToBlockErase();
     transBlock();
@@ -93,57 +95,6 @@ float tol::TolBlockHolder::hitValueNearInZero(const ci::Ray & ray)
     return near_intersection;
 }
 
-void tol::TolBlockHolder::decideLookAtCamera()
-{
-    camera->lookAt(ease_eyepoint, ease_center);
-}
-
-void tol::TolBlockHolder::easeCamera()
-{
-    if (player->isNotOperation())return;
-
-    if (TolData.using_item == TolItem::SCROLL_STOP)
-        camera_up_remaining_time = camera_up_time;
-
-    { // カメラを自動的に上に上げる処理
-        if (camera_up_remaining_time-- < 0)
-        {
-            camera_up_remaining_time = camera_up_time;
-            camera_height += height_interval;
-        }
-        else
-        {
-            if (camera_height < player->transform.position.y - height_interval &&
-                player->isStand())
-            {
-                camera_up_remaining_time = camera_up_time;
-                camera_height += height_interval;
-            }
-        }
-    }
-
-    // カメラを真ん中に合わせる
-    Vec2f center_num = twoDimensionalArrayCenterPoint(x_num, z_num);
-
-    // カメラの高さをいい感じにブロックのところに合わせる
-    float y = camera_height + height_interval;
-    Vec3f eyepoint = Vec3f(center_num.x * block_space,
-                           y,
-                           center_num.y * block_space);
-
-    // 今の高さを見てカメラの見る位置をブロックとブロックの間に合わせる
-    y = centerBetweenBlockHeight(camera_height);
-    Vec3f center = Vec3f(center_num.x * block_space,
-                         y,
-                         center_num.y * block_space);
-
-    // イージングさせる
-    ease_eyepoint += (eyepoint - ease_eyepoint) * ease_speed;
-    ease_center += (center - ease_center) * ease_speed;
-
-    TolData.score = ease_eyepoint.y;
-}
-
 void tol::TolBlockHolder::cameraDistanceToBlockErase()
 {
     for (auto& it : blocks)
@@ -161,26 +112,17 @@ void tol::TolBlockHolder::cameraDistanceToBlockErase()
 
 void tol::TolBlockHolder::stageSetup()
 {
-    if (json.openJson("GameData/TolStage.json"))
-    {
-        auto block_info = json.root["block_info"];
+    if (!json.openJson("GameData/TolStage.json"))
+        return;
 
-        z_num = block_info["z_num"].asInt();
-        x_num = block_info["x_num"].asInt();
+    auto block_info = json.root["block_info"];
 
-        block_space = block_info["space"].asInt();
-        height_interval = block_info["height_space"].asInt();
+    z_num = block_info["z_num"].asInt();
+    x_num = block_info["x_num"].asInt();
 
-        auto stage_info = json.root["stage_info"];
-        camera_up_time = stage_info["camera_up_time"].asInt();
+    block_space = block_info["space"].asInt();
+    height_interval = block_info["height_space"].asInt();
 
-        camera_height = 0.0f;
-        camera_up_remaining_time = camera_up_time;
-
-        ease_eyepoint = Vec3f::zero();
-        ease_center = Vec3f::zero();
-        ease_speed = stage_info["ease_speed"].asFloat();
-    }
 }
 
 void tol::TolBlockHolder::addOneStepBlocks(const std::vector<TolBlockActionType>& addblocktypes)
@@ -244,7 +186,7 @@ void tol::TolBlockHolder::addOneStepBlocks(const std::vector<TolBlockActionType>
 
 void tol::TolBlockHolder::addBlocks()
 {
-    if (player->transform.position.y > current_top_height - height_interval * 1)
+    if (player->transform.position.y > current_top_height - height_interval * 3)
     {
         if (json.openJson("GameData/TolStage.json"))
         {
@@ -296,11 +238,11 @@ void tol::TolBlockHolder::transBlock()
         else
             blocks[i]->setTransparentize(false);
 
-        if (blocks[i]->transform.position.y >= camera_height + height_interval)
+        if (blocks[i]->transform.position.y >= camera->getCameraHeight() + height_interval)
             blocks[i]->setTransparentize(false);
-        if (blocks[i]->transform.position.y >= camera_height + height_interval * 2)
+        if (blocks[i]->transform.position.y >= camera->getCameraHeight() + height_interval * 2)
             blocks[i]->setTransparentize(true);
-        else if (blocks[i]->transform.position.y <= camera_height)
+        else if (blocks[i]->transform.position.y <= camera->getCameraHeight())
             blocks[i]->setTransparentize(true);
     }
 }

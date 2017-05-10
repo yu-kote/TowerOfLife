@@ -1,6 +1,8 @@
 #include "TolCoin.h"
+#include "../../../Task/ObjDataManager.h"
 #include "../../../Utility/Utility.h"
 #include "../../Component/Components/Material.h"
+#include "../../Component/Components/Texture.h"
 #include "../../../Utility/Random/Random.h"
 
 
@@ -16,10 +18,16 @@ void tol::TolCoin::setup()
                                   80.0f,
                                   ci::ColorA(0.2f, 0.2f, 0.2f));
     addComponent<tol::Material>(tol::Material(m));
-
+    addComponent<tol::Texture>(tol::Texture("CoinObj"));
 
     rotate_speed = 1;
     radius = 1.0f;
+
+    mesh = &ObjDataGet.find("Coin");
+
+    auto size = 0.08f;
+    transform.scale = Vec3f(size, size, size);
+
 }
 
 void tol::TolCoin::update()
@@ -34,8 +42,7 @@ void tol::TolCoin::draw()
     pushModelView();
     componentsDraw();
 
-    gl::drawCube(Vec3f::zero(), Vec3f(2, 2, 0.5f));
-    gl::drawSphere(Vec3f::zero(), radius);
+    gl::draw(*mesh);
 
     popModelView();
     drawEnd();

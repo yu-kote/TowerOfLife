@@ -54,10 +54,10 @@ namespace tol
 
         void setActive(const bool& value) { active_in_scene = value; }
         bool getActive() { return active_in_scene; }
-        void setIsUpdateActive(const bool& value) { is_update_active = value; }
-        bool getIsUpdateActive() { return is_update_active; }
-        void setIsDrawActive(const bool& value) { is_draw_active = value; }
-        bool getIsDrawActive() { return is_draw_active; }
+        void setUpdateActive(const bool& value) { is_update_active = value; }
+        bool getUpdateActive() { return is_update_active; }
+        void setDrawActive(const bool& value) { is_draw_active = value; }
+        bool getDrawActive() { return is_draw_active; }
 
     public:
 

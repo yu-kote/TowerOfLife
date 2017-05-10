@@ -3,20 +3,29 @@
 #include "../../../../Utility/Easing/Ease.h"
 #include "../../TextureRenderer/TextureRenderer.h"
 
-
-
 namespace tol
 {
-    class FadeIn : public TextureRenderer
+    enum FadeState
+    {
+        STAND_BY,
+        EXECUTION,
+        END
+    };
+
+    class FadeBase : public TextureRenderer
     {
     public:
 
-        FadeIn(const ci::ColorA startcolor, const int & fadeframe)
+        FadeBase(const ci::ColorA& startcolor, const int & fadeframe)
         {
             color->setColor(startcolor);
             fade_frame = fadeframe;
-            alpha = 1;
-            fade_step = 0;
+            alpha = startcolor.a;
+            if (alpha > 0.5f)
+                end_alpha = 0;
+            if (alpha <= 0.5f)
+                end_alpha = 1;
+            state = FadeState::STAND_BY;
         }
 
         void update()override
@@ -25,6 +34,38 @@ namespace tol
                                        color->getColor().g,
                                        color->getColor().b,
                                        alpha));
+        }
+
+        void fadeStart()
+        {
+            if (state == FadeState::STAND_BY)
+            {
+                Easing.add(alpha, end_alpha, fade_frame, EaseType::CubicIn);
+                state = FadeState::EXECUTION;
+            }
+        }
+
+        bool isFadeEnd()
+        {
+            return (state == FadeState::EXECUTION &&
+                    Easing.isEaseEnd(alpha));
+        }
+
+    private:
+        float alpha;
+        float end_alpha;
+        int fade_frame;
+        FadeState state;
+    };
+
+    // フェードインさせるクラス
+    class FadeIn : public FadeBase
+    {
+    public:
+
+        FadeIn(const ci::ColorA& startcolor, const int & fadeframe)
+            : FadeBase(startcolor, fadeframe)
+        {
         }
 
         void transLaterDraw()override
@@ -34,46 +75,15 @@ namespace tol
                                             ci::app::getWindowSize().x,
                                             ci::app::getWindowSize().y));
         }
-        void fadeStart()
-        {
-            if (fade_step == 0)
-            {
-                Easing.add(alpha, 0, fade_frame, EaseType::CubicIn);
-                fade_step = 1;
-            }
-
-        }
-
-        bool isFadeEnd()
-        {
-            return (fade_step == 1 &&
-                    Easing.isEaseEnd(alpha));
-        }
-
-    private:
-        float alpha;
-        int fade_frame;
-        int fade_step;
     };
 
-
-    class FadeOut : public TextureRenderer
+    // フェードアウトさせるクラス
+    class FadeOut : public FadeBase
     {
     public:
-        FadeOut(const ci::ColorA startcolor, const int & fadeframe)
+        FadeOut(const ci::ColorA& startcolor, const int & fadeframe)
+            : FadeBase(startcolor, fadeframe)
         {
-            color->setColor(startcolor);
-            fade_frame = fadeframe;
-            alpha = 0;
-            fade_step = 0;
-        }
-
-        void update()override
-        {
-            color->setColor(ci::ColorA(color->getColor().r,
-                                       color->getColor().g,
-                                       color->getColor().b,
-                                       alpha));
         }
 
         void transDraw()override
@@ -83,25 +93,5 @@ namespace tol
                                             ci::app::getWindowSize().x,
                                             ci::app::getWindowSize().y));
         }
-        void fadeStart()
-        {
-            if (fade_step == 0)
-            {
-                Easing.add(alpha, 1, fade_frame, EaseType::CubicIn);
-                fade_step = 1;
-            }
-
-        }
-
-        bool isFadeEnd()
-        {
-            return (fade_step == 1 &&
-                    Easing.isEaseEnd(alpha));
-        }
-
-    private:
-        float alpha;
-        int fade_frame;
-        int fade_step;
     };
 }

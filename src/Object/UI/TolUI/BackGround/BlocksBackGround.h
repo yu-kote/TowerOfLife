@@ -30,8 +30,8 @@ namespace tol
         {
             ci::gl::drawSolidRect(ci::Rectf(0,
                                             0,
-                                            WIDTH,//ci::app::getWindowSize().x,
-                                            HEIGHT));// ci::app::getWindowSize().y));
+                                            WIDTH,
+                                            HEIGHT));
         }
 
 

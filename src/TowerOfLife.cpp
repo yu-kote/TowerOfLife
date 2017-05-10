@@ -51,23 +51,17 @@ public:
 void TowerOfLife::setup()
 {
     TextureGet.setup();
-    SoundGet.setup();
     ObjDataGet.setup();
+    SoundGet.setup();
 
     gl::enable(GL_CULL_FACE);
 
     env.padSetup();
 
     SceneCreate<Title>(new Title());
+    //SceneCreate<GameMain>(new GameMain());
+
     SceneManager::instance().get().setup();
-
-    //Json::StyledWriter writer;
-
-    //std::string s = writer.write(value);
-    //console() << s << std::endl;
-
-    //std::ofstream o("block2.json");
-    //o << s;
 
     Params->setPosition(Vec2i(0, 300));
 }

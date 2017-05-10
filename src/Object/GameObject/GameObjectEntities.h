@@ -4,6 +4,7 @@
 
 namespace tol
 {
+    // GameObjectを継承するクラスを管理する
     class GameObjectEntities
     {
     public:
@@ -29,6 +30,7 @@ namespace tol
         void laterDrawGameObject();
         void transLaterDrawGameObject();
 
+        void allUpdateActive(const bool & active);
         void allDestroy();
 
     private:
@@ -43,6 +45,7 @@ namespace tol
 
     public:
 
+        // インスタンスします
         template<typename T>
         void instantiate()
         {
@@ -50,6 +53,7 @@ namespace tol
             gameobjects.insert(std::make_pair(classname, std::make_shared<T>()));
         }
 
+        // インスタンスすると同時にコンストラクタを呼びます
         template<typename T>
         void instantiate(const T& ptr)
         {
@@ -67,15 +71,6 @@ namespace tol
             if (gameobjects.find(classname) == gameobjects.end())
                 assert(!"GameObject Not Finded");
 
-            /*int script_size = sizeof(T);
-            if (script_size > 128)
-            {
-                return std::dynamic_pointer_cast<T>(gameobjects.find(classname)->second);
-            }
-            else
-            {
-                return std::static_pointer_cast<T>(gameobjects.find(classname)->second);
-            }*/
             return std::static_pointer_cast<T>(gameobjects.find(classname)->second);
         }
 

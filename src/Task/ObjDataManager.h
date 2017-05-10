@@ -27,9 +27,10 @@ namespace tol
             using namespace ci;
             using namespace ci::app;
 
+            // ¡‰ñ‚Íobj‚Ì”‚ª‹É’[‚É­‚È‚¢‚½‚ßAjson“Ç‚Ýž‚Ý‚Íì‚è‚Ü‚¹‚ñ
+            set("Coin", "Obj/Coin/coin3d.obj");
             set("Block", "Obj/Block/block.obj");
             set("Player", "Obj/Character/chr_sword.obj");
-
         }
 
         ci::TriMesh& find(std::string key_)
@@ -38,7 +39,6 @@ namespace tol
                 assert(!"Not mesh find");
             return mesh.find(key_)->second;
         }
-
 
     private:
         void set(std::string _key, std::string _path)

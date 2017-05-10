@@ -30,15 +30,6 @@ namespace tol
         }
     };
 
-    class TitleButtonBase : public TextureRenderer
-    {
-    public:
-
-
-    protected:
-
-    };
-
     class TitlePlayButton : public TextureRenderer
     {
     public:
@@ -111,13 +102,16 @@ namespace tol
         void update()override;
         void transDraw()override;
 
-        std::string getSelectButtonName();
+        std::string getSelectButtonName() { return select_name; }
 
     private:
+        std::string select();
 
         std::shared_ptr<TitleLogo> logo;
         std::shared_ptr<TitlePlayButton> play_button;
         std::shared_ptr<TitleGachaButton> gachabutton;
+
+        std::string select_name;
 
     };
 

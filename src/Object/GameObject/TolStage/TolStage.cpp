@@ -5,11 +5,14 @@
 using namespace ci;
 using namespace ci::app;
 
-void tol::TolStage::setup()
+tol::TolStage::TolStage()
 {
     block_holder = std::make_shared<tol::TolBlockHolder>();
     coin_holder = std::make_shared<tol::TolCoinHolder>();
+}
 
+void tol::TolStage::setup()
+{
     block_holder->setPlayer(player);
     block_holder->setCamera(camera);
     block_holder->setCoinHolder(coin_holder);
@@ -17,8 +20,6 @@ void tol::TolStage::setup()
 
     coin_holder->setPlayer(player);
     coin_holder->setup();
-
-    SoundGet.find("tower_bgm1")->start();
 }
 
 void tol::TolStage::update()

@@ -127,6 +127,8 @@ void tol::TitleSelect::update()
     logo->update();
     play_button->update();
     gachabutton->update();
+
+    select_name = select();
 }
 
 void tol::TitleSelect::transDraw()
@@ -136,22 +138,31 @@ void tol::TitleSelect::transDraw()
     gachabutton->drawReflect();
 }
 
-std::string tol::TitleSelect::getSelectButtonName()
+std::string tol::TitleSelect::select()
 {
     if (env.isPadPush(env.BUTTON_4))
     {
-        SoundGet.find("ButtonPush")->start();
         if (play_button->is_select)
         {
+            SoundGet.find("ButtonPush")->start();
             play_button->select();
             return "Play";
         }
         if (gachabutton->is_select)
         {
+            if (tol::TolData.coin < 5)
+            {
+                SoundGet.find("Gaffe")->start();
+                return "";
+            }
+            tol::TolData.coin -= 5;
+            SoundGet.find("ButtonPush")->start();
             gachabutton->select();
             return "Gacha";
         }
     }
     return "";
 }
+
+
 

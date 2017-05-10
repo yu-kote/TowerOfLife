@@ -124,7 +124,6 @@ namespace tol
 
         void draw()override;
 
-
         void setPlayer(std::shared_ptr<tol::Player> player_) { player = player_; }
 
     private:

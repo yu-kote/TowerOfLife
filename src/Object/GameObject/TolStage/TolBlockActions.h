@@ -16,7 +16,6 @@ namespace tol
         NoneBlock(TolBlock* block_);
 
         void update()override;
-
     private:
 
     };

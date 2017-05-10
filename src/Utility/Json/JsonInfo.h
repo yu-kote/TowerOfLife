@@ -16,11 +16,12 @@ namespace tol
         // key‚Ìvalue‚ğ•Ô‚·
         Json::Value getValue(const std::string& key, const Json::Value& value);
 
+        // ‘‚«‚İ
+        void save(const std::string & file_name);
+
     public:
         Json::Value root;
-
     private:
         Json::Reader reader;
-
     };
 }

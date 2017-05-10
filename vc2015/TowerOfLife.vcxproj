@@ -14,7 +14,6 @@
     <ProjectGuid>{0B3350A2-DF33-4E9B-8A6F-4232231FCAD1}</ProjectGuid>
     <RootNamespace>TemplateProject</RootNamespace>
     <Keyword>Win32Proj</Keyword>
-    <WindowsTargetPlatformVersion>8.1</WindowsTargetPlatformVersion>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="Configuration">
@@ -129,8 +128,11 @@
     <ClCompile Include="..\src\Object\UI\TolUI\Gacha\GachaButton.cpp" />
     <ClCompile Include="..\src\Object\UI\TolUI\Gacha\GachaHolder.cpp" />
     <ClCompile Include="..\src\Object\UI\TolUI\Gacha\GachaItem.cpp" />
-    <ClCompile Include="..\src\Object\UI\TolUI\GameItem\ItemHolder.cpp" />
+    <ClCompile Include="..\src\Object\UI\TolUI\GameItem\GameMainUI.cpp" />
+    <ClCompile Include="..\src\Object\UI\TolUI\GameMainUI\CountDown\CountDown.cpp" />
+    <ClCompile Include="..\src\Object\UI\TolUI\GameMainUI\Pause\Pause.cpp" />
     <ClCompile Include="..\src\Object\UI\TolUI\Title\TitleSelect.cpp" />
+    <ClCompile Include="..\src\Object\UI\TolUI\Title\TitleUI\TitleUI.cpp" />
     <ClCompile Include="..\src\Object\UI\UIBase.cpp" />
     <ClCompile Include="..\src\Object\UI\UICamera\UICamera.cpp" />
     <ClCompile Include="..\src\Scene\Category\Gacha.cpp" />
@@ -177,8 +179,11 @@
     <ClInclude Include="..\src\Object\UI\TolUI\Gacha\GachaButton.h" />
     <ClInclude Include="..\src\Object\UI\TolUI\Gacha\GachaHolder.h" />
     <ClInclude Include="..\src\Object\UI\TolUI\Gacha\GachaItem.h" />
-    <ClInclude Include="..\src\Object\UI\TolUI\GameItem\ItemHolder.h" />
+    <ClInclude Include="..\src\Object\UI\TolUI\GameItem\GameMainUI.h" />
+    <ClInclude Include="..\src\Object\UI\TolUI\GameMainUI\CountDown\CountDown.h" />
+    <ClInclude Include="..\src\Object\UI\TolUI\GameMainUI\Pause\Pause.h" />
     <ClInclude Include="..\src\Object\UI\TolUI\Title\TitleSelect.h" />
+    <ClInclude Include="..\src\Object\UI\TolUI\Title\TitleUI\TitleUI.h" />
     <ClInclude Include="..\src\Object\UI\UIBase.h" />
     <ClInclude Include="..\src\Object\UI\UICamera\UICamera.h" />
     <ClInclude Include="..\src\Scene\Category\Gacha.h" />

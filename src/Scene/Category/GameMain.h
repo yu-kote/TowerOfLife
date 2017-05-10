@@ -14,5 +14,11 @@ public:
 
 private:
 
-    std::string select_name;
+    void countDownStop();
+    void stopObjects(const bool& active);
+
+    bool is_gamestop;
+    bool current_gamestop;
+    void gameStop();
+
 };

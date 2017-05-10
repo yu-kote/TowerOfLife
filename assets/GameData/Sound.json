@@ -7,6 +7,11 @@
           "Key": "ButtonPush",
           "Path": "Sound/SE/buttonpush.wav",
           "Gain": 0.2
+        },
+        "Gaffe": {
+          "Key": "Gaffe",
+          "Path": "Sound/SE/gaffe.wav",
+          "Gain": 1
         }
       },
 
@@ -29,6 +34,11 @@
           "Key": "ContinueSelect",
           "Path": "Sound/SE/continueselect.wav",
           "Gain": 0.2
+        },
+        "CountDown": {
+          "Key": "CountDown",
+          "Path": "Sound/SE/countdown.wav",
+          "Gain": 0.3
         }
       },
 
@@ -76,4 +86,4 @@
       }
     }
   }
-}
+} gaffe.wav

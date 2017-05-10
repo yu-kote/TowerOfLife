@@ -3,12 +3,13 @@
 #include "../GameObject.h"
 #include "TolBlock.h"
 #include "TolBlockActions.h"
-#include "../Camera/Camera.h"
-#include "../Player/Player.h"
 #include "TolCoinHolder.h"
 
 namespace tol
 {
+    class Player;
+    class Camera;
+
     class TolBlockHolder : public GameObject
     {
     public:
@@ -34,23 +35,20 @@ namespace tol
         // レイをもらって一番近いところに当たっている交差点を返す
         float hitValueNearInZero(const ci::Ray& ray);
 
-    private: // カメラ
+    public: // カメラ
 
-        // カメラの位置と見る先を決める関数
-        void decideLookAtCamera();
-        // カメラをイージングする
-        void easeCamera();
+        int getHeightInterval() { return height_interval; }
+        ci::Vec2f getCenterPos() { return twoDimensionalArrayCenterPoint(x_num, z_num); }
+        // 高さをもらって、その高さにあるブロックとブロックの間の高さを返す
+        float centerBetweenBlockHeight(const int& height);
+        int getBlockSpace() { return block_space; }
 
-        std::shared_ptr<tol::Camera> camera;
-        ci::Vec3f ease_eyepoint;            // イージングするカメラの位置
-        ci::Vec3f ease_center;              // イージングするカメラの見る先
-        float ease_speed;                   // イージングの速さ
-        int camera_height;                  // カメラの高さ
-        int camera_up_time;                 // カメラが上に上がる時間
-        int camera_up_remaining_time;       // 上に上がるまでの残り時間
+    private:
 
         // カメラとブロックの距離をみてブロックを消去する関数
         void cameraDistanceToBlockErase();
+
+        std::shared_ptr<tol::Camera> camera;
 
     private: // コインの情報
 
@@ -70,18 +68,17 @@ namespace tol
 
         JsonInfo json;
 
-    private: // ステージの情報
+    private: // ステージ
 
         // 配列番号をもらって範囲外かどうかを返す
         bool isBlockOutOfRange(const int& num);
         // 配列番号が超えたら一番大きい値を返す
         int adjusMinMaxNum(const int& num, const int& max_value);
-        // サイズもらって真ん中の値を返す
+        // ブロックが何マスになっても中心点を返す
         ci::Vec2f twoDimensionalArrayCenterPoint(const int&  size_x, const int& size_y);
         // 今一番高いところの段数を返す
         int currentTopBlockStep();
-        // 高さをもらって、その高さにあるブロックとブロックの間の高さを返す
-        float centerBetweenBlockHeight(const int& height);
+
 
         int current_top_height;             // 一番上のブロックの高さ
         int height_interval;                // 一段ずつの間隔

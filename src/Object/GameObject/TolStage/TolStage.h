@@ -7,7 +7,6 @@
 
 namespace tol
 {
-
     enum GameLevel
     {
         LEVEL_1,
@@ -18,7 +17,7 @@ namespace tol
     class TolStage : public GameObject
     {
     public:
-        TolStage() {}
+        TolStage();
 
         void setup()override;
         void update()override;
@@ -30,6 +29,10 @@ namespace tol
         void setCamera(std::shared_ptr<tol::Camera> camera_) { camera = camera_; }
         void setPlayer(std::shared_ptr<tol::Player> player_) { player = player_; }
 
+        std::shared_ptr<TolBlockHolder> getBlockHolder()
+        {
+            return std::static_pointer_cast<TolBlockHolder>(block_holder);
+        }
     private:
 
         std::shared_ptr<tol::Camera> camera;

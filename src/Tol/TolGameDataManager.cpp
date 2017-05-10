@@ -1,16 +1,17 @@
 #include "TolGameDataManager.h"
+#include "../Utility/Json/JsonInfo.h"
 
 void tol::TolGameDataManager::setup()
 {
+    temp_coin = 0;
+    coin = 0;
+    score = 0;
+    high_score = 0;
+    load();
+
 #if 1
     itemlist.push_back(TolItem::SCROLL_STOP);
-    itemlist.push_back(TolItem::SCROLL_STOP);
-    itemlist.push_back(TolItem::SCROLL_STOP);
     itemlist.push_back(TolItem::GIMMICK_STOP);
-    itemlist.push_back(TolItem::GIMMICK_STOP);
-    itemlist.push_back(TolItem::GIMMICK_STOP);
-    itemlist.push_back(TolItem::TWO_STEP_JUMP);
-    itemlist.push_back(TolItem::TWO_STEP_JUMP);
     itemlist.push_back(TolItem::TWO_STEP_JUMP);
 #endif
 }
@@ -51,17 +52,17 @@ int tol::TolGameDataManager::itemCountCheck(const TolItem & item)
 
 void tol::TolGameDataManager::coinInstance()
 {
-    coin = temp_coin;
-    temp_coin = 0;
+    coin += temp_coin;
 }
 
 int tol::TolGameDataManager::calcScore()
 {
-    if (high_score < score)
+    auto total_score = score + (temp_coin * 100);
+    if (high_score < total_score)
     {
-        high_score = score;
+        high_score = total_score;
     }
-    return score + (temp_coin * 100);
+    return total_score;
 }
 
 std::string tol::TolGameDataManager::getItemName(const TolItem& item)
@@ -88,4 +89,32 @@ std::string tol::TolGameDataManager::getItemInstruction(const TolItem & item)
     case TolItem::TWO_STEP_JUMP:
         return u8"使用すると、一時的に二段ジャンプできるようになります。";
     }
+}
+
+void tol::TolGameDataManager::load()
+{
+    JsonInfo json;
+    if (!json.openJson("GameData/TolSaveData.json"))
+        return;
+
+    coin = json.root["coin"].asInt();
+    high_score = json.root["highscore"].asInt();
+}
+
+void tol::TolGameDataManager::save()
+{
+    JsonInfo json;
+    std::string file_name = "GameData/TolSaveData.json";
+    if (!json.openJson(file_name))
+        return;
+
+    if (json.root["highscore"].asInt() < high_score)
+        json.root["highscore"] = high_score;
+
+    json.root["coin"] = coin;
+    
+    temp_coin = 0;
+    score = 0;
+
+    json.save(file_name);
 }

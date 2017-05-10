@@ -23,10 +23,6 @@ namespace tol
     {
         TolGameDataManager()
         {
-            temp_coin = 0;
-            coin = 0;
-            score = 0;
-            high_score = 0;
             setup();
         }
 
@@ -58,6 +54,9 @@ namespace tol
 
         std::string getItemName(const TolItem& item);
         std::string getItemInstruction(const TolItem& item);
+
+        void load();
+        void save();
     };
 }
 

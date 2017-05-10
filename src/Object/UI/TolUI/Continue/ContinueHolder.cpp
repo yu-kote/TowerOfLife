@@ -96,14 +96,23 @@ std::string tol::ContinueCanvas::getSelectButtonName()
 {
     if (env.isPadPush(env.BUTTON_4))
     {
-        SoundGet.find("ButtonPush")->start();
         if (yes_button->is_select)
         {
+            if (tol::TolData.temp_coin < 5)
+            {
+                SoundGet.find("Gaffe")->start();
+                return "";
+            }
+
+            tol::TolData.temp_coin -= 5;
+
+            SoundGet.find("ButtonPush")->start();
             yes_button->select();
             return "Yes";
         }
         if (no_button->is_select)
         {
+            SoundGet.find("ButtonPush")->start();
             no_button->select();
             return "No";
         }
@@ -125,6 +134,7 @@ void tol::Continue::setup()
     canvas = std::make_shared<ContinueCanvas>();
 
     current_active = false;
+    select_name = "";
 }
 
 void tol::Continue::update()
@@ -140,6 +150,7 @@ void tol::Continue::update()
     if (!player->isNotOperation())return;
     background->update();
     canvas->update();
+    select_name = canvas->getSelectButtonName();
 }
 
 void tol::Continue::transDraw()
