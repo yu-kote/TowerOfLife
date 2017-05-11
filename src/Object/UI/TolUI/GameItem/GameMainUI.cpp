@@ -2,6 +2,8 @@
 #include "../../../../Utility/Easing/Ease.h"
 #include "../../../../Utility/Input/InputEvent.h"
 
+#include "../../../../Task/SoundManager.h"
+
 using namespace ci;
 using namespace ci::app;
 
@@ -126,6 +128,7 @@ void tol::CoinIcon::setCoin(const int & count)
 ////////////////////////////////////////////////////////////////////////////////////////////
 // アイテムの数
 ////////////////////////////////////////////////////////////////////////////////////////////
+
 tol::ItemCountFont::ItemCountFont()
 {
 }
@@ -151,9 +154,11 @@ void tol::ItemCountFont::setCount(const int & count)
 {
     drawstring = std::to_string(count);
 }
+
 ////////////////////////////////////////////////////////////////////////////////////////////
 // アイテムのアイコン
 ////////////////////////////////////////////////////////////////////////////////////////////
+
 tol::ItemIcon0::ItemIcon0()
     : TextureRenderer("Item0")
 {
@@ -161,7 +166,7 @@ tol::ItemIcon0::ItemIcon0()
 
 void tol::ItemIcon0::setup()
 {
-    transform.position.x = 0;
+    transform.position = Vec3f(-20, 110, 0);
     scale = transform.scale;
 
     countfont = std::make_shared<ItemCountFont>();
@@ -170,6 +175,7 @@ void tol::ItemIcon0::setup()
     end_time = 0;
     is_use = false;
     alpha = 1;
+    rect_size = 70;
 }
 
 void tol::ItemIcon0::update()
@@ -183,7 +189,7 @@ void tol::ItemIcon0::update()
         end_time--;
         if (end_time < 180)
         {
-            alpha = sin(end_time * 0.1f);
+            alpha = sin(end_time);
         }
         if (end_time < 0.0f)
         {
@@ -196,7 +202,8 @@ void tol::ItemIcon0::update()
 
 void tol::ItemIcon0::draw()
 {
-    drawRect(Vec2f(70, 70));
+    gl::translate(Vec3f(-rect_size / 2, -rect_size / 2, 0));
+    drawRect(Vec2f(rect_size, rect_size));
     countfont->drawReflect();
 }
 
@@ -214,7 +221,7 @@ tol::ItemIcon1::ItemIcon1()
 
 void tol::ItemIcon1::setup()
 {
-    transform.position.x = 100;
+    transform.position = Vec3f(95, 10, 0);
     scale = transform.scale;
 
     countfont = std::make_shared<ItemCountFont>();
@@ -223,6 +230,7 @@ void tol::ItemIcon1::setup()
     end_time = 0;
     is_use = false;
     alpha = 1;
+    rect_size = 70;
 }
 
 void tol::ItemIcon1::update()
@@ -249,7 +257,8 @@ void tol::ItemIcon1::update()
 
 void tol::ItemIcon1::draw()
 {
-    drawRect(Vec2f(70, 70));
+    gl::translate(Vec3f(-rect_size / 2, -rect_size / 2, 0));
+    drawRect(Vec2f(rect_size, rect_size));
     countfont->drawReflect();
 }
 
@@ -267,7 +276,7 @@ tol::ItemIcon2::ItemIcon2()
 
 void tol::ItemIcon2::setup()
 {
-    transform.position.x = 200;
+    transform.position = Vec3f(205, 110, 0);
     scale = transform.scale;
 
     countfont = std::make_shared<ItemCountFont>();
@@ -276,6 +285,7 @@ void tol::ItemIcon2::setup()
     end_time = 0;
     is_use = false;
     alpha = 1;
+    rect_size = 70;
 }
 
 void tol::ItemIcon2::update()
@@ -302,7 +312,8 @@ void tol::ItemIcon2::update()
 
 void tol::ItemIcon2::draw()
 {
-    drawRect(Vec2f(70, 70));
+    gl::translate(Vec3f(-rect_size / 2, -rect_size / 2, 0));
+    drawRect(Vec2f(rect_size, rect_size));
     countfont->drawReflect();
 }
 
@@ -311,6 +322,26 @@ void tol::ItemIcon2::start(const int & time)
     is_use = true;
     end_time = time;
     Easing.add(transform.scale, transform.scale * 1.3f, 60, EaseType::CubicOut);
+}
+
+tol::ItemCrossKey::ItemCrossKey()
+    : TextureRenderer("CrossKey")
+{
+}
+
+void tol::ItemCrossKey::setup()
+{
+    transform.position = Vec3f(40, 60, 0);
+    transform.scale = Vec3f(1.5f, 1.5f, 1.5f);
+}
+
+void tol::ItemCrossKey::update()
+{
+}
+
+void tol::ItemCrossKey::draw()
+{
+    drawRect(Vec2f(70, 70));
 }
 
 ////////////////////////////////////////////////////////////////////////////////////////////
@@ -323,10 +354,10 @@ tol::GameMainUI::GameMainUI()
 
 void tol::GameMainUI::setup()
 {
-    transform.position = Vec3f(100, 50, 0);
+    transform.position = Vec3f(100, 60, 0);
 
     is_using_item = false;
-    item_frame = 600;
+    item_frame = 60 * 20;
     item_count = 0;
 
     item0 = std::make_shared<ItemIcon0>();
@@ -334,14 +365,16 @@ void tol::GameMainUI::setup()
     item2 = std::make_shared<ItemIcon2>();
     coin = std::make_shared<CoinIcon>();
     score = std::make_shared<ScoreIcon>();
+    cross_key = std::make_shared<ItemCrossKey>();
 
     item0->setup();
     item1->setup();
     item2->setup();
     coin->setup();
     score->setup();
-    TolData.using_item = TolItem::ITEM_MAX;
+    cross_key->setup();
 
+    TolData.using_item = TolItem::ITEM_MAX;
     update();
 }
 
@@ -357,6 +390,11 @@ void tol::GameMainUI::update()
     item2->update();
     coin->update();
     score->update();
+    cross_key->update();
+}
+
+void tol::GameMainUI::draw()
+{
 }
 
 void tol::GameMainUI::transDraw()
@@ -366,40 +404,53 @@ void tol::GameMainUI::transDraw()
     item2->drawReflect();
     coin->drawReflect();
     score->drawReflect();
+    cross_key->drawReflect();
 }
 
 void tol::GameMainUI::useItem()
 {
-    if (is_using_item)return;
+    if (is_using_item)
+        return;
+
     if (env.getPadAxis(env.CROSS_HORIZONTAL) <= -1)
     {
-        if (!TolData.hasItem(TolItem::SCROLL_STOP))return;
+        if (!TolData.hasItem(TolItem::SCROLL_STOP))
+            return;
         TolData.using_item = TolItem::SCROLL_STOP;
         TolData.useItem(TolItem::SCROLL_STOP);
         is_using_item = true;
         item0->start(item_frame);
+
+        SoundGet.find("UseItem")->start();
     }
     if (env.getPadAxis(env.CROSS_VERTICAL) <= -1)
     {
-        if (!TolData.hasItem(TolItem::GIMMICK_STOP))return;
+        if (!TolData.hasItem(TolItem::GIMMICK_STOP))
+            return;
         TolData.using_item = TolItem::GIMMICK_STOP;
         TolData.useItem(TolItem::GIMMICK_STOP);
         is_using_item = true;
         item1->start(item_frame);
+
+        SoundGet.find("UseItem")->start();
     }
     if (env.getPadAxis(env.CROSS_HORIZONTAL) >= 1)
     {
-        if (!TolData.hasItem(TolItem::TWO_STEP_JUMP))return;
+        if (!TolData.hasItem(TolItem::TWO_STEP_JUMP))
+            return;
         TolData.using_item = TolItem::TWO_STEP_JUMP;
         TolData.useItem(TolItem::TWO_STEP_JUMP);
         is_using_item = true;
         item2->start(item_frame);
+
+        SoundGet.find("UseItem")->start();
     }
 }
 
 void tol::GameMainUI::usingItemUpdate()
 {
-    if (TolData.using_item == TolItem::ITEM_MAX)return;
+    if (TolData.using_item == TolItem::ITEM_MAX)
+        return;
     item_count++;
     if (item_count > item_frame)
     {
@@ -408,3 +459,4 @@ void tol::GameMainUI::usingItemUpdate()
         TolData.using_item = TolItem::ITEM_MAX;
     }
 }
+

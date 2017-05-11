@@ -77,6 +77,11 @@
         "Key": "Item2",
         "Path": "Texture/icon03.png"
       },
+      // 十字キー
+      "CrossKey": {
+        "Key": "CrossKey",
+        "Path": "Texture/crosskey.png"
+      },
 
       // コイン
       "Coin": {

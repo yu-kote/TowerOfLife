@@ -147,15 +147,23 @@ void tol::Continue::update()
         Easing.add(canvas->transform.position.y, getWindowCenter().y, 120, EaseType::BounceOut);
     }
 
-    if (!player->isNotOperation())return;
+    if (!player->isNotOperation())
+        return;
+
     background->update();
     canvas->update();
     select_name = canvas->getSelectButtonName();
 }
 
-void tol::Continue::transDraw()
+void tol::Continue::draw()
 {
-    if (!player->isNotOperation())return;
+    if (!player->isNotOperation())
+        return;
+
     background->drawReflect();
     canvas->drawReflect();
+}
+
+void tol::Continue::transDraw()
+{
 }

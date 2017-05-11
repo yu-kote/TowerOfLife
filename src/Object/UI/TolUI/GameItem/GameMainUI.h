@@ -5,7 +5,6 @@
 #include "../../../GameObject/Player/Player.h"
 #include "../../../GameObject/TolStage/TolBlockHolder.h"
 #include "../../../../Utility/Easing/Ease.h"
-#include "../../../../Task/SoundManager.h"
 
 namespace tol
 {
@@ -80,7 +79,6 @@ namespace tol
     class ItemIcon0 : public TextureRenderer
     {
     public:
-
         ItemIcon0();
 
         void setup()override;
@@ -94,11 +92,11 @@ namespace tol
         bool is_use;
         float alpha;
         ci::Vec3f scale;
+        float rect_size;
     };
     class ItemIcon1 : public TextureRenderer
     {
     public:
-
         ItemIcon1();
 
         void setup()override;
@@ -112,12 +110,12 @@ namespace tol
         bool is_use;
         float alpha;
         ci::Vec3f scale;
+        float rect_size;
     };
 
     class ItemIcon2 : public TextureRenderer
     {
     public:
-
         ItemIcon2();
 
         void setup()override;
@@ -131,17 +129,31 @@ namespace tol
         bool is_use;
         float alpha;
         ci::Vec3f scale;
+        float rect_size;
+    };
+
+    class ItemCrossKey : public TextureRenderer
+    {
+    public:
+        ItemCrossKey();
+
+        void setup()override;
+        void update()override;
+        void draw()override;
+
+    private:
+
     };
 
 
     class GameMainUI : public UIBase
     {
     public:
-
         GameMainUI();
 
         void setup()override;
         void update()override;
+        void draw()override;
         void transDraw()override;
 
         void getCoin();
@@ -156,6 +168,8 @@ namespace tol
         std::shared_ptr<ItemIcon0> item0;
         std::shared_ptr<ItemIcon1> item1;
         std::shared_ptr<ItemIcon2> item2;
+        std::shared_ptr<ItemCrossKey> cross_key;
+
 
         std::shared_ptr<CoinIcon> coin;
         std::shared_ptr<ScoreIcon> score;

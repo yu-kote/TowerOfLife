@@ -39,7 +39,13 @@
           "Key": "CountDown",
           "Path": "Sound/SE/countdown.wav",
           "Gain": 0.3
+        },
+        "UseItem": {
+          "Key": "UseItem",
+          "Path": "Sound/SE/useitem.wav",
+          "Gain": 0.3
         }
+
       },
 
       "Gacha": {
@@ -86,4 +92,4 @@
       }
     }
   }
-} gaffe.wav
+} 

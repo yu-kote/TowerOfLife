@@ -50,24 +50,34 @@ namespace tol
             select_scale = ci::Vec3f::one() * 1.3f;
             default_scale = ci::Vec3f::one();
             current_select = is_select;
+            time = 0;
         }
 
         void draw()override
         {
+            ci::gl::scale(ci::Vec3f(0.95f + 0.05f  * sin(time), 0.95f + 0.05f  * sin(time), 1));
             ci::gl::translate(-scale / 2);
             ci::gl::scale(scale);
+
             drawRect();
         }
 
         void update()override
         {
+            if (is_select)
+                time += 0.1f;
+
             if (current_select == is_select)return;
             current_select = is_select;
+
             Easing.kill(scale);
             if (is_select)
                 Easing.add(scale, select_scale, 10, EaseType::QuartOut);
             else
+            {
+                time = 0;
                 Easing.add(scale, default_scale, 10, EaseType::QuartOut);
+            }
             SoundGet.find("ContinueSelect")->start();
         }
         void select()
@@ -82,6 +92,7 @@ namespace tol
         ci::Vec3f scale;
         ci::Vec3f select_scale;
         ci::Vec3f default_scale;
+        float time;
     };
 
     class ContinueNoButton : public TextureRenderer
@@ -95,24 +106,34 @@ namespace tol
             scale = ci::Vec3f::one();
             select_scale = scale * 1.3f;
             default_scale = scale;
+            time = 0;
         }
 
         void draw()override
         {
+            ci::gl::scale(ci::Vec3f(0.95f + 0.05f * sin(time), 0.95f + 0.05f * sin(time), 1));
             ci::gl::translate(-scale / 2);
             ci::gl::scale(scale);
+
             drawRect();
         }
 
         void update()override
         {
+            if (is_select)
+                time += 0.1f;
+
             if (current_select == is_select)return;
             current_select = is_select;
+
             Easing.kill(scale);
             if (is_select)
                 Easing.add(scale, select_scale, 10, EaseType::QuartOut);
             else
+            {
+                time = 0;
                 Easing.add(scale, default_scale, 10, EaseType::QuartOut);
+            }
 
         }
         void select()
@@ -127,6 +148,7 @@ namespace tol
         ci::Vec3f scale;
         ci::Vec3f select_scale;
         ci::Vec3f default_scale;
+        float time;
     };
 
     class ContinueCanvas : public TextureRenderer
@@ -156,6 +178,7 @@ namespace tol
 
         void setup()override;
         void update()override;
+        void draw()override;
         void transDraw()override;
 
         void setPlayer(std::shared_ptr<tol::Player> player_) { player = player_; }
